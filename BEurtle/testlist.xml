@@ -1,0 +1,4338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<be-xml>
+  <bug>
+    <uuid>e22a9048-9a97-41b1-91a2-d4178c674b37</uuid>
+    <short-name>bea/e22</short-name>
+    <severity>minor</severity>
+    <status>unconfirmed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 03:02:19 +0000</created>
+    <summary>Think about authentication.</summary>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>12c986be-d19a-4b8b-b1b5-68248ff4d331</uuid>
+    <short-name>bea/12c</short-name>
+    <severity>wishlist</severity>
+    <status>unconfirmed</status>
+    <reporter>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Tue, 21 Jul 2009 18:32:12 +0000</created>
+    <summary>Bug aggregation.  Multi-repo meta-BE?</summary>
+    <comment>
+      <uuid>88d1f2c2-e1af-4f0d-9390-e3c89ae4f7d7</uuid>
+      <alt-id>&lt;1247313294.7701.60.camel@localhost&gt;</alt-id>
+      <short-name>bea/12c/88d</short-name>
+      <author>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</author>
+      <date>Sat, 11 Jul 2009 13:54:54 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Hi,
+
+        1. is there any way to aggregate over multiple public branches in order
+        to get the complete bug state
+
+        2. is there any model for storing bigger files at a central place (for
+        some of my bugs i have multi-megabyte tarballs attached)
+
+        Regards Ronny
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>1f9f60de-ba37-42bc-a1c0-dc062ef255e1</uuid>
+      <alt-id>&lt;878wivmjm1.fsf@benfinney.id.au&gt;</alt-id>
+      <short-name>bea/12c/1f9</short-name>
+      <in-reply-to>88d1f2c2-e1af-4f0d-9390-e3c89ae4f7d7</in-reply-to>
+      <author>Ben Finney &lt;bignose+hates-spam@benfinney.id.au&gt;</author>
+      <date>Sat, 11 Jul 2009 23:31:34 +1000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+
+        &gt; 1. is there any way to aggregate over multiple public branches in
+        &gt; order to get the complete bug state
+
+        The bug state is as complete as the source code state. It's exactly as
+        aggregated as the rest of the source code; the “complete bug state”
+        would be the integration branch where you merge all the feature branches
+        and bug-fix branches together.
+
+        If instead you want bugs to *not* be tightly linked with the rest of the
+        source code state, it seems you don't want a distributed bug tracker
+        like Bugs Everywhere.
+
+        --
+        \     “I cannot conceive that anybody will require multiplications at |
+        `\   the rate of 40,000 or even 4,000 per hour …” —F. H. Wales, 1936 |
+        _o__)                                                                  |
+        Ben Finney
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>fd6162f3-7fc1-41d1-a073-a07465802b72</uuid>
+      <alt-id>&lt;20090713090341.GB21800@grys.it&gt;</alt-id>
+      <short-name>bea/12c/fd6</short-name>
+      <in-reply-to>1f9f60de-ba37-42bc-a1c0-dc062ef255e1</in-reply-to>
+      <author>Gianluca Montecchi &lt;gian@grys.it&gt;</author>
+      <date>Mon, 13 Jul 2009 11:03:41 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, Jul 11, 2009 at 11:31:34PM +1000, Ben Finney wrote:
+        &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt;
+        &gt; &gt; 1. is there any way to aggregate over multiple public branches in
+        &gt; &gt; order to get the complete bug state
+        &gt;
+        &gt; The bug state is as complete as the source code state. It's exactly as
+        &gt; aggregated as the rest of the source code; the ???complete bug state???
+        &gt; would be the integration branch where you merge all the feature branches
+        &gt; and bug-fix branches together.
+        &gt;
+        &gt; If instead you want bugs to *not* be tightly linked with the rest of the
+        &gt; source code state, it seems you don't want a distributed bug tracker
+        &gt; like Bugs Everywhere.
+
+        "the complete bug state" probably means that he want to know (and in some way
+        to publish it) that the bug "xyz" is fixed and merged in main while bug "abc"
+        is fixed but only in branch "123" and bug "def" is still open in branch "456"
+
+        bye
+        Gianluca
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>13012b22-2d02-444c-87c0-8cf0f17137ae</uuid>
+      <alt-id>&lt;20090711125030.GA18185@mjolnir.home.net&gt;</alt-id>
+      <short-name>bea/12c/130</short-name>
+      <in-reply-to>88d1f2c2-e1af-4f0d-9390-e3c89ae4f7d7</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 11 Jul 2009 08:50:30 -0400</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; 1. is there any way to aggregate over multiple public branches in order
+        &gt; to get the complete bug state
+
+        Keeping the bug data with the source helps synchronize bug state and
+        source code.  Bug state in branch A may not apply to branch B.  Some
+        people like to weaken this source-bug linkage by keeping their bugs in
+        a branch all by themselves (ditz [http://ditz.rubyforge.org/]
+        currently supports this workflow).  It sounds like you want to move
+        from "bugs with code" to "bugs and code in separate branches".  We
+        don't have an easy way to do that in BE at the moment, since
+        version-control systems like Git have a single working branch at a
+        time (I think :p).  What VCS are you using as a backend?
+
+        &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; some of my bugs i have multi-megabyte tarballs attached)
+
+        be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        Then to grab the tarball, you'd use:
+        wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        to grab it.
+
+        --
+        This email may be signed or encrypted with GPG (http://www.gnupg.org).
+        The GPG signature (if present) will be attached as 'signature.asc'.
+        For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+        My public key is at http://www.physics.drexel.edu/~wking/pubkey.txt
+      </body>
+    </comment>
+    <comment>
+      <uuid>dc32aa62-cf56-4171-84a1-8f7d02b23b6d</uuid>
+      <alt-id>&lt;1247317985.7701.63.camel@localhost&gt;</alt-id>
+      <short-name>bea/12c/dc3</short-name>
+      <in-reply-to>13012b22-2d02-444c-87c0-8cf0f17137ae</in-reply-to>
+      <author>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</author>
+      <date>Sat, 11 Jul 2009 15:13:05 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; 1. is there any way to aggregate over multiple public branches in order
+        &gt; &gt; to get the complete bug state
+        &gt;
+        &gt; Keeping the bug data with the source helps synchronize bug state and
+        &gt; source code.  Bug state in branch A may not apply to branch B.  Some
+        &gt; people like to weaken this source-bug linkage by keeping their bugs in
+        &gt; a branch all by themselves (ditz [http://ditz.rubyforge.org/]
+        &gt; currently supports this workflow).  It sounds like you want to move
+        &gt; from "bugs with code" to "bugs and code in separate branches".  We
+        &gt; don't have an easy way to do that in BE at the moment, since
+        &gt; version-control systems like Git have a single working branch at a
+        &gt; time (I think :p).  What VCS are you using as a backend?
+        the basic idea is to take a look at all public branches (for exaple all
+        on lp/bitbucket/github) in order to tell the user of a webinterface that
+        bug foo is fixed in branch xyz, and if its merged to the main branch
+        &gt;
+        &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt;
+        &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; Then to grab the tarball, you'd use:
+        &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; to grab it.
+        so the basic idea is to do it completely self-managed and have have
+        heterogenous sources of extended data?
+      </body>
+    </comment>
+    <comment>
+      <uuid>e520239c-8d69-4ff6-b1bd-0c2f74366200</uuid>
+      <alt-id>&lt;87zlbbl128.fsf@benfinney.id.au&gt;</alt-id>
+      <short-name>bea/12c/e52</short-name>
+      <in-reply-to>88d1f2c2-e1af-4f0d-9390-e3c89ae4f7d7</in-reply-to>
+      <author>Ben Finney &lt;bignose+hates-spam@benfinney.id.au&gt;</author>
+      <date>Sun, 12 Jul 2009 00:57:35 +1000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+
+        &gt; i want to see the combination of the bug data of all branches
+
+        What is your definition of “all branches”? When I'm working with
+        distributed VCS, I create branches wherever I feel like, and the VCS
+        tool doesn't have some central registry of branches to keep up to date.
+
+        How is a tool to determine the set of “all branches”? The distributed
+        VCS model means that set is indeterminate.
+
+        --
+        \         “Pinky, are you pondering what I'm pondering?” “I think so, |
+        `\    Brain, but I find scratching just makes it worse.” —_Pinky and |
+        _o__)                                                       The Brain_ |
+        Ben Finney
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>bd98f525-95ec-446a-84e8-34c7d6fa5b40</uuid>
+      <alt-id>&lt;20090711152507.GA18461@mjolnir.home.net&gt;</alt-id>
+      <short-name>bea/12c/bd9</short-name>
+      <in-reply-to>e520239c-8d69-4ff6-b1bd-0c2f74366200</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 11 Jul 2009 11:25:07 -0400</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, Jul 11, 2009 at 03:13:05PM +0200, Ronny Pfannschmidt wrote:
+        &gt; On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; 1. is there any way to aggregate over multiple public branches in order
+        &gt; &gt; &gt; to get the complete bug state
+        &gt; &gt;
+        &gt; &gt; Keeping the bug data with the source helps synchronize bug state and
+        &gt; &gt; source code.  Bug state in branch A may not apply to branch B.  Some
+        &gt; &gt; people like to weaken this source-bug linkage by keeping their bugs in
+        &gt; &gt; a branch all by themselves (ditz [http://ditz.rubyforge.org/]
+        &gt; &gt; currently supports this workflow).  It sounds like you want to move
+        &gt; &gt; from "bugs with code" to "bugs and code in separate branches".  We
+        &gt; &gt; don't have an easy way to do that in BE at the moment, since
+        &gt; &gt; version-control systems like Git have a single working branch at a
+        &gt; &gt; time (I think :p).  What VCS are you using as a backend?
+        &gt;
+        &gt; the basic idea is to take a look at all public branches (for exaple all
+        &gt; on lp/bitbucket/github) in order to tell the user of a webinterface that
+        &gt; bug foo is fixed in branch xyz, and if its merged to the main branch
+
+        Hmm.
+
+        &gt; &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt; &gt;
+        &gt; &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; &gt; Then to grab the tarball, you'd use:
+        &gt; &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; &gt; to grab it.
+        &gt; so the basic idea is to do it completely self-managed
+
+        Well, it's going to be managed by somebody ;).  So far I'm not
+        convinced enough for the manager to be me, so I'm suggesting it be you
+        :p.
+
+        &gt; and have have heterogenous sources of extended data?
+
+        I assume "extended data" here refers to your tarballs.  What sort of
+        homogenous source did you have in mind?  The comment body is currently
+        just a binary blob for non-text/* types, otherwise it's text in
+        whatever encoding you've configured.
+
+        On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt;
+        &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt;
+        &gt; How is a tool to determine the set of “all branches”? The distributed
+        &gt; VCS model means that set is indeterminate.
+
+        He could just make a list of branches he likes.
+
+        Ronny, are you looking to check bug status across several repos on the
+        fly, or periodically run something (with cron, etc.) to update a
+        static multi-repo summary?
+
+        The easiest implementation I can think of would be to keep local
+        branches (on whatever computer is hosting your web interface)
+        following your favorite repos.
+        proxectX/
+        |-- repoA
+        |-- repoB
+        `-- repoC
+        You'd pull upstream changes with a cron job.
+        Listing bugs would be something along the lines of
+        projectX$ for repo in *
+        do
+        pushd $repo
+        be list
+        popd
+        done | sort | uniq
+        Then to show bug status you would have something like
+        projectX$ for repo in *
+        do
+        echo $repo
+        pushd $repo
+        be show ${BUGID}
+        popd
+        done
+        For a web frontend, you'd want to translate that to python/libbe.
+
+        --
+        This email may be signed or encrypted with GPG (http://www.gnupg.org).
+        The GPG signature (if present) will be attached as 'signature.asc'.
+        For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+        My public key is at http://www.physics.drexel.edu/~wking/pubkey.txt
+      </body>
+    </comment>
+    <comment>
+      <uuid>8ffc90d7-0be7-4b00-88e6-9ae1b65f7957</uuid>
+      <alt-id>&lt;1247433610.14803.3.camel@localhost&gt;</alt-id>
+      <short-name>bea/12c/8ff</short-name>
+      <in-reply-to>bd98f525-95ec-446a-84e8-34c7d6fa5b40</in-reply-to>
+      <author>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</author>
+      <date>Sun, 12 Jul 2009 23:20:10 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, 2009-07-11 at 11:25 -0400, W. Trevor King wrote:
+        &gt; On Sat, Jul 11, 2009 at 03:13:05PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; 1. is there any way to aggregate over multiple public branches in order
+        &gt; &gt; &gt; &gt; to get the complete bug state
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; Keeping the bug data with the source helps synchronize bug state and
+        &gt; &gt; &gt; source code.  Bug state in branch A may not apply to branch B.  Some
+        &gt; &gt; &gt; people like to weaken this source-bug linkage by keeping their bugs in
+        &gt; &gt; &gt; a branch all by themselves (ditz [http://ditz.rubyforge.org/]
+        &gt; &gt; &gt; currently supports this workflow).  It sounds like you want to move
+        &gt; &gt; &gt; from "bugs with code" to "bugs and code in separate branches".  We
+        &gt; &gt; &gt; don't have an easy way to do that in BE at the moment, since
+        &gt; &gt; &gt; version-control systems like Git have a single working branch at a
+        &gt; &gt; &gt; time (I think :p).  What VCS are you using as a backend?
+        &gt; &gt;
+        &gt; &gt; the basic idea is to take a look at all public branches (for exaple all
+        &gt; &gt; on lp/bitbucket/github) in order to tell the user of a webinterface that
+        &gt; &gt; bug foo is fixed in branch xyz, and if its merged to the main branch
+        &gt;
+        &gt; Hmm.
+        &gt;
+        &gt; &gt; &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt; &gt; &gt;
+        &gt; &gt; &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; &gt; &gt; Then to grab the tarball, you'd use:
+        &gt; &gt; &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; &gt; &gt; to grab it.
+        &gt; &gt; so the basic idea is to do it completely self-managed
+        &gt;
+        &gt; Well, it's going to be managed by somebody ;).  So far I'm not
+        &gt; convinced enough for the manager to be me, so I'm suggesting it be you
+        &gt; :p.
+        &gt;
+        &gt; &gt; and have have heterogenous sources of extended data?
+        &gt;
+        &gt; I assume "extended data" here refers to your tarballs.  What sort of
+        &gt; homogenous source did you have in mind?  The comment body is currently
+        &gt; just a binary blob for non-text/* types, otherwise it's text in
+        &gt; whatever encoding you've configured.
+        some kind of common upload target for a single project in order to have
+        more reliable sources of stuff thats related to bugs but doesnt fit into
+        the normal repository
+
+
+        &gt;
+        &gt; On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt; &gt;
+        &gt; &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt; &gt;
+        &gt; &gt; How is a tool to determine the set of “all branches”? The distributed
+        &gt; &gt; VCS model means that set is indeterminate.
+        &gt;
+        &gt; He could just make a list of branches he likes.
+        &gt;
+        &gt; Ronny, are you looking to check bug status across several repos on the
+        &gt; fly, or periodically run something (with cron, etc.) to update a
+        &gt; static multi-repo summary?
+        on the fly access
+
+        &gt;
+        &gt; The easiest implementation I can think of would be to keep local
+        &gt; branches (on whatever computer is hosting your web interface)
+        &gt; following your favorite repos.
+        &gt;   proxectX/
+        &gt;   |-- repoA
+        &gt;   |-- repoB
+        &gt;   `-- repoC
+        &gt; You'd pull upstream changes with a cron job.
+        &gt; Listing bugs would be something along the lines of
+        &gt;   projectX$ for repo in *
+        &gt;             do
+        &gt;               pushd $repo
+        &gt;               be list
+        &gt; 	      popd
+        &gt;             done | sort | uniq
+        &gt; Then to show bug status you would have something like
+        &gt;   projectX$ for repo in *
+        &gt;             do
+        &gt;               echo $repo
+        &gt;               pushd $repo
+        &gt;               be show ${BUGID}
+        &gt;               popd
+        &gt;             done
+        &gt; For a web frontend, you'd want to translate that to python/libbe.
+        &gt;
+
+        yes, the idea is to get a web fontend for multiple branches
+        and maybe a local gtk fontend for local multi-branch setups
+
+        for some of my projects i have n local and m remote repos, and merging
+        is not always intended soonish
+      </body>
+    </comment>
+    <comment>
+      <uuid>4d192c6c-a4a8-4844-b083-2dd5926bd2d9</uuid>
+      <alt-id>&lt;20090712235502.GA10782@mjolnir.home.net&gt;</alt-id>
+      <short-name>bea/12c/4d1</short-name>
+      <in-reply-to>8ffc90d7-0be7-4b00-88e6-9ae1b65f7957</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 12 Jul 2009 19:55:02 -0400</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sun, Jul 12, 2009 at 11:20:10PM +0200, Ronny Pfannschmidt wrote:
+        &gt; On Sat, 2009-07-11 at 11:25 -0400, W. Trevor King wrote:
+        &gt; &gt; On Sat, Jul 11, 2009 at 03:13:05PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; &gt; &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; &gt; &gt; &gt; Then to grab the tarball, you'd use:
+        &gt; &gt; &gt; &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; &gt; &gt; &gt; to grab it.
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; so the basic idea is to do it completely self-managed
+        &gt; &gt; &gt; and have have heterogenous sources of extended data?
+        &gt; &gt;
+        &gt; &gt; I assume "extended data" here refers to your tarballs.  What sort of
+        &gt; &gt; homogenous source did you have in mind?  The comment body is currently
+        &gt; &gt; just a binary blob for non-text/* types, otherwise it's text in
+        &gt; &gt; whatever encoding you've configured.
+        &gt;
+        &gt; some kind of common upload target for a single project in order to have
+        &gt; more reliable sources of stuff thats related to bugs but doesnt fit into
+        &gt; the normal repository
+
+        Sorry, I'm still having trouble with "doesn't fit into the normal
+        repository".  It's going to be large wherever you keep it.  You
+        worried about multiple branches all having these big tarballs in them
+        and want a "lightweight" checkout without all the big
+        tarballs/whatever?  I still think having some sort of "resources"
+        directory on an http server somewhere that you link to from comments
+        is the best plan.  If you use the
+        be show --xml ID | be-xml-to-mbox | catmutt
+        approach, you can even write your comments in text/html and get
+        clickable links ;).  A "push big file to remote and commit comment
+        linking to it" script would be pretty simple and keep everything
+        consistent.
+
+        &gt; &gt; On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; &gt; &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; How is a tool to determine the set of “all branches”? The distributed
+        &gt; &gt; &gt; VCS model means that set is indeterminate.
+        &gt; &gt;
+        &gt; &gt; He could just make a list of branches he likes.
+        &gt; &gt;
+        &gt; &gt; Ronny, are you looking to check bug status across several repos on the
+        &gt; &gt; fly, or periodically run something (with cron, etc.) to update a
+        &gt; &gt; static multi-repo summary?
+        &gt;
+        &gt; on the fly access
+
+        Then listing bugs in a remote repo will either involve httping tons of
+        tiny values files for each bug (slow?) or running some hypothetical
+        BE-server locally for each repo speaking some BE-specific protocol
+        (complicated?).  And how would you handle e.g. headless git repos,
+        where nothing's even checked out?
+
+        You could always run the cron job every 15 minutes, and rely on
+        whatever VCS you're using having some intelligent protocol/procedure
+        to keep bandwidth down ;).  If you need faster / more-efficient
+        updates, you'll probably need to throw out polling altogether and
+        setup all involved repos with a "push to central-repo on commit" hook
+        or some such.
+
+        --
+        This email may be signed or encrypted with GPG (http://www.gnupg.org).
+        The GPG signature (if present) will be attached as 'signature.asc'.
+        For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+        My public key is at http://www.physics.drexel.edu/~wking/pubkey.txt
+      </body>
+    </comment>
+    <comment>
+      <uuid>6dcc910a-ce15-4eeb-b49b-4747719748ed</uuid>
+      <alt-id>&lt;1247468734.7189.1.camel@localhost&gt;</alt-id>
+      <short-name>bea/12c/6dc</short-name>
+      <in-reply-to>4d192c6c-a4a8-4844-b083-2dd5926bd2d9</in-reply-to>
+      <author>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</author>
+      <date>Mon, 13 Jul 2009 09:05:34 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sun, 2009-07-12 at 19:55 -0400, W. Trevor King wrote:
+        &gt; On Sun, Jul 12, 2009 at 11:20:10PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; On Sat, 2009-07-11 at 11:25 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; On Sat, Jul 11, 2009 at 03:13:05PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; &gt; &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; &gt; &gt; &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt; &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; &gt; &gt; &gt; &gt; Then to grab the tarball, you'd use:
+        &gt; &gt; &gt; &gt; &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; &gt; &gt; &gt; &gt; to grab it.
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; so the basic idea is to do it completely self-managed
+        &gt; &gt; &gt; &gt; and have have heterogenous sources of extended data?
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; I assume "extended data" here refers to your tarballs.  What sort of
+        &gt; &gt; &gt; homogenous source did you have in mind?  The comment body is currently
+        &gt; &gt; &gt; just a binary blob for non-text/* types, otherwise it's text in
+        &gt; &gt; &gt; whatever encoding you've configured.
+        &gt; &gt;
+        &gt; &gt; some kind of common upload target for a single project in order to have
+        &gt; &gt; more reliable sources of stuff thats related to bugs but doesnt fit into
+        &gt; &gt; the normal repository
+        &gt;
+        &gt; Sorry, I'm still having trouble with "doesn't fit into the normal
+        &gt; repository".  It's going to be large wherever you keep it.  You
+        &gt; worried about multiple branches all having these big tarballs in them
+        &gt; and want a "lightweight" checkout without all the big
+        &gt; tarballs/whatever?  I still think having some sort of "resources"
+        &gt; directory on an http server somewhere that you link to from comments
+        &gt; is the best plan.  If you use the
+        &gt;   be show --xml ID | be-xml-to-mbox | catmutt
+        &gt; approach, you can even write your comments in text/html and get
+        &gt; clickable links ;).  A "push big file to remote and commit comment
+        &gt; linking to it" script would be pretty simple and keep everything
+        &gt; consistent.
+        thats probably what i want to do
+
+        &gt;
+        &gt; &gt; &gt; On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; &gt; &gt; &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; How is a tool to determine the set of “all branches”? The distributed
+        &gt; &gt; &gt; &gt; VCS model means that set is indeterminate.
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; He could just make a list of branches he likes.
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; Ronny, are you looking to check bug status across several repos on the
+        &gt; &gt; &gt; fly, or periodically run something (with cron, etc.) to update a
+        &gt; &gt; &gt; static multi-repo summary?
+        &gt; &gt;
+        &gt; &gt; on the fly access
+        &gt;
+        &gt; Then listing bugs in a remote repo will either involve httping tons of
+        &gt; tiny values files for each bug (slow?) or running some hypothetical
+        &gt; BE-server locally for each repo speaking some BE-specific protocol
+        &gt; (complicated?).  And how would you handle e.g. headless git repos,
+        &gt; where nothing's even checked out?
+        &gt;
+        &gt; You could always run the cron job every 15 minutes, and rely on
+        &gt; whatever VCS you're using having some intelligent protocol/procedure
+        &gt; to keep bandwidth down ;).  If you need faster / more-efficient
+        &gt; updates, you'll probably need to throw out polling altogether and
+        &gt; setup all involved repos with a "push to central-repo on commit" hook
+        &gt; or some such.
+        its intended to run on the place where i publish the repositories anyway
+      </body>
+    </comment>
+    <comment>
+      <uuid>30a8b841-98ae-41b7-9ef2-6af7cffca8da</uuid>
+      <alt-id>&lt;20090713104715.GA13723@mjolnir.home.net&gt;</alt-id>
+      <short-name>bea/12c/30a</short-name>
+      <in-reply-to>6dcc910a-ce15-4eeb-b49b-4747719748ed</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 13 Jul 2009 06:47:15 -0400</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Mon, Jul 13, 2009 at 09:05:34AM +0200, Ronny Pfannschmidt wrote:
+        &gt; On Sun, 2009-07-12 at 19:55 -0400, W. Trevor King wrote:
+        &gt; &gt; On Sun, Jul 12, 2009 at 11:20:10PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; On Sat, 2009-07-11 at 11:25 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; &gt; On Sat, Jul 11, 2009 at 03:13:05PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; &gt; On Sat, 2009-07-11 at 08:50 -0400, W. Trevor King wrote:
+        &gt; &gt; &gt; &gt; &gt; &gt; On Sat, Jul 11, 2009 at 01:54:54PM +0200, Ronny Pfannschmidt wrote:
+        &gt; &gt; &gt; &gt; &gt; &gt; &gt; 2. is there any model for storing bigger files at a central place (for
+        &gt; &gt; &gt; &gt; &gt; &gt; &gt; some of my bugs i have multi-megabyte tarballs attached)
+        &gt; &gt; &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt; &gt;   be comment ID "See the tarball at http://yourpage/something.tar.gz"
+        &gt; &gt; &gt; &gt; &gt; &gt; Then to grab the tarball, you'd use:
+        &gt; &gt; &gt; &gt; &gt; &gt;   wget `be show COMMENT-ID | sed -n 's/ *See the tarball at //p'`
+        &gt; &gt; &gt; &gt; &gt; &gt; to grab it.
+        &gt; &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt; so the basic idea is to do it completely self-managed
+        &gt; &gt; &gt; &gt; &gt; and have have heterogenous sources of extended data?
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; I assume "extended data" here refers to your tarballs.  What sort of
+        &gt; &gt; &gt; &gt; homogenous source did you have in mind?  The comment body is currently
+        &gt; &gt; &gt; &gt; just a binary blob for non-text/* types, otherwise it's text in
+        &gt; &gt; &gt; &gt; whatever encoding you've configured.
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; some kind of common upload target for a single project in order to have
+        &gt; &gt; &gt; more reliable sources of stuff thats related to bugs but doesnt fit into
+        &gt; &gt; &gt; the normal repository
+        &gt; &gt;
+        &gt; &gt; Sorry, I'm still having trouble with "doesn't fit into the normal
+        &gt; &gt; repository".  It's going to be large wherever you keep it.  You
+        &gt; &gt; worried about multiple branches all having these big tarballs in them
+        &gt; &gt; and want a "lightweight" checkout without all the big
+        &gt; &gt; tarballs/whatever?  I still think having some sort of "resources"
+        &gt; &gt; directory on an http server somewhere that you link to from comments
+        &gt; &gt; is the best plan.  If you use the
+        &gt; &gt;   be show --xml ID | be-xml-to-mbox | catmutt
+        &gt; &gt; approach, you can even write your comments in text/html and get
+        &gt; &gt; clickable links ;).  A "push big file to remote and commit comment
+        &gt; &gt; linking to it" script would be pretty simple and keep everything
+        &gt; &gt; consistent.
+        &gt;
+        &gt; thats probably what i want to do
+
+        #!/bin/bash
+        REMOTE_DIR="you@webhost:./public_html/bigfiles"
+        REMOTE_LINK="http://www.webhost.com/bigfiles"
+        if [ $# -ne 2 ]; then
+        echo "usage: $0 ID BIGFILE"
+        exit 1
+        fi
+        ID="$1"
+        BIGFILE="$2"
+        be comment "$ID" "Large file stored at ${REMOTE_LINK}/${BIGFILE}" &amp;&amp; scp "$BIGFILE" "${REMOTE_DIR}"
+
+        &gt; &gt; &gt; &gt; On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; &gt; &gt; &gt; &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt; &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt; &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; &gt; How is a tool to determine the set of “all branches”? The distributed
+        &gt; &gt; &gt; &gt; &gt; VCS model means that set is indeterminate.
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; He could just make a list of branches he likes.
+        &gt; &gt; &gt; &gt;
+        &gt; &gt; &gt; &gt; Ronny, are you looking to check bug status across several repos on the
+        &gt; &gt; &gt; &gt; fly, or periodically run something (with cron, etc.) to update a
+        &gt; &gt; &gt; &gt; static multi-repo summary?
+        &gt; &gt; &gt;
+        &gt; &gt; &gt; on the fly access
+        &gt; &gt;
+        &gt; &gt; Then listing bugs in a remote repo will either involve httping tons of
+        &gt; &gt; tiny values files for each bug (slow?) or running some hypothetical
+        &gt; &gt; BE-server locally for each repo speaking some BE-specific protocol
+        &gt; &gt; (complicated?).  And how would you handle e.g. headless git repos,
+        &gt; &gt; where nothing's even checked out?
+        &gt; &gt;
+        &gt; &gt; You could always run the cron job every 15 minutes, and rely on
+        &gt; &gt; whatever VCS you're using having some intelligent protocol/procedure
+        &gt; &gt; to keep bandwidth down ;).  If you need faster / more-efficient
+        &gt; &gt; updates, you'll probably need to throw out polling altogether and
+        &gt; &gt; setup all involved repos with a "push to central-repo on commit" hook
+        &gt; &gt; or some such.
+        &gt;
+        &gt; its intended to run on the place where i publish the repositories anyway
+
+        Oh, you mean all the repos you want to cover are all _already_ on the
+        same host?
+
+        --
+        This email may be signed or encrypted with GPG (http://www.gnupg.org).
+        The GPG signature (if present) will be attached as 'signature.asc'.
+        For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+        My public key is at http://www.physics.drexel.edu/~wking/pubkey.txt
+      </body>
+    </comment>
+    <comment>
+      <uuid>46937fd4-b0bc-4eed-8033-d699445441ea</uuid>
+      <alt-id>&lt;20090713115734.GA13788@mjolnir.home.net&gt;</alt-id>
+      <short-name>bea/12c/469</short-name>
+      <in-reply-to>bd98f525-95ec-446a-84e8-34c7d6fa5b40</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 13 Jul 2009 07:57:34 -0400</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, Jul 11, 2009 at 11:25:07AM -0400, W. Trevor King wrote:
+        &gt; The easiest implementation I can think of would be to keep local
+        &gt; branches (on whatever computer is hosting your web interface)
+        &gt; following your favorite repos.
+        &gt;   proxectX/
+        &gt;   |-- repoA
+        &gt;   |-- repoB
+        &gt;   `-- repoC
+        &gt; You'd pull upstream changes with a cron job.
+        &gt; Listing bugs would be something along the lines of
+        &gt;   projectX$ for repo in *
+        &gt;             do
+        &gt;               pushd $repo
+        &gt;               be list
+        &gt;               popd
+        &gt;             done | sort | uniq
+        &gt; ...
+
+        I've reworked option handling for be, so my branch now supports
+        projectX$ for repo in *
+        do
+        be --dir $repo list
+        done | sort | uniq
+        etc.  This also makes it easy to use your uninstalled development
+        version of be on any bug directory on your local machine.
+
+        --
+        This email may be signed or encrypted with GPG (http://www.gnupg.org).
+        The GPG signature (if present) will be attached as 'signature.asc'.
+        For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+        My public key is at http://www.physics.drexel.edu/~wking/pubkey.txt
+      </body>
+    </comment>
+    <comment>
+      <uuid>c8283e08-967c-4a7b-b953-3ec62c83fb9f</uuid>
+      <alt-id>&lt;20090713085859.GA21800@grys.it&gt;</alt-id>
+      <short-name>bea/12c/c82</short-name>
+      <in-reply-to>e520239c-8d69-4ff6-b1bd-0c2f74366200</in-reply-to>
+      <author>Gianluca Montecchi &lt;gian@grys.it&gt;</author>
+      <date>Mon, 13 Jul 2009 10:58:59 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sun, Jul 12, 2009 at 12:57:35AM +1000, Ben Finney wrote:
+        &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt;
+        &gt; &gt; i want to see the combination of the bug data of all branches
+        &gt;
+        &gt; What is your definition of ???all branches???? When I'm working with
+        &gt; distributed VCS, I create branches wherever I feel like, and the VCS
+        &gt; tool doesn't have some central registry of branches to keep up to date.
+        &gt;
+        &gt; How is a tool to determine the set of ???all branches???? The distributed
+        &gt; VCS model means that set is indeterminate.
+
+        In the first main Ronny spoke about "public" branches. To me it means that
+        if a branch is public, he should like to have a status of that branch.
+
+        We all agree (probably ;-) ) that tha main branch is the "right" branch, but
+        as I see it, Ronny's question has some logic.
+        I'd like to know that a certain bug is fixed in a certain branch, also if it
+        is still not merged in the main branch, for various reason (ie I am interested
+        in the solution since the bug stop my work)
+
+        Imagine it like a rss feed aggregator: in one place there are all the bugs of
+        all the branches that the developers make avaible to the public with
+        a repository. This can make easier the life to who want to try a something
+        since he know what branch he must check out, instead of checking all the
+        branch he can find to test if he get what is looking for.
+
+        Unluckyly I have no idea how to solve it. :-(
+
+        bye
+        Gianluca
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>0f60a148-7024-44bd-bbed-377cbece9d1b</uuid>
+      <alt-id>&lt;874otjmjhr.fsf@benfinney.id.au&gt;</alt-id>
+      <short-name>bea/12c/0f6</short-name>
+      <in-reply-to>88d1f2c2-e1af-4f0d-9390-e3c89ae4f7d7</in-reply-to>
+      <author>Ben Finney &lt;bignose+hates-spam@benfinney.id.au&gt;</author>
+      <date>Sat, 11 Jul 2009 23:34:08 +1000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+
+        &gt; the basic idea is to take a look at all public branches (for exaple
+        &gt; all on lp/bitbucket/github) in order to tell the user of a
+        &gt; webinterface that bug foo is fixed in branch xyz, and if its merged to
+        &gt; the main branch
+
+        I don't understand. The state of the bug in the main branch is right
+        there in the main branch; if it's not fixed there, it's not fixed there.
+        If it's merged in from a different branch, the bug state follows all the
+        other changes when they come in.
+
+        Can you give an example of what would be done differently?
+
+        --
+        \           “The basic fact about human existence is not that it is a |
+        `\                tragedy, but that it is a bore.” —Henry L. Mencken |
+        _o__)                                                                  |
+        Ben Finney
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>d86e497d-667d-4c2b-9249-76026df56633</uuid>
+      <alt-id>&lt;1247320857.7701.67.camel@localhost&gt;</alt-id>
+      <short-name>bea/12c/d86</short-name>
+      <in-reply-to>0f60a148-7024-44bd-bbed-377cbece9d1b</in-reply-to>
+      <author>Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt;</author>
+      <date>Sat, 11 Jul 2009 16:00:57 +0200</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Sat, 2009-07-11 at 23:34 +1000, Ben Finney wrote:
+        &gt; Ronny Pfannschmidt &lt;Ronny.Pfannschmidt@gmx.de&gt; writes:
+        &gt;
+        &gt; &gt; the basic idea is to take a look at all public branches (for exaple
+        &gt; &gt; all on lp/bitbucket/github) in order to tell the user of a
+        &gt; &gt; webinterface that bug foo is fixed in branch xyz, and if its merged to
+        &gt; &gt; the main branch
+        &gt;
+        &gt; I don't understand. The state of the bug in the main branch is right
+        &gt; there in the main branch; if it's not fixed there, it's not fixed there.
+        &gt; If it's merged in from a different branch, the bug state follows all the
+        &gt; other changes when they come in.
+        &gt;
+        &gt; Can you give an example of what would be done differently?
+        &gt;
+        i want to see the combination of the bug data of all branches
+
+        for example
+
+        i got bug
+        its fixed in the branch "something"
+        its not fixed/merged to "main"
+
+        now something like a website should tell me, this bug has been fixed in
+        branch xyz and the fix is not yet merged into main
+
+
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>624a4542-92e9-442e-b71c-a14da4fe55cf</uuid>
+      <short-name>bea/12c/624</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 05 Dec 2009 22:39:07 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        I read
+        http://weblog.masukomi.org/2008/1/3/distributed-bug-tracking
+        yesterday, and the section on bug visibility got me thinking about
+        bug 12c (Multi-repo meta-BE?) some more.
+
+        We already have interfaces like this email/html mashup:
+
+        On Sun, Sep 13, 2009 at 07:04:05AM -0400, W. Trevor King wrote:
+        &gt; Since the non-bzr interfaces to BE are coming along nicely, I've put
+        &gt; up a non-bzr interface to my be-rr branch.
+        &gt;   http://www.physics.drexel.edu/~wking/code/be
+        &gt; It uses nightly builds of Gianluca's static html from my devel branch
+        &gt; to provide read-only browsing, and accepts changes from the general
+        &gt; public through my email interface into a public branch.  I handle the
+        &gt; synchronization of these two branches manually.
+
+        These interfaces provide a means for remote users to access a BE
+        repository without bzr or the command line.  As far as users are
+        concerned, this exposed repository looks pretty much like a
+        centralized bugtracking system (e.g. bugzilla, ...).
+
+        However, with BE we have more bug information living off in other
+        branches that haven't yet been merged with the exposed repo.  The
+        problem is two-fold:
+        1) how to keep up to date within a distributed community.
+        2) how do users find branches/patches that fix bug XYZ.
+
+        For (2), I think the best solution at the moment are along the lines
+        of my little scripts (discussed in the bug 12c comments).  With the
+        addition of the `be diff --dir DIR` option, it's now even easier to
+        find more information on bug 565 (or whatever UUID):
+        be/be.wtk$ for repo in ../*; do \
+        if [ $repo == "be.wtk" ]; then continue; fi; \
+        diff=$(be diff --dir $repo --subscribe 565:all); \
+        if [ -n "$diff" ]; then \
+        echo "Changed from $repo:"; echo "$diff"; \
+        fi; \
+        done
+        Changed from ../be.html:
+        New bugs:
+        565:fm: be email-bugs for bug submission from bzr-less users
+        Changed from ../be.trunk:
+        New bugs:
+        565:fm: be email-bugs for bug submission from bzr-less users
+        Changed from ../cherryflavoredbugseverywhere:
+        New bugs:
+        565:fm: be email-bugs for bug submission from bzr-less users
+        where the --dir and --subscribe options to `be diff` are new.  If
+        people don't like the command line, this would be easy to bundle into
+        a web-frontend (CFBE?) if you wanted, with a cron job pulling updates
+        into the tracked branches.
+
+        I was starting into a solution for (1) when I did this:
+
+        On Mon, Jul 27, 2009 at 08:42:19AM -0400, W. Trevor King wrote:
+        &gt; My email interface now supports subscription:
+        &gt;   be subscribe DIR       # see any changes to the bug directory.
+        &gt;   be subscribe BUG-ID    # see changes to a particular bug.
+        &gt; See
+        &gt;   be subscribe --help
+        &gt; for more details.
+
+        The idea was that a dev/user would subscribe to whatever issues they
+        wanted to track, and they would get email notifications whenever some
+        action affected any of those issues.  These subscriptions would
+        percolate through the distributed branches as a result of the usual
+        mergers.  For example, my subscription to all changes has made it into
+        the trunk branch (see .be/settings).
+
+        This subscription mechanism was setup to work through interactive
+        public interfaces (my email interface, eventually CFBE, ...), but
+        it doesn't work for changes made via the command-line interface,
+        so I browsed around a bit and ran across some interesting workflows
+        in the bzr documentation
+        doc/developers/HACKING.txt, "Communicating and Coordinating"
+        which points out the following plugins
+        * email (http://doc.bazaar-vcs.org/plugins/en/email-plugin.html)
+        * dbus (http://doc.bazaar-vcs.org/plugins/en/dbus-plugin.html)
+        which send automatic notification messages after commits, etc.  If
+        people want this sort of functionality, it would be easy enough to rig
+        a hook for `be commit' that sent a diff email to subscribers, which
+        could include be-devel.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>866cba32-4347-4f51-9b1d-69454638ca78</uuid>
+    <short-name>bea/866</short-name>
+    <severity>serious</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 07 Feb 2009 21:31:26 +0000</created>
+    <summary>Implement adding new assignees/targets.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>738f9826-57b6-43d6-a0cb-0dfeeb185b96</uuid>
+      <short-name>bea/866/738</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sat, 07 Feb 2009 21:32:19 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Right now you can only select assignees or targets that have already been specified in another bug.  There should be a way to add new ones from the bug edit screen.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>28acb29f-9890-4857-80fe-b1d83d8623d1</uuid>
+    <short-name>bea/28a</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>ned &lt;ned@lyta&gt;</reporter>
+    <creator>ned &lt;ned@lyta&gt;</creator>
+    <created>Thu, 28 Jul 2011 00:22:51 +0000</created>
+    <summary>Windows installation problems fix patch</summary>
+    <comment>
+      <uuid>d92ac3a4-d56a-4c42-bb21-936d66f5315c</uuid>
+      <short-name>bea/28a/d92</short-name>
+      <author>ned &lt;ned@lyta&gt;</author>
+      <date>Thu, 28 Jul 2011 00:38:09 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Fairly amazingly, one can actually pipe a file to stdin on Windows using 'type' instead of 'cat'. I didn't know that. Anyway, the only other 'bug' is that BE is VERY slow on an Intel Atom netbook. We're talking seconds per command execution. I don't know what you're doing under the bonnet there, but there is no algorithmic reason why this should be slow - git just absolutely flies on the Atom. I only wish Visual Studio moved more swiftly on the Atom! Thanks, Niall</body>
+    </comment>
+    <comment>
+      <uuid>1cd5d4c0-570a-43e1-93fc-860073206f8d</uuid>
+      <short-name>bea/28a/1cd</short-name>
+      <author>ned &lt;ned@lyta&gt;</author>
+      <date>Thu, 28 Jul 2011 00:29:19 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Installing on Windows oddly enough succeeds except for the following two problems: (i) you need to install a be.bat file in the scripts directory (which I hopefully will shortly attach) and (ii) there is a dependency on pyyaml which needs to be easy_install'ed. The latter really ought to be automated during BE's setup.py. Thanks,</body>
+    </comment>
+    <comment>
+      <uuid>34e95981-0929-4170-945f-b3c70efd90e7</uuid>
+      <short-name>bea/28a/34e</short-name>
+      <in-reply-to>1cd5d4c0-570a-43e1-93fc-860073206f8d</in-reply-to>
+      <author>ned &lt;ned@lyta&gt;</author>
+      <date>Thu, 28 Jul 2011 00:35:07 +0000</date>
+      <content-type>application/bat</content-type>
+      <body>
+        QGVjaG8gb2ZmCnB5dGhvbiAtYyAiaW1wb3J0IHN5cywgbGliYmUudWkuY29tbWFuZF9saW5lOyBz
+        eXMuZXhpdChsaWJiZS51aS5jb21tYW5kX2xpbmUubWFpbigpKTsiICUqCnNldCBCRV9UT09MX0VS
+        Uk9STEVWRUw9JUVSUk9STEVWRUwlCmV4aXQgL0IgJUJFX1RPT0xfRVJST1JMRVZFTCUK
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>15aef818-6a62-41be-905d-6b92edc405bf</uuid>
+    <short-name>bea/15a</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>sasha &lt;sasha@rey&gt;</reporter>
+    <creator>sasha &lt;sasha@rey&gt;</creator>
+    <created>Wed, 20 Jul 2011 12:21:51 +0000</created>
+    <summary>mercurial 1.9 breaks be with AttributeError: 'list' object has no attribute 'ferr' in mercurial.dispatch</summary>
+    <comment>
+      <uuid>e553c1fd-a3e5-46b1-807c-0ef2efbb7fe2</uuid>
+      <short-name>bea/15a/e55</short-name>
+      <author>sasha &lt;sasha@rey&gt;</author>
+      <date>Wed, 20 Jul 2011 12:24:40 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>The mercurial API has changed so that instead of passing a list, one needs a mercurial.dispatch.request. One way this can be done is by calling mercurial.dispatch.dispatch(fullargs) in line 90 of libbe.storage.vcs.hg, which should resolve the error for hg 1.9 but might create a problem for some earlier versions.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>b398c02b-3b0f-4730-9598-279e99bbc8a5</uuid>
+    <short-name>bea/b39</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;</reporter>
+    <creator>Valtteri Kokkoniemi &lt;rvk@iki.fi</creator>
+    <created>Thu, 17 Feb 2011 10:38:22 +0000</created>
+    <summary>created-tags break import-xml</summary>
+    <comment>
+      <uuid>6ca8e92a-52b2-4909-a088-6bae5d7511a6</uuid>
+      <short-name>bea/b39/6ca</short-name>
+      <author>kokval &lt;kokval@vesuri&gt;</author>
+      <date>Thu, 17 Feb 2011 10:40:51 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From 80ce5b9707750edba08842cd267843fa035d7b0a Mon Sep 17 00:00:00 2001
+        From: Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;
+        Date: Thu, 17 Feb 2011 12:03:56 +0200
+        Subject: [PATCH] fixed created tag handling in import-xml
+
+        ---
+        libbe/bug.py |    4 ++++
+        1 files changed, 4 insertions(+), 0 deletions(-)
+
+        diff --git a/libbe/bug.py b/libbe/bug.py
+        index 6d3d836..122c81a 100644
+        --- a/libbe/bug.py
+        +++ b/libbe/bug.py
+        @@ -395,6 +395,10 @@ class Bug (settings_object.SavedSettingsObject):
+        if child.tag == 'uuid':
+        uuid = text
+        continue # don't set the bug's uuid tag.
+        +		elif child.tag == 'created':
+        +                    self.time = utility.str_to_time(text)
+        +                    self.explicit_attrs.append('time')
+        +                    continue
+        elif child.tag == 'extra-string':
+        estrs.append(text)
+        continue # don't set the bug's extra_string yet.
+        --
+        1.7.1
+      </body>
+    </comment>
+    <comment>
+      <uuid>3193f33d-ed57-4c32-9f6e-598bdc4ea67e</uuid>
+      <short-name>bea/b39/319</short-name>
+      <author>kokval &lt;kokval@vesuri&gt;</author>
+      <date>Thu, 17 Feb 2011 10:40:21 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        show --xml generates &lt;created&gt; tags for bug creation timestamp, but these break in import
+
+        for fix, see attached patch
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>5a1c1d88-e2e9-45e9-b163-0f335c2b89ff</uuid>
+    <short-name>bea/5a1</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;</reporter>
+    <creator>Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;</creator>
+    <created>Thu, 17 Feb 2011 08:19:41 +0000</created>
+    <summary>xml import of new bugs is broken</summary>
+    <comment>
+      <uuid>c50ada21-1ce1-4d1b-bcc0-834746ba176c</uuid>
+      <short-name>bea/5a1/c50</short-name>
+      <author>kokval &lt;kokval@vesuri&gt;</author>
+      <date>Thu, 17 Feb 2011 08:21:33 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        probably due to refactoring at some point in history
+
+        for fix, see the attached patch
+      </body>
+    </comment>
+    <comment>
+      <uuid>1bb12bbd-27b8-4638-abdb-c69384707b60</uuid>
+      <short-name>bea/5a1/1bb</short-name>
+      <author>Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;</author>
+      <date>Thu, 17 Feb 2011 08:25:02 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From 1a6ce70b03a8e7df3e21189cd552d95d28535c1d Mon Sep 17 00:00:00 2001
+        From: Valtteri Kokkoniemi &lt;rvk@iki.fi&gt;
+        Date: Thu, 17 Feb 2011 10:11:09 +0200
+        Subject: [PATCH] fixed importing new bugs
+
+        ---
+        libbe/command/import_xml.py |    2 +-
+        1 files changed, 1 insertions(+), 1 deletions(-)
+
+        diff --git a/libbe/command/import_xml.py b/libbe/command/import_xml.py
+        index bd25372..b4da2fd 100644
+        --- a/libbe/command/import_xml.py
+        +++ b/libbe/command/import_xml.py
+        @@ -184,7 +184,7 @@ class Import_XML (libbe.command.Command):
+        except KeyError:
+        old = None
+        if old == None:
+        -                bd.append(new)
+        +                bugdir.append(new)
+        else:
+        old.load_comments(load_full=True)
+        old.merge(new, accept_changes=accept_changes,
+        --
+        1.7.1
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>c3f2bf89-f5d3-4576-b74e-ca7b42a5e2ba</uuid>
+    <short-name>bea/c3f</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>dietmarw &lt;dietmarw@HeX&gt;</reporter>
+    <creator>dietmarw &lt;dietmarw@HeX&gt;</creator>
+    <created>Tue, 01 Feb 2011 21:41:27 +0000</created>
+    <summary>Set default user paths according to PEP370</summary>
+    <comment>
+      <uuid>e9ef9fdd-4d0e-4438-a23d-6658eae9b349</uuid>
+      <short-name>bea/c3f/e9e</short-name>
+      <author>dietmarw &lt;dietmarw@HeX&gt;</author>
+      <date>Tue, 01 Feb 2011 21:52:29 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>The make install will curently install the bin files in ~/bin and the lib files in ~/lib. Unfortunately this will lead to the lib files not being recognised by python by default. http://www.python.org/dev/peps/pep-0370/ defines that the paths should be set to '~/.local/bin' and '~/.local/lib'. Here they will also be automatically discoverable by python. (At least on Ubuntu 10.10)</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>e30e2b6b-acc9-4b93-88c6-b63b6e30b593</uuid>
+    <short-name>bea/e30</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Mon, 01 Feb 2010 14:28:13 +0000</created>
+    <summary>Where should the vcs-name and encoding configuration options live?</summary>
+    <comment>
+      <uuid>2cd562f5-fcb9-4cc5-bf8c-ad5c9d960761</uuid>
+      <short-name>bea/e30/2cd</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 01 Feb 2010 14:34:10 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Before Bugs Everywhere Directory v1.4 we kept
+        "encoding"
+        "vcs_name"
+        and other bugdir-wide configuration options in ./be/settings
+
+        Now we don't store them anymore, but we should keep some.  For
+        example, the encoding setting is useful when running `be html` in a
+        cron job.  The settings are repository wide, so they should _still_ go
+        in ./be/settings (since there may, eventually, be several bugdirs in a
+        repo), but who's job is it to read that file?
+
+        The user interface takes care of encoding, but the storage object
+        would be checking for a bug repository and reading the settings file.
+        How/when does it notify the UI?
+      </body>
+    </comment>
+    <comment>
+      <uuid>68ec74b9-d2c7-421f-ac70-602b43bbd263</uuid>
+      <short-name>bea/e30/68e</short-name>
+      <in-reply-to>2cd562f5-fcb9-4cc5-bf8c-ad5c9d960761</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 01 Feb 2010 15:35:57 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On the other hand, since encoding decisions seem to be locale-driven,
+        so you can just setup the appropriate locale environmental variables
+        in your cron job:
+        export LANG=en_US.utf8
+        and that should do it...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>c1b76442-eab6-4796-9517-8454425d7757</uuid>
+    <short-name>bea/c1b</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Mon, 25 Jan 2010 21:59:03 +0000</created>
+    <summary>`be serve` authentication / authorization</summary>
+    <comment>
+      <uuid>76d54016-755b-42ca-ad07-eb9a1c77c33d</uuid>
+      <short-name>bea/c1b/76d</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 28 Jan 2010 22:58:08 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Steve's had some related thoughts on authentication for CFBE:
+        #bea86499-824e-4e77-b085-2d581fa9ccab/d9959864-ea91-475a-a075-f39aa6760f98/21c90231-d7f2-49bb-97d9-99e16459d799#.
+      </body>
+    </comment>
+    <comment>
+      <uuid>27a5a4cc-1782-4509-a3d2-db00c190f97d</uuid>
+      <short-name>bea/c1b/27a</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Wed, 27 Jan 2010 13:05:47 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Added rudimentary authorization with `be serve --auth FILE`.
+
+        Special username 'guest' is not allowed to change name,password or
+        write to the repository.  All other users in the auth file are allowed
+        to do all of that.  A more robust solution would be to have POSIX
+        permissions on each storage item, or something.
+
+        Note that while the server supports name/password changes for
+        non-guest users, there is no command-line interface to this
+        functionality.  There is also no automatic way to register
+        (i.e. create entries).
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>5fb11e65-68a0-4015-b404-737238299cdc</uuid>
+    <short-name>bea/5fb</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sat, 23 Jan 2010 19:08:40 +0000</created>
+    <summary>Add change hooks to Storage class</summary>
+    <extra-string>BLOCKS:52034fd0-ec50-424d-b25d-2beaf2d2c317</extra-string>
+    <comment>
+      <uuid>f3e90a7e-b8c4-4a7c-8609-6a783ae59762</uuid>
+      <short-name>bea/5fb/f3e</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 23 Jan 2010 19:17:10 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Provide hooks so users can easily setup auto-commits, subscriber
+        notification, etc.  Probably either Darcs-style options:
+        $ be COMMAND --help
+        ...
+        --posthook=COMMAND   Specify command to run after this command.
+        --no-posthook        Do not run posthook command.
+        --prompt-posthook    Prompt before running posthook. [DEFAULT]
+        --run-posthook       Run posthook command without prompting.
+        ...
+        or a Git-style hooks directory:
+        $ tree .be
+        .be/
+        |-- version
+        |-- hooks
+        .   |-- post-commit.sh
+        .   |-- pre-commit.sh
+        `-- update.sh
+      </body>
+    </comment>
+    <comment>
+      <uuid>628a050a-f969-4290-8468-f5e991528f40</uuid>
+      <short-name>bea/5fb/628</short-name>
+      <in-reply-to>f3e90a7e-b8c4-4a7c-8609-6a783ae59762</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 31 Jan 2010 18:04:49 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Either of these could be added at the
+        libbe.command.base.Command.run
+        level.
+
+        The Git hooks would be 'pre-&lt;command-name&gt;' and 'post-&lt;command-name&gt;'.
+
+        Oh, and the hooks are therefore command-level hooks, not storage-level
+        hooks.  We still want storage-level hooks for notification emails, etc,
+        and they would definately have to follow the Git directory approach.
+        Hmm.  Storage level hooks will be awkward...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>01c9a900-61f9-41f7-9b2f-dd8f89e25b1b</uuid>
+    <short-name>bea/01c</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Wed, 20 Jan 2010 20:35:12 +0000</created>
+    <summary>Need command output abstraction for flexible UIs</summary>
+    <comment>
+      <uuid>f5139012-e20b-4d24-90a5-10d969ddd364</uuid>
+      <alt-id>&lt;20100120182425.GB14791@mjolnir&gt;</alt-id>
+      <short-name>bea/01c/f51</short-name>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Wed, 20 Jan 2010 18:24:25 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Wed, Jan 20, 2010 at 09:34:44AM -0500, W. Trevor King wrote:
+        &gt; On Sun, Dec 06, 2009 at 04:47:23AM -0500, W. Trevor King wrote:
+        &gt; &gt; Steve, I've caught my CFBE branch up to my current pre-trunk BE and
+        &gt; &gt; added dependency links to the bug page, so you should be all set once
+        &gt; &gt; you get back to CFBE.
+        &gt;
+        &gt; And I haven't pulled it up to date with my recent reorganization.  As
+        &gt; far as release tarballs go though, we don't have to port to Bazaar at
+        &gt; all, we can stuff a recent CFBE snapshot into the BE tarball.  How
+        &gt; do people feel about that?
+
+        Ok, I've got CFBE working with my BE head:
+        http://www.physics.drexel.edu/~wking/code/hg/cfbe/
+        However, I haven't reworked CFBE to take advantage of the new command
+        structure.
+
+        We'll need to extend libbe.command.base.Argument a bit as we work this
+        out, but I expect we can auto-generate handlers for various commands
+        with something along the lines of:
+
+        &lt;snip web.py&gt;
+
+        class CommandHandler (object):
+        def __init__(self, command):
+        self.command = command
+        def __call__(self, *args, **kwargs):
+        if GET:
+        template = self.env.get_template('command.html')
+        return template.render(command=self.command)
+        else:
+        try:
+        ret = libbe.ui.command_line.dispatch(
+        self.command.ui, self.command, *args, **kwargs)
+        except libbe.command.UserError, e:
+        HANDLE ERROR
+        stdout = self.command.ui.get_stdout()
+        DISPLAY STDOUT OR REDIRECT...
+
+        class WebInterface (libbe.command.UserInterface):
+        ...
+        def add_commands(self):
+        for command_name in libbe.command.commands():
+        Class = libbe.command.get_command_class(
+        command_name=command_name)
+        command = Class(ui=self)
+        self.command_name = cherrypy.expose(
+        CommandHandler(command))
+
+        &lt;/snip web.py&gt;
+
+        &lt;snip command.html&gt;
+
+        &lt;form id="command-form" action="/command" method="post"&gt;
+        &lt;fieldset&gt;
+        {% for option in command.options %}
+        {{ option_form_html(option) }}
+        {% endfor %}
+        {% for argument in command.args %}
+        {{ argument_form_html(argument) }}
+        {% endfor %}
+        &lt;/fieldset&gt;
+        &lt;/form&gt;
+
+        {{ command.help() }}
+
+        &lt;/snip command.html&gt;
+
+        Of course, incorperating interactive functionality in command output
+        (i.e. changing the bug target from the bug-show page), doesn't fit
+        into this model.  To do that, we'd have to abstract the default
+        command output the way we've already abstracted the commands and their
+        input...  This sounds like a lot of work, and it is, but the goal is
+        that BE adds functionality (new commands, option, etc.), and CFBE,
+        be-handle-mail, etc. automatically incorperate the new stuff.
+
+        Thoughts?
+      </body>
+    </comment>
+    <comment>
+      <uuid>b8e5c376-32a4-42ea-b6b2-adbee069384a</uuid>
+      <alt-id>&lt;20100120183646.GC14791@mjolnir&gt;</alt-id>
+      <short-name>bea/01c/b8e</short-name>
+      <in-reply-to>f5139012-e20b-4d24-90a5-10d969ddd364</in-reply-to>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Wed, 20 Jan 2010 18:36:46 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        On Wed, Jan 20, 2010 at 01:24:25PM -0500, W. Trevor King wrote:
+        &gt; Of course, incorperating interactive functionality in command output
+        &gt; (i.e. changing the bug target from the bug-show page), doesn't fit
+        &gt; into this model.  To do that, we'd have to abstract the default
+        &gt; command output the way we've already abstracted the commands and their
+        &gt; input...
+
+        Does anyone know of any output-abstraction implementations to look at
+        for inspiration.
+        * How would we handle the options we currently pass through
+        (shortlist, show_comments, etc.)?
+        * Would standard arguments know how to display themselves?
+        class Status (Argument):
+        def str(self, ui, command, *args, **kwargs):
+        ui.display_status(self, command, *args, **kwargs)
+        class Bug (Argument):
+        def str(self, ui, command, *args, **kwargs):
+        ui.display_bug(self, command, *args, **kwargs)
+        ...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>3438b72c-6244-4f1d-8722-8c8d41484e35</uuid>
+    <short-name>bea/343</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 03 Jan 2010 16:23:42 +0000</created>
+    <summary>Attach tests to bugs</summary>
+    <comment>
+      <uuid>ba96f1c0-ba48-4df8-aaf0-4e3a3144fc46</uuid>
+      <short-name>bea/343/ba9</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 03 Jan 2010 16:32:13 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        It would be nice if we could store tests.
+        .be/BUGDIR/tests/...
+        and link them from bugs.
+
+        Then running
+        test.py BUGDIR/BUG
+        would run the tests for that particular bug.
+
+        This would provide regression testing via
+        test.py $(be list --ids --status fixed)
+      </body>
+    </comment>
+    <comment>
+      <uuid>e7d8343a-bd85-4359-bcda-bf0dc1e8177a</uuid>
+      <short-name>bea/343/e7d</short-name>
+      <in-reply-to>ba96f1c0-ba48-4df8-aaf0-4e3a3144fc46</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 31 Jan 2010 17:36:52 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; It would be nice if we could store tests.
+        &gt;   .be/BUGDIR/tests/...
+        &gt; and link them from bugs.
+
+        Better: have them be comments with a TEST tag.
+
+        The mime type could hint at the execution mechanism:
+        text/x-python
+        application/x-sh
+        ...
+
+        &gt; Then running
+        &gt;   test.py BUGDIR/BUG
+        &gt; would run the tests for that particular bug.
+        &gt;
+        &gt; This would provide regression testing via
+        &gt;   test.py $(be list --ids --status fixed)
+
+        This should be a 'test' command (libbe.command.test.Test), since
+        people will want to test bugs for their own projects, and out current
+        test.py is for testing BE specifically.  It should be
+        be test BUGDIR/BUG
+        be test $(be list --ids --status fixed)
+
+        We _should_ add be
+        test $(be list --ids --status fixed)
+        to test.py for regression testing.
+
+        This whole thing would make the fixed/closed distinction more clear,
+        since fixed bugs would get tests run and expect success, while closed
+        bugs' tests would be skipped.
+
+        Finally, if users are submitting tests on their own, it would be a
+        good idea to sandbox them, but a portable way for sandboxing scripts
+        sounds very complicated.  It would probably be easier to sandbox
+        python scripts, but I don't know what that would look like...
+
+        A work around would be to allow users to post tests, but not allow
+        them to set the TEST flag.  Then the bugdir maintainer could set the
+        flag themselves once they'd vetted the test.  Much uglier than
+        sandboxing, but also much more easily implemented.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>814e39c0-68ee-4165-9166-19e2aee9c07d</uuid>
+    <short-name>bea/814</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 03 Jan 2010 13:12:38 +0000</created>
+    <summary>Add Roundup-like flexibility</summary>
+    <comment>
+      <uuid>d463e2d9-6dcc-41a4-a6b2-647fb3bddf88</uuid>
+      <short-name>bea/814/d46</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 03 Jan 2010 14:16:55 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        The Roundup issue tracker
+        http://roundup.sourceforge.net/
+        has been around for a while, and provides a nice, flexible design
+        http://roundup.sourceforge.net/docs/design.html
+        What ideas from Roundup are worth incorperating in our setup?
+
+        Roundup's great strength is the flexibility of its data model and
+        range of generic support.  It's very easy to extend.  However, there
+        is only so far you can go with generic support.  Roundup lacks analogs
+        to the following Command subclasses (as far as I know):
+        Diff
+        Has per-issue logs, but no repository-wide summary
+        Merge
+        Commit
+        No VCS backends, see http://issues.roundup-tracker.org/issue2550547
+        Import_xml
+        Serve
+        Has HTML server, but no remote command-line access
+        Of course, none of these would be particularly hard to add to Roundup,
+        with the possible exception of VCS backends, which appears to be
+        in-progress anyway.  However, I really like the simplicity of
+        `be init`
+        and the ability to postpone repository customization until you need
+        it.  So, can we trim down the BE internals to make BE more extensible
+        without sacrificing our nice default setup and its tools?  The problem
+        is, how to the commands do their thing if they don't know what they're
+        working with?
+
+        Say, for example, I want to run `be depend bugA bugB`, but my bugs
+        don't have blocks or blocked_by link properties.  That could be easily
+        handled by having each command would have to keep track of which
+        properties it needed and raise appropriate exceptions.
+
+        List, Show, Import_xml, etc. would presumably use templates to define
+        their output/input formats.
+
+        As far as postponed customization goes, it would be easy enough to
+        duplicate Roundup's schema.py and provide a default schema.py for
+        bugtracking.  This would improve our current system by keeping all the
+        configurable bits under version control from the start (equivalent to
+        setting _versioned_property(require_save=True) for all properties).
+
+        Another part of the difference between BE and Roundup seems to be due
+        to the initial backend selection.  Roundup is built on databases,
+        which encourages their keyed-Class approach with (property, value)
+        pairs of predefined types.  They use Classes for everything, down to
+        status values, etc., while we've built those sorts of things into
+        _versioned_property()s.
+        Benefits of Roundup approach:
+        * easy to configure/alter/retrieve list of allowed values
+        * no need to hard-code properties or resort to extra_strings
+        * assigned values are actually links to centralized definitions
+        - easy updates
+        Benefits of BE approach:
+        * single file for all properties
+        - one read and you're done
+        - many file systems don't handle 'lots of tiny files' well
+        * assigned values are actual values, not links to centralized defs.
+        - easy to merge by hand, no need to look up references.
+        Since it would be fairly simple to add a merging tool that handled the
+        reference lookup transparently, we can move to a Roundup-like Class
+        structure by using our current mapfile implementation to store small
+        Classes.
+
+        Finally, would it be easier to merge these Roundup features into BE,
+        or merge the BE features into Roundup...
+      </body>
+    </comment>
+    <comment>
+      <uuid>17d045d1-3b21-4d3d-8f81-29a5bbc5e6c1</uuid>
+      <short-name>bea/814/17d</short-name>
+      <in-reply-to>d463e2d9-6dcc-41a4-a6b2-647fb3bddf88</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 03 Jan 2010 16:02:57 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; Roundup's great strength is the flexibility of its data model and
+        &gt; range of generic support.  It's very easy to extend...
+        &gt; ...
+        &gt; As far as postponed customization goes, it would be easy enough to
+        &gt; duplicate Roundup's schema.py and provide a default schema.py for
+        &gt; bugtracking.  This would improve our current system by keeping all the
+        &gt; configurable bits under version control from the start (equivalent to
+        &gt; setting _versioned_property(require_save=True) for all properties).
+
+        How will we handle diffs between with revisions with different
+        schema.py?  This re-raises #bea86499-824e-4e77-b085-2d581fa9ccab/ed5eac05-80ed-411d-88a4-d2261b879713/c664b7be-ded5-42dd-a16a-82b2bdb52e36# (#bea86499-824e-4e77-b085-2d581fa9ccab/1100c966-9671-4bc6-8b68-6d408a910da1/bd1207ef-f97e-4078-8c5d-046072012082#), but we
+        _expect_ schema.py to evolve, while before we had expected on-disk
+        versions to stabilize.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>52a15454-196c-4990-b55d-be2e37d575c3</uuid>
+    <short-name>bea/52a</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 07 Feb 2009 21:32:51 +0000</created>
+    <summary>Fix the overflow problem in the comments.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>81f69fbd-1ca5-4f89-a6e1-79ea1e6bf4d9</uuid>
+    <short-name>bea/81f</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Mon, 02 Feb 2009 01:12:37 +0000</created>
+    <summary>The CherryPy server seems to drop connections randomly.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>dd7aa57c-f184-495a-8520-2676c1066fb4</uuid>
+    <short-name>bea/dd7</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Mon, 02 Feb 2009 01:11:47 +0000</created>
+    <summary>The external pane sometimes loads in the wrong place.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>24aab4bf-b525-48d6-9666-626e3ddcecf7</uuid>
+      <short-name>bea/dd7/24a</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sat, 07 Feb 2009 18:36:56 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>I think I just need to adjust the wrapper width.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>04edb940-06dd-4ded-8697-156d54a1d875</uuid>
+    <short-name>bea/04e</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Mon, 02 Feb 2009 00:38:49 +0000</created>
+    <summary>Assignee default selection is broken if two people have the same name but different emails.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>e3389187-1e84-43d5-b40b-26f53090edff</uuid>
+      <short-name>bea/04e/e33</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Mon, 02 Feb 2009 00:39:43 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>The problem is the jQuery selector... I need to escape something special but I'm not sure what.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>ac72991a-72e5-4b14-b53c-0fa38d0f31bb</uuid>
+    <short-name>bea/ac7</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sun, 01 Feb 2009 23:59:17 +0000</created>
+    <summary>The bug editing/comment forms break the rhythm.</summary>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>0be47243-c172-4de9-b71b-d5dea60f91d5</uuid>
+    <short-name>bea/0be</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sun, 01 Feb 2009 21:26:49 +0000</created>
+    <summary>Fix the null creation date bug.  See bug ee6 in the BE repo for an example that breaks things.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>cfb52b6c-d1a6-4018-a255-27cc1c878193</uuid>
+    <short-name>bea/cfb</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sun, 01 Feb 2009 21:15:35 +0000</created>
+    <summary>Change the write operations to be inline/AJAJ operations.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>9bc14860-b2bb-4442-85ea-0b8e7083457b</uuid>
+    <short-name>bea/9bc</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 05:18:56 +0000</created>
+    <summary>Create a project page.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>615ad650-9fb9-4026-9779-58d42b4e528e</uuid>
+    <short-name>bea/615</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 03:07:32 +0000</created>
+    <summary>Figure out how to best fix the column widths.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>700cd3f1-70b6-4887-89a2-c1d039732add</uuid>
+    <short-name>bea/700</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 03:00:35 +0000</created>
+    <summary>Implement pagination.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>63619cf7-89eb-4e64-91e9-b8a73d2a6c72</uuid>
+    <short-name>bea/636</short-name>
+    <severity>minor</severity>
+    <status>open</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 02:59:11 +0000</created>
+    <summary>Implement sorting.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>16989098-aa1d-4a08-bff9-80446b4a82c5</uuid>
+    <short-name>bea/169</short-name>
+    <severity>wishlist</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Thu, 28 Jan 2010 23:10:48 +0000</created>
+    <summary>Generating per-bugdir/bug/comment change logs</summary>
+    <comment>
+      <uuid>85770405-0ead-4044-a3cf-082615ff1b6f</uuid>
+      <short-name>bea/169/857</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 29 Jan 2010 01:12:54 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        This is an outgrowth of #bea86499-824e-4e77-b085-2d581fa9ccab/1100c966-9671-4bc6-8b68-6d408a910da1/bd1207ef-f97e-4078-8c5d-046072012082#:
+        &gt; All of this makes me wonder how much we care about being able to
+        &gt; see bug diffs for any repository format older than the current one.
+        &gt; I think that we don't really care ;).  After all, the on-disk
+        &gt; format should settle down as BE matures :p.  When you _do_ want
+        &gt; to see the long-term history of a particular bug, there's always
+        &gt;   bzr log .be/123/bugs/456/values
+        &gt; or the equivalent for your VCS.  If access to the raw log ends
+        &gt; up being important, it should be very easy to add
+        &gt;   libbe.storage.base.VersionedStorage.log(id)
+        &gt;   libbe.command.log
+
+        Access to the (parsed) logs will be important for pretty-printing
+        bugdir/bug/comment change logs.  Since we do version the bug
+        repository, users will expect us to be able to list the history for
+        any particular item (e.g. for "last activity" timestamps, automatic
+        reminder emails, whatever).  While it does not necessarily need to be
+        able to delve into old storage formats, it does need to get
+        implemented.  It's probably worth encapsulating changes in something
+        like a list of Diff() objects, although it might be worth linking
+        along bug lines, etc., like VCS annotation.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>9c25fd46-5e2b-478f-8beb-01b89e27c1f2</uuid>
+    <short-name>bea/9c2</short-name>
+    <severity>wishlist</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Thu, 28 Jan 2010 15:36:16 +0000</created>
+    <summary>Can comment punt functionality to email.Message?</summary>
+    <comment>
+      <uuid>7cd2d475-676f-4d60-b431-c7635468e9bd</uuid>
+      <short-name>bea/9c2/7cd</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 28 Jan 2010 15:41:07 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        The comment class could be streamlined and standardized by making it
+        subclass (Tree, email.Message).  This should make the per-bug, mini
+        mailing list more expressive, and add support for fancy email
+        features.  On the other hand, it could make the Comment/xml interface,
+        HTML production, etc. more awkward.
+
+        Time for another look at Debian's tracker, or do they only allow
+        text/plain, single-part messages?
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>7cb42a60-c977-40db-b2a1-19917c10cace</uuid>
+    <short-name>bea/7cb</short-name>
+    <severity>wishlist</severity>
+    <status>open</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sat, 23 Jan 2010 18:49:03 +0000</created>
+    <summary>`be list --this-version` listing bugs affecting your version of BE</summary>
+    <comment>
+      <uuid>a555d577-7f8c-49f2-96f6-263ce5fdff8e</uuid>
+      <short-name>bea/7cb/a55</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 23 Jan 2010 18:59:03 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Usage case:
+        * User A installs version 1.0 which contains bug /abc.
+        * Development continues, fixing bug /abc.
+        * User A wants to see which bugs affect their version, and query the
+        main bug repository.
+        $ be --repo http://bugseverywhere.org/bugs list --this-version
+        bea/abc:om: Whatsit not implemented.
+        $ be --repo http://bugseverywhere.org/bugs show bea/abc
+        ID : abc...
+        Short name : bea/abc
+        Severity : minor
+        Status : fixed
+        ...
+        Whatsit not implemented.
+        --------- Comment ---------
+        Name: bea/abc/def
+        From: ...
+        Date: Sat, 23 Jan 2010 14:00 ...
+
+        Whatsit implemented.
+        "Aha!", says the user, "I need to upgrade to a version of BE
+        that's more recent than 2010/01/23 to get Whatsit functionality."
+      </body>
+    </comment>
+    <comment>
+      <uuid>d533d72f-2365-4309-a2bb-6bae269235fe</uuid>
+      <short-name>bea/7cb/d53</short-name>
+      <in-reply-to>a555d577-7f8c-49f2-96f6-263ce5fdff8e</in-reply-to>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 15 Jul 2010 12:08:54 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        This would require snapshotting the current BE bugdir on
+        packaging/installation.  Easy enough to do, but usage should probably be
+        be --repo INSTALLED
+        or
+        be --installed
+        to load the snapshot bugdir.
+
+        I'm not sure if we actually want to do this, so I'm demoting the issue
+        to wishlist.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>da2b09ff-af24-40f3-9b8d-6ffaa5f41164</uuid>
+    <short-name>bea/da2</short-name>
+    <severity>wishlist</severity>
+    <status>open</status>
+    <reporter>Gianluca Montecchi &lt;gian@grys.it&gt;</reporter>
+    <creator>Gianluca Montecchi &lt;gian@grys.it&gt;</creator>
+    <created>Tue, 04 Aug 2009 21:15:52 +0000</created>
+    <summary>Add an icon near the status string in "be html" output</summary>
+  </bug>
+  <bug>
+    <uuid>52034fd0-ec50-424d-b25d-2beaf2d2c317</uuid>
+    <short-name>bea/520</short-name>
+    <severity>wishlist</severity>
+    <status>open</status>
+    <reporter>Martin F Krafft &lt;madduck@debian.org&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Fri, 24 Jul 2009 12:04:08 +0000</created>
+    <summary>Allow autocommit option for command line interface?</summary>
+    <extra-string>BLOCKED-BY:5fb11e65-68a0-4015-b404-737238299cdc</extra-string>
+    <comment>
+      <uuid>b17a561a-6100-490e-84eb-d1ae4b617940</uuid>
+      <short-name>bea/520/b17</short-name>
+      <author>Martin F Krafft &lt;madduck@debian.org&gt;</author>
+      <date>Fri, 24 Jul 2009 12:09:02 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        ...
+        Also, why doesn't be commit after it takes an action? I think it's
+        kinda weird that I have to commit after creating a new bug.
+        ...
+
+        as posted in
+        http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=477125
+        on
+        Fri, 12 Jun 2009 17:03:02 +0200
+      </body>
+    </comment>
+    <comment>
+      <uuid>4c50ca0b-a08f-4723-b00d-4bf342cf86b6</uuid>
+      <short-name>bea/520/4c5</short-name>
+      <in-reply-to>b17a561a-6100-490e-84eb-d1ae4b617940</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 24 Jul 2009 12:33:58 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        I'm all for flexibility, so long as it doesn't require too much
+        hackery to implement it.  You'll have two problems:
+
+        * Determining what to commit.
+
+        You'd have to have RCS keep a log of all versioned files it
+        touched, and extend .commit() to accept the keyword list "files"
+        and commit only those files.  This is doable, but maybe not worth
+        the trouble.
+
+        * Generating meaningful commit messages.
+
+        You'd have to add this functionality to each command (and future
+        commands).
+
+        This would probably not be a good idea for the Arch and Mercurial
+        backends, since they have a limited ability to rewrite history when
+        you screw up your commit message (as far as I can tell).  Mercurial
+        does have "hg rollback", but it only works once, and lots of
+        typo-correction commits would just make the logs awkward.
+      </body>
+    </comment>
+    <comment>
+      <uuid>79fb6ef2-176c-45c0-b898-59c3c3e0aafe</uuid>
+      <short-name>bea/520/79f</short-name>
+      <in-reply-to>4c50ca0b-a08f-4723-b00d-4bf342cf86b6</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 06 Dec 2009 21:45:15 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt;   * Determining what to commit.
+        &gt;
+        &gt;     You'd have to have RCS keep a log of all versioned files it
+        &gt;     touched, and extend .commit() to accept the keyword list "files"
+        &gt;     and commit only those files.  This is doable, but maybe not worth
+        &gt;     the trouble.
+
+        On the other hand, just attemting to commit everything after each
+        command would make it nice and easy to commit bug fixes:
+        be --auto-commit status XYZ fixed
+        which would commit whatever changes you had outstanding with an
+        appropriate commit message.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>77399855-6300-41a8-91a3-decbb915a3ff</uuid>
+    <short-name>bea/773</short-name>
+    <severity>target</severity>
+    <status>open</status>
+    <created>Thu, 24 Jun 2010 22:19:20 +0000</created>
+    <summary>1.0</summary>
+    <extra-string>BLOCKED-BY:27549110-e491-4651-81ab-84de2ed8e14a</extra-string>
+  </bug>
+  <bug>
+    <uuid>76a6140e-0800-453c-9720-29cc161663d1</uuid>
+    <short-name>bea/76a</short-name>
+    <severity>target</severity>
+    <status>open</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 06 Dec 2009 07:14:32 +0000</created>
+    <summary>beta</summary>
+    <extra-string>BLOCKED-BY:04edb940-06dd-4ded-8697-156d54a1d875</extra-string>
+    <extra-string>BLOCKED-BY:0a234f51-2fdf-4001-a04f-b7e02c2fa47b</extra-string>
+    <extra-string>BLOCKED-BY:0be47243-c172-4de9-b71b-d5dea60f91d5</extra-string>
+    <extra-string>BLOCKED-BY:24555ea1-76b5-40a8-918f-115a28f5f36a</extra-string>
+    <extra-string>BLOCKED-BY:312fb152-0155-45c1-9d4d-f49dd5816fbb</extra-string>
+    <extra-string>BLOCKED-BY:52a15454-196c-4990-b55d-be2e37d575c3</extra-string>
+    <extra-string>BLOCKED-BY:615ad650-9fb9-4026-9779-58d42b4e528e</extra-string>
+    <extra-string>BLOCKED-BY:63619cf7-89eb-4e64-91e9-b8a73d2a6c72</extra-string>
+    <extra-string>BLOCKED-BY:700cd3f1-70b6-4887-89a2-c1d039732add</extra-string>
+    <extra-string>BLOCKED-BY:81f69fbd-1ca5-4f89-a6e1-79ea1e6bf4d9</extra-string>
+    <extra-string>BLOCKED-BY:866cba32-4347-4f51-9b1d-69454638ca78</extra-string>
+    <extra-string>BLOCKED-BY:9bc14860-b2bb-4442-85ea-0b8e7083457b</extra-string>
+    <extra-string>BLOCKED-BY:cfb52b6c-d1a6-4018-a255-27cc1c878193</extra-string>
+    <extra-string>BLOCKED-BY:dd7aa57c-f184-495a-8520-2676c1066fb4</extra-string>
+    <extra-string>BLOCKED-BY:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>171819aa-c092-4ddf-ace3-797635fa2572</uuid>
+    <short-name>bea/171</short-name>
+    <severity>fatal</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Fri, 30 Jan 2009 03:16:26 +0000</created>
+    <summary>Get a basic template mocked up for the list page.  Go further from there.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>cf56e648-3b09-4131-8847-02dff12b4db2</uuid>
+    <short-name>bea/cf5</short-name>
+    <severity>critical</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Fri, 27 Jan 2006 14:37:25 +0000</created>
+    <summary>OK, maybe not fatal, but how about a new name that suggests process tracking, not just bugs?</summary>
+    <comment>
+      <uuid>0e5fab2a-66eb-4f7d-979f-b50181f604d4</uuid>
+      <short-name>bea/cf5/0e5</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 19:48:44 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From Aaron's Mon, 24 Nov 2008 19:15:09 -0500 email
+
+        cf5:oc: OK, maybe not fatal, but how about a new name that suggests
+        process tracking, not just bugs?
+
+        If you can come with a better name, that would be great.  But naming an
+        issue tracker for its bug-tracking features isn't a terrible idea.
+      </body>
+    </comment>
+    <comment>
+      <uuid>f05359f6-1bfc-4aa6-9a6d-673516bc0f94</uuid>
+      <short-name>bea/cf5/f05</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 15 Nov 2008 23:56:51 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>I dunno, bugs everywhere is such a great mental image... ;)</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>6eb8141f-b0b1-4d5b-b4e6-d0860d844ada</uuid>
+    <short-name>bea/6eb</short-name>
+    <severity>serious</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Fri, 27 Jan 2006 14:29:51 +0000</created>
+    <summary>On a new bug, if I add or edit a comment, then click "Update", the Summary goes missing.</summary>
+    <comment>
+      <uuid>f2011471-56cb-46e2-813b-1ac336ee7bbc</uuid>
+      <short-name>bea/6eb/f20</short-name>
+      <author>abentley</author>
+      <date>Fri, 27 Jan 2006 14:30:26 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>    On a new bug, if I add comment then click "Update", the Summary goes missing!</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>c894f10f-197d-4b22-9c5b-19f394df40d4</uuid>
+    <short-name>bea/c89</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sat, 22 Nov 2008 21:36:06 +0000</created>
+    <summary>Allow user id to be cached in settings for duplicate bugdirs</summary>
+    <comment>
+      <uuid>208595bd-35b8-44c2-bf97-fc5ef9e7a58d</uuid>
+      <short-name>bea/c89/208</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 22 Nov 2008 21:43:29 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Example:
+
+        We're working happily in a versioned bugdir, and our RCS knows who we
+        are.  We create a temporary repository copy from a previous revision
+        for diff generation.  We set the RCS for the copy to "None", since we
+        didn't bother initializing our normal RCS in the snapshot copy.  But
+        now the BugDir instantized on the copy doesn't know who we are!
+
+        Solution:
+
+        Track user id in the bugdir settings file.  If you
+        bugdir.settings["user_id"], it will be saved and loaded.  When loaded,
+        it will also set bugdir.user_id.  If you set rcs.user_id, it will be
+        returned by rcs.get_user_id(), instead of returing the output of
+        rcs._rcs_get_user_id().  We should be caching the output of
+        _rcs_get_user_id() anyway.
+      </body>
+    </comment>
+    <comment>
+      <uuid>7dfdf230-231b-43e0-9b46-58d4d18eded1</uuid>
+      <short-name>bea/c89/7df</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Tue, 25 Nov 2008 02:24:05 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged into bug a403de79-8f39-41f2-b9ec-15053b175ee2</body>
+    </comment>
+    <comment>
+      <uuid>25c67b0b-1afd-4613-a787-e0f018614966</uuid>
+      <short-name>bea/c89/25c</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 23 Nov 2008 12:37:57 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>This bug duplicates a403de79-8f39-41f2-b9ec-15053b175ee2</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>9ce2f015-8ea0-43a5-a03d-fc36f6d202fe</uuid>
+    <short-name>bea/9ce</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Thu, 14 Sep 2006 18:08:53 +0000</created>
+    <summary>Add last-modified field to bugs</summary>
+    <comment>
+      <uuid>d81d0df9-e6d9-4fe8-8dbe-989ef2c81f00</uuid>
+      <short-name>bea/9ce/d81</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 19:43:21 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        User specfied sort added, along with bug.cmp_last_modified.
+
+        Hmm, perhaps you don't want the last comment date, but e.g. the last
+        time one of the bug attributes are changed.  In that case, I suggest
+        bzr log .be/bugs/9ce2f015-8ea0-43a5-a03d-fc36f6d202fe/
+
+        Maybe log(file) functionality should be incorperated into libbe/rcs...
+        Perhaps accessed through a --history.  I'm not sure I remember enough
+        Arch to do that ;).
+      </body>
+    </comment>
+    <comment>
+      <uuid>4be35966-373b-438c-a35a-824f5c7a940a</uuid>
+      <short-name>bea/9ce/4be</short-name>
+      <in-reply-to>d81d0df9-e6d9-4fe8-8dbe-989ef2c81f00</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 21:12:00 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        No need for RCS-expansion for the history.  If the user is versioning
+        their code with some RCS, they presumably know how to use the RCS to
+        investigate the history already.  The .be/ directory structure is not
+        so complicated that it's worth much work to avoid their having to peer
+        inside it by hand.
+
+        In rare cases where people really do want to peer into history using
+        only BE or sort by e.g. bug closing time, they could add those
+        comments by hand, e.g.
+        $ echo 'bug closed' | be comment &lt;bug&gt; -
+        $ be close &lt;bug&gt;
+        So the already-implemented cmp_last_modified would handle it.
+
+        If you want, you could add (optional) comment-generation to the
+        becommands themselves.  For example becommand/merge.py already does
+        this.
+      </body>
+    </comment>
+    <comment>
+      <uuid>095ade7c-9378-41bd-8137-f2731c6afcac</uuid>
+      <short-name>bea/9ce/095</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 18:40:43 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Presumably this would be to allow sorting of bugs by last-modified
+        date instead of by creation date.  With the xml output, this is no
+        longer needed.  For example, I view bugs in mutt with
+        $ be list | xml/be-xml-to-mbox | xml/catmutt
+        and use mutt to sort the threads by last-modified, e.g. by adding
+        set sort=threads
+        set sort_aux=last-date
+        to my ~/.muttrc.
+
+        That being said, I could go for a user-specified sort command in
+        becommands/list.py, rather than the current bug.cmp_full, since other
+        mail readers may suck more than mutt ;), and even mutt might not have
+        that perfect sort you desire coded into it :p.  The problem is that
+        while the cmp_* functions in bug are short, they are not really the
+        sort of thing you'd want to type in on the command line.  Perhaps we
+        can just slowly accumulate a rich array of bug.cmp_* functions as
+        they are requested, and allow the user to prepend their favorites to
+        the default cmp_full list...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>597a7386-643f-4559-8dc4-6871924229b6</uuid>
+    <short-name>bea/597a</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Thu, 06 Apr 2006 16:52:46 +0000</created>
+    <summary>RST test</summary>
+    <comment>
+      <uuid>eff20807-07f0-444d-8992-f69ab3f526c5</uuid>
+      <short-name>bea/597a/eff</short-name>
+      <author>abentley</author>
+      <date>Thu, 06 Apr 2006 16:54:57 +0000</date>
+      <content-type>text/restructured</content-type>
+      <body>
+        This is an *rst* comment.
+
+        Which means newlines don't matter, except when they gang up.
+
+
+
+        lala
+
+
+
+        - Bullet
+
+        - Bullet
+      </body>
+    </comment>
+    <comment>
+      <uuid>8015d736-f3ea-4085-940c-552c01a287ef</uuid>
+      <short-name>bea/597a/801</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 13:35:42 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged into bug 09f84059-fc8e-4954-b24d-a2b33ef21bf4</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>09f84059-fc8e-4954-b24d-a2b33ef21bf4</uuid>
+    <short-name>bea/09f</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Thu, 06 Apr 2006 16:45:52 +0000</created>
+    <summary>Support RST</summary>
+    <comment>
+      <uuid>2bb9163c-a2c4-4301-aff5-385f58a14301</uuid>
+      <short-name>bea/09f/2bb</short-name>
+      <author>abentley</author>
+      <date>Thu, 06 Apr 2006 16:47:25 +0000</date>
+      <content-type>text/rst</content-type>
+      <body>Add *support*, damnit!</body>
+    </comment>
+    <comment>
+      <uuid>144c238c-75d1-40f1-82c1-647668bcf2bc</uuid>
+      <short-name>bea/09f/144</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 13:35:41 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged from bug 597a7386-643f-4559-8dc4-6871924229b6</body>
+    </comment>
+    <comment>
+      <uuid>eff20807-07f0-444d-8992-f69ab3f526c5</uuid>
+      <short-name>bea/09f/eff</short-name>
+      <in-reply-to>144c238c-75d1-40f1-82c1-647668bcf2bc</in-reply-to>
+      <author>abentley</author>
+      <date>Thu, 06 Apr 2006 16:54:57 +0000</date>
+      <content-type>text/restructured</content-type>
+      <body>
+        This is an *rst* comment.
+
+        Which means newlines don't matter, except when they gang up.
+
+
+
+        lala
+
+
+
+        - Bullet
+
+        - Bullet
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>4a4609c8-1882-47de-9d30-fee410b8a802</uuid>
+    <short-name>bea/4a4</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 23:14:07 +0000</created>
+    <summary>Do we need a severity between serious and minor? EG "Moderate"?</summary>
+    <comment>
+      <uuid>942cd941-583d-4020-99e4-80de7e836129</uuid>
+      <short-name>bea/4a4/942</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 15:42:07 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Implemented.</body>
+    </comment>
+    <comment>
+      <uuid>0ac3c4cb-90e3-4b67-b6cb-1186d5d66240</uuid>
+      <short-name>bea/4a4/0ac</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 17:05:50 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged into bug ae998b27-a11b-4243-abf6-11841e5b8242</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>8e948522-c6a1-4c97-af93-2cf4090f44b5</uuid>
+    <short-name>bea/8e9</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 15:44:18 +0000</created>
+    <summary>list X most recent entries</summary>
+    <comment>
+      <uuid>7d7e703f-22f2-4c47-86a3-fcc3c8ead576</uuid>
+      <short-name>bea/8e9/7d7</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 24 Nov 2008 13:10:38 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Would you do this instead of `be diff`?</body>
+    </comment>
+    <comment>
+      <uuid>3e7144eb-c934-4b62-94b7-7dbfa90ed6ee</uuid>
+      <short-name>bea/8e9/3e7</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 19:46:45 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From Aaron's Mon, 24 Nov 2008 19:15:09 -0500 email:
+
+        8e9:om: list X most recent entries
+        Closeable.  (And yes, I would do it instead of 'be diff')
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>9a942b1d-a3b5-441d-8aef-b844700e1efa</uuid>
+    <short-name>bea/9a9</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 15:43:59 +0000</created>
+    <summary>Provide search</summary>
+    <comment>
+      <uuid>37650981-1908-4c39-bae2-48e69c771120</uuid>
+      <short-name>bea/9a9/376</short-name>
+      <author>abentley</author>
+      <date>Fri, 31 Mar 2006 22:15:09 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Hmm.  This is already done...</body>
+    </comment>
+    <comment>
+      <uuid>209e2a60-ddd0-4a71-90ef-e57547ed6d76</uuid>
+      <short-name>bea/9a9/209</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 18:05:38 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From the command line,
+        $ be show `be list --status all --uuids` | grep -A5 -B5 XYZ
+        works pretty well...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>576e804a-8b76-4876-8e9d-d7a72b0aef10</uuid>
+    <short-name>bea/576</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 15:43:46 +0000</created>
+    <summary>Allow attachments</summary>
+    <comment>
+      <uuid>d83a5436-85e3-42c7-9a89-a6d50df9d279</uuid>
+      <short-name>bea/576/d83</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 19 Jun 2009 20:22:19 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        I've added comments-from-stdin, so we can add tracebacks, e.g. with
+
+        $ be list --invalid-option | be comment &lt;bug-id&gt; -
+      </body>
+    </comment>
+    <comment>
+      <uuid>c454aa67-ca30-43e8-9be4-58cbddd01b63</uuid>
+      <short-name>bea/576/c45</short-name>
+      <in-reply-to>d83a5436-85e3-42c7-9a89-a6d50df9d279</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:03:27 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Excerpt from my mail to the list on Sat, 20 Jun 2009 21:55:54 -0400:
+
+        On Mon, Nov 24, 2008 at 07:15:08PM -0500, Aaron Bentley wrote:
+        &gt; 576:om: Allow attachments
+        &gt; Sensible.
+
+        I'm not as convinced they are a good idea as I once was.  I've just
+        added comments-from-stdin, e.g.
+        some-invalid-command | be comment &lt;bug-id&gt; -
+        Which is mostly what I'd be using attachments for anyway.  If you
+        really want to support the attachments/mime-types etc. like we had
+        maybe been leaning towards before, you'd need to look at the output of
+        `be show ...' with an email client, which seems a bit excessive.  Do
+        we even want mime types at all?  With the xml output a la Thomas, you
+        should be able to pipe into whatever sort of `viewer' you want, and it
+        doesn't end up being hardcoded into the main repo.
+
+
+        Notes since my email:
+
+        be-&gt;xml-&gt;mutt has since been implemented, and it preserves comment
+        mime-type.  This allows those that want to go crazy to attach whatever
+        they want to their comments:
+
+        $ echo "&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Hello world&lt;/body&gt;&lt;/html&gt;" | be comment --content-type text/html 576:2 -
+
+        I think non-text attachments without a browser/mail-viewer don't make
+        sense, so I'm closing this bug.  Feel free to keep it open in your own
+        repo, or argue with me on the list ;).
+      </body>
+    </comment>
+    <comment>
+      <uuid>72dab0c4-f04d-4ff0-9319-f55aafaea627</uuid>
+      <short-name>bea/576/72d</short-name>
+      <in-reply-to>c454aa67-ca30-43e8-9be4-58cbddd01b63</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:05:00 +0000</date>
+      <content-type>text/html</content-type>
+      <body>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Hello world&lt;/body&gt;&lt;/html&gt;</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>f70dd5df-805b-49f3-a9ce-12e0fae63365</uuid>
+    <short-name>bea/f70</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 15:43:19 +0000</created>
+    <summary>Allow different sorts</summary>
+    <comment>
+      <uuid>24903c62-f441-496e-9dcf-17e7a581df33</uuid>
+      <short-name>bea/f70/249</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 17:20:20 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Aaron said this was closeable in Nov. 24th email to the BE list.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>62a74b85-0d4b-49f5-8794-74bafd871cd4</uuid>
+    <short-name>bea/62a</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 25 Jan 2006 15:18:58 +0000</created>
+    <summary>Indicate presence of Comments</summary>
+  </bug>
+  <bug>
+    <uuid>16fc9496-cdc2-4c6e-9b9f-b8f483b6dedb</uuid>
+    <short-name>bea/16f</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:09:30 +0000</created>
+    <summary>Arbitrary numerical priorities?</summary>
+    <comment>
+      <uuid>489397bd-b987-4a08-9589-c5b71661ebb7</uuid>
+      <short-name>bea/16f/489</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 17:16:11 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Aaron said this was closeable in Nov. 24th email to the BE list.
+
+        I think "priorities" == "bug severities", in which case this
+        functionality is now available with the per-tree severity
+        configuration.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>c76d7899-d495-4103-9355-012c0a6fece3</uuid>
+    <short-name>bea/c76</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:09:02 +0000</created>
+    <summary>Support 'issues', like todo, better</summary>
+    <comment>
+      <uuid>354dcfc6-5997-4ffe-b7a0-baa852213539</uuid>
+      <short-name>bea/c76/354</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:11:02 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        In Aaron's Mon, 24 Nov 2008 19:15:08 -0500 email, he adds:
+
+        Issue trackers should provide tracking of
+        1. bugs
+        2. feature requests
+        3. to-do items.
+      </body>
+    </comment>
+    <comment>
+      <uuid>22348320-40d3-422c-bdf0-0f6a6bde3fab</uuid>
+      <short-name>bea/c76/223</short-name>
+      <in-reply-to>354dcfc6-5997-4ffe-b7a0-baa852213539</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:12:35 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        In my Tue, 25 Nov 2008 08:30:19 -0500 email:
+
+        I thought feature requests would just have "wishlist" severity.  What
+        would be an example of a to-do item that is not a feature request or a
+        bug?
+      </body>
+    </comment>
+    <comment>
+      <uuid>f847c981-873e-41ae-b5ce-83dfe60b9afe</uuid>
+      <short-name>bea/c76/f84</short-name>
+      <in-reply-to>22348320-40d3-422c-bdf0-0f6a6bde3fab</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:14:26 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        In Aaron's Tue, 25 Nov 2008 09:32:29 -0500 email:
+
+        I think that approach doesn't give features the richness they need.
+        Features also have severities-- some features are important, and others
+        are just nice-to-have.  And there should be a way to list *only* bugs,
+        or *only* features.
+
+        In a bug tracker, "wishlist" is either an aberration, or it means a very
+        low severity.
+      </body>
+    </comment>
+    <comment>
+      <uuid>c129067c-2341-4e7a-92a6-2dcd30d3bbf5</uuid>
+      <short-name>bea/c76/c12</short-name>
+      <in-reply-to>f847c981-873e-41ae-b5ce-83dfe60b9afe</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:20:39 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        If you want more granularity than just `wishlist' what about the
+        `severities':
+        todo-critical
+        todo-minor
+        todo-...
+        Then get a list of available severities with
+        $ be list --help | grep -A1 '^severity'
+        severity
+        wishlist,minor,serious,critical,fatal,todo-critical,todo-minor
+        And show all the todos:
+        $ be list --severity todo-critical,todo-minor
+
+        You can configure all the severities you'd like with
+        $ be set severity wishlist,minor,...
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>7ec2c071-9630-42b0-b08a-9854616f9144</uuid>
+    <short-name>bea/7ec</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:06:38 +0000</created>
+    <summary>Arbitrary tags</summary>
+    <comment>
+      <uuid>401950a0-a5ff-46f3-afac-a9cfb300f94b</uuid>
+      <short-name>bea/7ec/401</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:39:39 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        In my Tue, 25 Nov 2008 08:30:19 -0500 email:
+
+        Implemented as a free-form value field similar to target?  A
+        comma-seperated list of tags?  Perhaps once we have per-bug/comment
+        attribute searching it would be easier to have a 'create-attribute'
+        becommand, e.g.
+        be create-attribute [-valid=X,Y,Z] [bugdir|bug|comment] [NAME] [DEFAULT]
+
+        We could ship some suggested configuration scripts to set people up,
+        and keep the core code more general/flexible.
+
+
+        Plan:
+
+        Extend and make more consitent the settings_property() attributes.
+        Create becommand/(create/remove)-attribute for logic-less attributes.
+        Create a few mix-ins for logic-ed attributes
+
+        Usage example:
+        Goal:
+        set up for `be depends BUGA BUGB`, `be depends --tree BUGA`, etc
+        Procedure:
+        be set --apend mixins bug:dependency
+        Where we've defined
+        becommands/depends.py, but it is hidden until the mixin is activated
+        libbe/mixins/bug/dependency.Mixin (inheriting from BugMixin)
+        to
+        parse/generate comma seperated dependency uuids for saving/loading
+        pretty-print the dependency list (e.g. uuid-&gt;shortname)
+        walk the dependency tree and check target bug status.
+
+        With more complicated mixins, there could be inter-mixin dependencies,
+        e.g. a dependency tracker that searches depends based on bug.status
+        might depend on the base dependency mixin.  This way people who need
+        it could make rich interfaces without confusing the people who don't.
+
+        How does that sound?
+      </body>
+    </comment>
+    <comment>
+      <uuid>ec133a4e-c9ff-4499-b469-cb0a2ca9a685</uuid>
+      <short-name>bea/7ec/ec1</short-name>
+      <in-reply-to>401950a0-a5ff-46f3-afac-a9cfb300f94b</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:40:54 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        In Aaron's Tue, 25 Nov 2008 09:32:29 -0500 email:
+
+        &gt;&gt; 7ec:om: Arbitrary tags
+        &gt;&gt; Sensible
+        &gt;
+        &gt; Implemented as a free-form value field similar to target?  A
+        &gt; comma-seperated list of tags?
+
+        I believe I planned to store it as an alpha-sorted, one-entry-per-line
+        list, so it would support merging easily.
+
+        &gt;  Perhaps once we have per-bug/comment
+        &gt; attribute searching it would be easier to have a 'create-attribute'
+        &gt; becommand, e.g.
+        &gt;   be create-attribute [-valid=X,Y,Z] [bugdir|bug|comment] [NAME] [DEFAULT]
+
+        Well, it really depends how much semantics you want to embed in the data
+        format.  Some values are scalars, some may be sets (i.e. tags), some may
+        be ordered lists or even mappings.  How much you want to reflect that in
+        the data format is up to you.
+
+        &gt; Extend and make more consitent the settings_property() attributes.
+        &gt; Create becommand/(create/remove)-attribute for logic-less attributes.
+        &gt; Create a few mix-ins for logic-ed attributes
+
+        I don't find the term mix-in very intuitive here.
+
+        &gt; Usage example:
+        &gt;   Goal:
+        &gt;     set up for `be depends BUGA BUGB`, `be depends --tree BUGA`, etc
+        &gt;   Procedure:
+        &gt;     be set --apend mixins bug:dependency
+
+        "append" usually has two "p"s.  Is the omission deliberate?
+
+        &gt;   Where we've defined
+        &gt;     becommands/depends.py, but it is hidden until the mixin is activated
+        &gt;     libbe/mixins/bug/dependency.Mixin (inheriting from BugMixin)
+        &gt;       to
+        &gt;       parse/generate comma seperated dependency uuids for saving/loading
+        &gt;       pretty-print the dependency list (e.g. uuid-&gt;shortname)
+        &gt;       walk the dependency tree and check target bug status.
+        &gt;
+        &gt; With more complicated mixins, there could be inter-mixin dependencies,
+        &gt; e.g. a dependency tracker that searches depends based on bug.status
+        &gt; might depend on the base dependency mixin.  This way people who need
+        &gt; it could make rich interfaces without confusing the people who don't.
+        &gt;
+        &gt; How does that sound?
+
+        It sounds pretty complicated.  I would probably use a type system rather
+        than "mixins", and define types as "scalar", "set" and maybe "list" and
+        "map".  Dependencies would be a set, and their special behaviour would
+        be hardcoded according to their name, not a property of their type.
+      </body>
+    </comment>
+    <comment>
+      <uuid>bb988ed4-d3d5-4e49-b67e-c7ccb8ae44d3</uuid>
+      <short-name>bea/7ec/bb9</short-name>
+      <in-reply-to>ec133a4e-c9ff-4499-b469-cb0a2ca9a685</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 20:42:12 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        From my Tue, 25 Nov 2008 13:27:12 -0500 email:
+
+        &gt; &gt;&gt; 7ec:om: Arbitrary tags
+        &gt; &gt;&gt; Sensible
+        &gt; &gt;
+        &gt; &gt; Implemented as a free-form value field similar to target?  A
+        &gt; &gt; comma-seperated list of tags?
+        &gt;
+
+        That is a much better format than my unmergable one ;).
+
+        &gt; "append" usually has two "p"s.  Is the omission deliberate?
+
+        Nope, sorry :p
+
+        &gt; It sounds pretty complicated.  I would probably use a type system rather
+        &gt; than "mixins", and define types as "scalar", "set" and maybe "list" and
+        &gt; "map".  Dependencies would be a set, and their special behaviour would
+        &gt; be hardcoded according to their name, not a property of their type.
+
+        Ok.  I'm just worried about bloat.  It's pretty easy to move things
+        around at the moment, but I'm worried that adding lots of attributes
+        with special code will start a slippery slope of trying to satisfy
+        everybody internally.  Then things start looking more like Arch, with
+        newbies scared off by the confusion.  I know the Arch people like the
+        power, but it took me several hours to figure out how to create a
+        repository ;).  Some people like bug dependencies, and some do not
+        e.g.
+        https://bugs.launchpad.net/malone/+bug/95419
+        http://trac.edgewall.org/ticket/31
+
+        From the *long* Trac post, you can see that this is divisive issue.
+
+        I would be in favor of emulating TracCrossReferences
+        (http://trac.edgewall.org/wiki/TracCrossReferences) in our core.  We
+        could have references and backlinks fields for bugs (and comments?).
+        But I'd rather not add blocking, etc.  However, having a seperate
+        plugin obviously doesn't work for some people ;).  We'd like to bundle
+        lots of functionality, but keep the core fairly clean and flexible.
+
+        Therefore, I'd like a way to put non-core implememtation code in a
+        seperate submod.  We already call our libbe code "plugins", and we're
+        extending the builtin BugDir, Bug, etc code, so I thought we'd call
+        the non-core submods mixins (see http://en.wikipedia.org/wiki/Mixin).
+
+        Anyhow, just my 2c.
+      </body>
+    </comment>
+    <comment>
+      <uuid>f87fd684-6af1-498d-98d5-f915bcee76a9</uuid>
+      <short-name>bea/7ec/f87</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 21:29:32 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged from bug 17921fbc-e7f0-4f31-8cdd-598e5ba7237b</body>
+    </comment>
+    <comment>
+      <uuid>6010e186-0260-44e5-8442-8df2269910ce</uuid>
+      <short-name>bea/7ec/601</short-name>
+      <in-reply-to>f87fd684-6af1-498d-98d5-f915bcee76a9</in-reply-to>
+      <author>abentley</author>
+      <date>Mon, 17 Apr 2006 20:59:15 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        It's tricky to say whether we should have dependencies or reverse dependencies
+        or both.
+
+        In the case where a bug is removed, normal dependencies mean that its
+        dependencies are erased from this system.
+      </body>
+    </comment>
+    <comment>
+      <uuid>c2b78df3-641a-4d4d-ba94-33b26eda6364</uuid>
+      <short-name>bea/7ec/c2b</short-name>
+      <in-reply-to>f87fd684-6af1-498d-98d5-f915bcee76a9</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 21:29:13 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        This could be implemented with an external frontend storing the
+        dependency data in arbitrary tags.
+      </body>
+    </comment>
+    <comment>
+      <uuid>80780fa9-69f8-438c-8fbf-5a702b3badc1</uuid>
+      <short-name>bea/7ec/807</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 25 Jun 2009 12:39:26 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Arbitrary tagging now supported via `be tag'.
+        Dependencies supported via `be depend'.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>cb56c990-a757-4aef-9888-a30918a7b3d7</uuid>
+    <short-name>bea/cb5</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:06:10 +0000</created>
+    <summary>Beweb: Stripey tables</summary>
+  </bug>
+  <bug>
+    <uuid>17921fbc-e7f0-4f31-8cdd-598e5ba7237b</uuid>
+    <short-name>bea/179</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:05:37 +0000</created>
+    <summary>Indicate bug dependencies</summary>
+    <comment>
+      <uuid>6010e186-0260-44e5-8442-8df2269910ce</uuid>
+      <short-name>bea/179/601</short-name>
+      <author>abentley</author>
+      <date>Mon, 17 Apr 2006 20:59:15 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        It's tricky to say whether we should have dependencies or reverse dependencies
+        or both.
+
+        In the case where a bug is removed, normal dependencies mean that its
+        dependencies are erased from this system.
+      </body>
+    </comment>
+    <comment>
+      <uuid>c2b78df3-641a-4d4d-ba94-33b26eda6364</uuid>
+      <short-name>bea/179/c2b</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 21:29:13 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        This could be implemented with an external frontend storing the
+        dependency data in arbitrary tags.
+      </body>
+    </comment>
+    <comment>
+      <uuid>c531727a-9d0f-486f-aa0e-d4d2f2236640</uuid>
+      <short-name>bea/179/c53</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 22 Jun 2009 21:29:33 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Merged into bug 7ec2c071-9630-42b0-b08a-9854616f9144</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>a63bd76a-cd43-4f97-88ba-2323546d4572</uuid>
+    <short-name>bea/a63</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Wed, 04 Jan 2006 21:05:20 +0000</created>
+    <summary>Beweb: New comment button should save any changes</summary>
+  </bug>
+  <bug>
+    <uuid>27bb8bc2-05c2-417a-9d09-928471380d7a</uuid>
+    <short-name>bea/27b</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Tue, 20 Dec 2005 19:37:03 +0000</created>
+    <summary>Are dates still a problem?</summary>
+  </bug>
+  <bug>
+    <uuid>b8d95763-1825-4e09-bf52-cbd884b916af</uuid>
+    <short-name>bea/b8d</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created>Thu, 07 Apr 2005 16:09:10 +0000</created>
+    <summary>support multi-rcs configurations</summary>
+    <comment>
+      <uuid>ae56365e-7a9c-4cc3-ba67-7addbeeeff49</uuid>
+      <short-name>bea/b8d/ae5</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 13:48:47 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Aaron said this was closeable in Nov. 24th email to the BE list.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>7d182ab9-9c0c-4b4f-885e-c5762d7a2437</uuid>
+    <short-name>bea/7d1</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>BEweb fails to set bug creation date</summary>
+  </bug>
+  <bug>
+    <uuid>b1bc6f39-8166-46c5-a724-4c4a3e1e7d74</uuid>
+    <short-name>bea/b1b</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Comments do not appear in web UI</summary>
+  </bug>
+  <bug>
+    <uuid>e0155831-499f-421a-ad02-cd15fc3fecf1</uuid>
+    <short-name>bea/e01</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>No way to commit/update from beweb</summary>
+  </bug>
+  <bug>
+    <uuid>0ca2d112-b5bb-4df1-8ac0-e46db6cdd442</uuid>
+    <short-name>bea/0ca2</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Organize list by target, and whether it's assigned to current be id</summary>
+  </bug>
+  <bug>
+    <uuid>ee681951-f254-43d3-a53a-1b36ae415d5c</uuid>
+    <short-name>bea/ee6</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Support rcs configuration</summary>
+    <extra-string>BLOCKS:4fc71206-4285-417f-8a3c-ed6fb31bbbda</extra-string>
+  </bug>
+  <bug>
+    <uuid>f65b680b-4309-43a2-ae2d-e65811c9d107</uuid>
+    <short-name>bea/f65</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>friendly name is created, but not used</summary>
+  </bug>
+  <bug>
+    <uuid>9f910ee0-ff0f-4fa3-b1e3-79a4118e48e9</uuid>
+    <short-name>bea/9f9</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>prevent collisions in different branches</summary>
+  </bug>
+  <bug>
+    <uuid>2aa60b34-2c8d-4f41-bb97-a57309523262</uuid>
+    <short-name>bea/2aa</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>implement message-change log</summary>
+    <comment>
+      <uuid>f21bec0d-cad0-44d2-a301-bfb11adce313</uuid>
+      <short-name>bea/2aa/f21</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 17:21:08 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Aaron said this was closeable in Nov. 24th email to the BE list.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>8cb9045c-7266-4c40-9a76-65f3c5d5bb60</uuid>
+    <short-name>bea/8cb</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 07 Feb 2009 17:27:48 +0000</created>
+    <summary>Refactor the web interface into its own file.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>d63d0bdd-e025-4f7c-9fcf-47a71de6d4d4</uuid>
+    <short-name>bea/d63</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sun, 01 Feb 2009 22:55:13 +0000</created>
+    <summary>Reset the state of the values when choosing "Discard Changes."</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>42716dc2-6201-4537-b5fd-e1280812a53d</uuid>
+    <short-name>bea/4271</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 05:17:45 +0000</created>
+    <summary>Document the packaging and install.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>35b962a0-a64a-4b5c-82c5-ea740e8a6322</uuid>
+    <short-name>bea/35b</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 05:17:34 +0000</created>
+    <summary>Document the code for the alpha release.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>870d5dbe-6449-4ec4-ae6f-e84bebadbce0</uuid>
+    <short-name>bea/870</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 05:17:08 +0000</created>
+    <summary>Refine graphic design for the alpha version.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>55e76f74-37fb-4254-8498-54b703ba54f6</uuid>
+    <short-name>bea/55e</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 03:01:09 +0000</created>
+    <summary>Fix the footer width.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>fd96c69d-6f78-4c0c-af6e-e01e9b8516d3</uuid>
+    <short-name>bea/fd9</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 03:00:08 +0000</created>
+    <summary>Implement adding comments.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>545311df-8c88-4504-9f83-11d7c5d8aa50</uuid>
+    <short-name>bea/545</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 02:59:54 +0000</created>
+    <summary>Implement bug updating (not comments).  Check on the whitespace of the summary field while you're at it.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>88d54d29-7312-4bb3-bc50-1970bdb2bb0e</uuid>
+      <short-name>bea/545/88d</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sun, 01 Feb 2009 22:49:29 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Apparently the summary can only be one line.  That makes the whitespace issue less relevant.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>bef126a0-27be-402f-84fa-85f6342c97c0</uuid>
+    <short-name>bea/bef</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 02:59:35 +0000</created>
+    <summary>Implement bug creation.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>528b2e84-a944-4628-a18f-cc1def1c7e16</uuid>
+    <short-name>bea/528</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 02:59:28 +0000</created>
+    <summary>Implement viewing of a single bug (with comments).</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>decc6e78-a3db-4cd3-ad23-2bf8ed77cb0d</uuid>
+    <short-name>bea/dec</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 02:58:44 +0000</created>
+    <summary>Implement the target filters.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>984472f6-98f5-48fc-b521-70a1e5f60614</uuid>
+    <short-name>bea/984</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 00:22:40 +0000</created>
+    <summary>Implement the status filters.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>4286c0f8-5703-4bc1-b256-414dc408f067</uuid>
+    <short-name>bea/428</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Sat, 31 Jan 2009 00:14:34 +0000</created>
+    <summary>Get the layout rhythm right.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>e645d562-6f84-4df2-b8ee-86ef42546c16</uuid>
+    <short-name>bea/e64</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Fri, 30 Jan 2009 03:19:19 +0000</created>
+    <summary>Package everything into something easy to download and use.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>d5ffa1c4-f435-4a9a-99f3-2a7bc3072051</uuid>
+      <short-name>bea/e64/d5f</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sat, 31 Jan 2009 06:00:40 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>This will not be incredibly easy.  It will require reworking of the repository roots.</body>
+    </comment>
+    <comment>
+      <uuid>aea21508-69c2-4d6b-ada1-4fbadac14c56</uuid>
+      <short-name>bea/e64/aea</short-name>
+      <in-reply-to>d5ffa1c4-f435-4a9a-99f3-2a7bc3072051</in-reply-to>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sat, 31 Jan 2009 06:31:12 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>I agree.  (Test message).</body>
+    </comment>
+    <comment>
+      <uuid>f1fd8249-ded3-4e3c-a6ef-967d0a0edcd9</uuid>
+      <short-name>bea/e64/f1f</short-name>
+      <author>Steve Losh &lt;steve@stevelosh.com&gt;</author>
+      <date>Sat, 31 Jan 2009 06:48:21 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        This is a comment.
+
+        With several lines.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>9daa72ee-0721-4f68-99ee-f06fec0b340e</uuid>
+    <short-name>bea/9da</short-name>
+    <severity>minor</severity>
+    <status>closed</status>
+    <assigned>abentley</assigned>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Organize list by whether it's assigned to the current target</summary>
+  </bug>
+  <bug>
+    <uuid>68ba7f0c-ca5f-4f49-a508-e39150c07e13</uuid>
+    <short-name>bea/68b</short-name>
+    <severity>wishlist</severity>
+    <status>closed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Support per-tree settings for severity, target, BE ids</summary>
+    <comment>
+      <uuid>be64734c-d9a8-4f6d-83eb-e9b6c9adc0bf</uuid>
+      <short-name>bea/68b/be6</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 04 Dec 2008 17:29:30 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Per-tree severity and target are now supported.
+
+        I'm not sure what Aaron meant be "BE ids".
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>4fc71206-4285-417f-8a3c-ed6fb31bbbda</uuid>
+    <short-name>bea/4fc</short-name>
+    <severity>target</severity>
+    <status>closed</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 06 Dec 2009 00:37:16 +0000</created>
+    <summary>patch-52</summary>
+    <extra-string>BLOCKED-BY:47c8fd5f-1f5a-4048-bef7-bb4c9a37c411</extra-string>
+    <extra-string>BLOCKED-BY:ee681951-f254-43d3-a53a-1b36ae415d5c</extra-string>
+    <extra-string>BLOCKS:bd0ebb56-fb46-45bc-af08-1e4a94e8ef3c</extra-string>
+  </bug>
+  <bug>
+    <uuid>f51dc5a7-37b7-4ce1-859a-b7cb58be6494</uuid>
+    <short-name>bea/f51</short-name>
+    <severity>fatal</severity>
+    <status>fixed</status>
+    <creator>Aaron Bentley</creator>
+    <created></created>
+    <summary>Can't create bugs</summary>
+    <extra-string>BLOCKS:47c8fd5f-1f5a-4048-bef7-bb4c9a37c411</extra-string>
+  </bug>
+  <bug>
+    <uuid>b3c6da51-3a30-42c9-8c75-587c7a1705c5</uuid>
+    <short-name>bea/b3c</short-name>
+    <severity>critical</severity>
+    <status>fixed</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 23 Nov 2008 13:48:01 +0000</created>
+    <summary>Slow be commands due to bugdir loading, go back to lazy bug loading.</summary>
+  </bug>
+  <bug>
+    <uuid>c7251ff9-24e4-402d-8d4e-605a78b9a91d</uuid>
+    <short-name>bea/c72</short-name>
+    <severity>critical</severity>
+    <status>fixed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Thu, 25 Jun 2009 21:41:02 +0000</created>
+    <summary>Document the installation.</summary>
+    <extra-string>BLOCKS:e23d7982-7e32-4c78-b62e-83ecc42b4cd7</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>109b09ce-663e-46e3-97b9-4707ec0a9540</uuid>
+      <short-name>bea/c72/109</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Tue, 21 Jul 2009 14:23:37 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>This seems to already have been done in the README.</body>
+    </comment>
+    <comment>
+      <uuid>07145a34-6c86-4eed-ac62-5ecd00193bc7</uuid>
+      <short-name>bea/c72/071</short-name>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 26 Jun 2010 19:38:51 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>Fixed with doc/http.txt.</body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>8e1bbda4-35b6-4579-849d-117b1596ee99</uuid>
+    <short-name>bea/8e1</short-name>
+    <severity>serious</severity>
+    <status>fixed</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Thu, 27 Nov 2008 13:39:25 +0000</created>
+    <summary>be &lt;cmmd&gt; &lt;argopt&gt; --options doesn't raise GetOptions</summary>
+    <comment>
+      <uuid>4d642e39-a8f3-41d8-93da-bea7e05ef9a6</uuid>
+      <short-name>bea/8e1/4d6</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 27 Nov 2008 14:26:18 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>A rough implemention is now sketched out in becommands/list.py</body>
+    </comment>
+    <comment>
+      <uuid>bf0c3752-6338-4919-93ba-4c9252945fb1</uuid>
+      <short-name>bea/8e1/bf0</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 27 Nov 2008 13:43:47 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        For example:
+        $ be list --status --options
+        File "/home/wking/bin/be", line 35, in &lt;module&gt;
+        sys.exit(cmdutil.execute(sys.argv[1], sys.argv[2:]))
+        File "/home/wking/lib/python2.5/site-packages/libbe/cmdutil.py", line 67, in execute
+        get_command(cmd).execute([a.decode(enc) for a in args])
+        File "/home/wking/lib/python2.5/site-packages/becommands/list.py", line 36, in execute
+        raise Exception, "parsed options"
+        Exception: parsed options
+
+        The reason for this is that --status takes an argument, so 'be list'
+        thinks it should list all the bugs with status == "--options".
+        Ideally what should happen is that an argument-taking option would
+        check for argument --options, and if so, would raise an exception
+        returning a list of appropriate completions *for that argument*.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>dac91856-cb6a-4f69-8c03-38ff0b29aab2</uuid>
+    <short-name>bea/dac</short-name>
+    <severity>serious</severity>
+    <status>fixed</status>
+    <creator>wking</creator>
+    <created>Mon, 17 Nov 2008 15:02:15 +0000</created>
+    <summary>BE not notifying git of some changed files</summary>
+    <comment>
+      <uuid>1182d8e6-5e87-4d0a-b271-c298c36bbc21</uuid>
+      <short-name>bea/dac/118</short-name>
+      <author>W. Trevor King &lt;wking@example.com&gt;</author>
+      <date>Wed, 19 Nov 2008 01:12:37 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Problem was due to
+        open-value-file
+        write-value-file
+        add/update-value-file
+        which should be (and now is)
+        open-value-file
+        write-value-file
+        close-value-file
+        add/update-value-file
+        since it was getting added before the changes we'd written were flushed out.
+      </body>
+    </comment>
+    <comment>
+      <uuid>8097468f-87a9-4d84-ac20-1772393bb54d</uuid>
+      <short-name>bea/dac/809</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 17 Nov 2008 15:03:58 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        It looks like the mapfiles are not being 'git add'ed after changes.
+
+        $ mkdir BEtest
+        $ cd BEtest
+        $ git init
+        $ be set-root .
+        $ be new 'new'
+        $ git status
+        # On branch master
+        #
+        # Initial commit
+        #
+        # Changes to be committed:
+        #   (use "git rm --cached &lt;file&gt;..." to unstage)
+        #
+        #       new file: .be/bugs/8f021d79-44f5-479f-af12-c37e2caf3ce1/values
+        #       new file: .be/settings
+        #       new file: .be/version
+        #
+        # Changed but not updated:
+        #   (use "git add &lt;file&gt;..." to update what will be committed)
+        #
+        #       modified:   .be/bugs/8f021d79-44f5-479f-af12-c37e2caf3ce1/values
+        #       modified:   .be/settings
+        #
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>73a767f4-75e7-4cde-9e24-91bff99ab428</uuid>
+    <short-name>bea/73a</short-name>
+    <severity>serious</severity>
+    <status>fixed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>implement comments</summary>
+  </bug>
+  <bug>
+    <uuid>7ba4bc51-b251-483a-a67a-f1b89c83f6af</uuid>
+    <short-name>bea/7ba</short-name>
+    <severity>serious</severity>
+    <status>fixed</status>
+    <creator>abentley</creator>
+    <created></created>
+    <summary>Add test cases</summary>
+    <comment>
+      <uuid>db2c18d9-9573-4d68-88a5-ee47ed24b813</uuid>
+      <short-name>bea/7ba/db2</short-name>
+      <author>abentley</author>
+      <date>Thu, 24 Mar 2005 17:04:47 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>The commands that can easily be tested are now being tested</body>
+    </comment>
+    <comment>
+      <uuid>ec16300f-529a-4492-8327-f9a72e4447c2</uuid>
+      <short-name>bea/7ba/ec1</short-name>
+      <author>abentley</author>
+      <date>Thu, 24 Mar 2005 13:05:13 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        We've got coverage of set_root and new.  This leaves
+        close, comment, list, open, severity, show, target, upgrade
+
+        It's quite nice, though, that doctest captures stdout.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>312fb152-0155-45c1-9d4d-f49dd5816fbb</uuid>
+    <short-name>bea/312</short-name>
+    <severity>serious</severity>
+    <status>fixed</status>
+    <assigned>Steve Losh &lt;steve@stevelosh.com&gt;</assigned>
+    <creator>Steve Losh &lt;steve@stevelosh.com&gt;</creator>
+    <created>Thu, 25 Jun 2009 21:38:38 +0000</created>
+    <summary>Revamp the layout/design.</summary>
+    <extra-string>BLOCKS:76a6140e-0800-453c-9720-29cc161663d1</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+  </bug>
+  <bug>
+    <uuid>206d9b07-6e30-4c8b-9594-ee98e3c646e7</uuid>
+    <short-name>bea/206</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>gour &lt;gour@gaura-nitai&gt;</reporter>
+    <creator>gour &lt;gour@gaura-nitai&gt;</creator>
+    <created>Sun, 11 Jul 2010 17:46:52 +0000</created>
+    <summary>'BugDir' object has no attribute 'bug_shortname' (cfbe)</summary>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>9e75984a-fc76-46ec-a1f3-ac80014b0c41</uuid>
+      <short-name>bea/206/9e7</short-name>
+      <author>gour &lt;gour@gaura-nitai&gt;</author>
+      <date>Sun, 11 Jul 2010 17:48:17 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Attempt to edit some bug details gives 500 Internal Server Error with:
+
+        [11/Jul/2010:17:28:26] HTTP Traceback (most recent call last):
+        File "/usr/lib/python2.6/site-packages/cherrypy/_cprequest.py", line
+        606, in respond
+        cherrypy.response.body = self.handler()
+        File "/usr/lib/python2.6/site-packages/cherrypy/_cpdispatch.py",
+        line 25, in __call__
+        return self.callable(*self.args, **self.kwargs)
+        File "/home/gour/repos/git/gour-be/interfaces/web/web.py", line 161,
+        in edit
+        shortname = self.bd.bug_shortname(bug)
+        AttributeError: 'BugDir' object has no attribute 'bug_shortname'
+      </body>
+    </comment>
+    <comment>
+      <uuid>5bcce533-03bb-4b3a-ab77-92d32a7aa054</uuid>
+      <short-name>bea/206/5bc</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Thu, 15 Jul 2010 10:35:43 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Fixed by replacing
+
+        '/bug?id=%s' % shortname
+
+        with
+
+        '/bug?%s' % urlencode({'id':bug.id.long_user()})
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>27549110-e491-4651-81ab-84de2ed8e14a</uuid>
+    <short-name>bea/275</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Chris Ball &lt;cjb@laptop.org&gt;</reporter>
+    <creator>Chris Ball &lt;cjb@laptop.org&gt;</creator>
+    <created>Thu, 24 Jun 2010 22:17:35 +0000</created>
+    <summary>Fix Unicode handling.</summary>
+    <extra-string>BLOCKS:77399855-6300-41a8-91a3-decbb915a3ff</extra-string>
+    <extra-string>TAG:CFBE</extra-string>
+    <comment>
+      <uuid>6724994b-61de-45f1-b5e9-474a76b49311</uuid>
+      <short-name>bea/275/672</short-name>
+      <author>Chris Ball &lt;cjb@laptop.org&gt;</author>
+      <date>Fri, 25 Jun 2010 17:02:09 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Same output here, so it doesn't feel like locale:
+
+        UTF-8
+        UTF-8
+
+        Note that bea/12c is the only bug that I've found to trigger this
+        (because it's the only one containing UTF-8 in a comment).
+      </body>
+    </comment>
+    <comment>
+      <uuid>aa30c0f4-f428-4cbb-9597-f64cfaf06728</uuid>
+      <short-name>bea/275/aa3</short-name>
+      <in-reply-to>6724994b-61de-45f1-b5e9-474a76b49311</in-reply-to>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 25 Jun 2010 17:25:20 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>This should fix it.</body>
+    </comment>
+    <comment>
+      <uuid>9f03980b-d572-45bf-8b9a-3fc959798bc6</uuid>
+      <short-name>bea/275/9f0</short-name>
+      <author>Chris Ball &lt;cjb@laptop.org&gt;</author>
+      <date>Fri, 25 Jun 2010 20:31:34 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Tested working.  Thanks!
+      </body>
+    </comment>
+    <comment>
+      <uuid>27c70465-387e-442e-afb3-e193de42c829</uuid>
+      <short-name>bea/275/27c</short-name>
+      <author>Chris Ball &lt;cjb@laptop.org&gt;</author>
+      <date>Thu, 24 Jun 2010 22:18:34 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        When loading a bug containing UTF-8 (bea/12c), I see:
+
+        Traceback (most recent call last):
+        File "/usr/lib/python2.6/site-packages/cherrypy/_cpwsgi.py", line 168, in next
+        chunk = chunk.encode("ISO-8859-1")
+        UnicodeEncodeError: 'latin-1' codec can't encode character u'\u201c' in position 11563: ordinal not in range(256)
+      </body>
+    </comment>
+    <comment>
+      <uuid>72582f6f-ef8f-4e8f-9d24-f98ad874a3f7</uuid>
+      <short-name>bea/275/725</short-name>
+      <in-reply-to>27c70465-387e-442e-afb3-e193de42c829</in-reply-to>
+      <author>"W. Trevor King" &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 25 Jun 2010 16:21:56 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Hmm, it works for me.  Maybe your locale is funny.  I get:
+
+        $ python -c 'import libbe.util.encoding as e;
+        import libbe.ui.util.pager as p;
+        print e.get_encoding();
+        p.run_pager();
+        print e.get_encoding()'
+        UTF-8
+        UTF-8
+
+        but perhaps you're getting ISO-8859-1 for one of those?
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>5920ef40-ce56-44e0-9e2d-e9b888ab2880</uuid>
+    <short-name>bea/592</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Eric Kow &lt;eric.kow@gmail.com&gt;</reporter>
+    <creator>Eric Kow &lt;eric.kow@gmail.com&gt;</creator>
+    <created>Mon, 29 Mar 2010 15:50:39 +0000</created>
+    <summary>Fancy _darcs/prefs/author contents confuse be</summary>
+    <comment>
+      <uuid>285006ba-16fc-4d09-86f1-893ff515e487</uuid>
+      <short-name>bea/592/285</short-name>
+      <author>Eric Kow &lt;eric.kow@gmail.com&gt;</author>
+      <date>Mon, 29 Mar 2010 15:52:53 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        If I have just "foo@example.com" in _darcs/prefs/author, be is perfectly happy.
+
+        But having instead "Foo Bar &lt;foo@example.com&gt;" causes this error on be new:
+        libbe.mapfile.IllegalValue: Illegal value "Foo Bar &lt;foo@example.com&gt;\n"
+      </body>
+    </comment>
+    <comment>
+      <uuid>1b21dabc-a90c-4687-bea0-7e9e69956e23</uuid>
+      <short-name>bea/592/1b2</short-name>
+      <in-reply-to>285006ba-16fc-4d09-86f1-893ff515e487</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Wed, 19 May 2010 11:16:23 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; libbe.mapfile.IllegalValue: Illegal value "Foo Bar &lt;foo@example.com&gt;\n"
+
+        The trailing endline was the problem.  Fixed now.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>b3562f08-ad27-4b9f-8d21-8b58ba6d9eac</uuid>
+    <short-name>bea/b35</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Anton Batenev &lt;abbat@abbat&gt;</reporter>
+    <creator>Anton Batenev &lt;abbat@abbat&gt;</creator>
+    <created>Tue, 16 Mar 2010 12:40:01 +0000</created>
+    <summary>UTF-8 problems</summary>
+    <comment>
+      <uuid>854eec21-2eeb-4ed4-af35-7a4a2e1f2e98</uuid>
+      <short-name>bea/b35/854</short-name>
+      <author>Anton Batenev &lt;abbat@abbat&gt;</author>
+      <date>Tue, 16 Mar 2010 12:53:45 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        When I try to create bug with utf8 string I get error:
+
+        $ be new 'utf8 string'
+        Traceback (most recent call last):
+        File "/usr/bin/be", line 64, in &lt;module&gt;
+        sys.exit(cmdutil.execute(args[0], args[1:]))
+        File "/usr/lib/python2.6/site-packages/libbe/cmdutil.py", line 82, in execute
+        manipulate_encodings=manipulate_encodings)
+        File "/usr/lib/python2.6/site-packages/becommands/new.py", line 54, in execute
+        bug = bd.new_bug(summary=summary.strip())
+        File "/usr/lib/python2.6/site-packages/libbe/bugdir.py", line 584, in new_bug
+        bg.save()
+        File "/usr/lib/python2.6/site-packages/libbe/bug.py", line 388, in save
+        self.save_settings()
+        File "/usr/lib/python2.6/site-packages/libbe/bug.py", line 373, in save_settings
+        mapfile.map_save(self.vcs, path, self._get_saved_settings())
+        File "/usr/lib/python2.6/site-packages/libbe/mapfile.py", line 110, in map_save
+        vcs.set_file_contents(path, contents, allow_no_vcs)
+        File "/usr/lib/python2.6/site-packages/libbe/vcs.py", line 354, in set_file_contents
+        f.write(contents)
+        File "/usr/lib/python2.6/codecs.py", line 686, in write
+        return self.writer.write(data)
+        File "/usr/lib/python2.6/codecs.py", line 351, in write
+        data, consumed = self.encode(object, self.errors)
+        UnicodeDecodeError: 'ascii' codec can't decode byte 0xd0 in position 95: ordinal not in range(128)
+        ---
+
+        $ python
+        Python 2.6.1 (r261:67515, Jan  8 2010, 16:07:38)
+        [GCC 4.3.2] on linux2
+        Type "help", "copyright", "credits" or "license" for more information.
+        &gt;&gt;&gt; import sys
+        &gt;&gt;&gt; import locale
+        &gt;&gt;&gt; sys.getdefaultencoding()
+        'ascii'
+        &gt;&gt;&gt; locale.getdefaultlocale()
+        ('ru_RU', 'UTF-8')
+
+        I think it is more correct to use UTF-8 everywhere or use locale.getdefaultlocale() instead sys.getdefaultencoding().
+      </body>
+    </comment>
+    <comment>
+      <uuid>2a51d90a-d47e-4a67-abe7-cce19c1eafad</uuid>
+      <short-name>bea/b35/2a5</short-name>
+      <in-reply-to>854eec21-2eeb-4ed4-af35-7a4a2e1f2e98</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 19 Mar 2010 11:16:16 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; $ be new 'utf8 string'
+        &gt; Traceback (most recent call last):
+        &gt;   ...
+        &gt; UnicodeDecodeError: 'ascii' codec can't decode byte 0xd0 in position 95: ordinal not in range(128)
+
+        (bug reported against cjb@laptop.org-20091006145647-kqkmoh481tl5hvt4)
+
+        This was fixed with revision
+        wking@drexel.edu-20091117145118-jltbju9thsn5xvkv
+        in my branch on Nov. 17, 2009.
+
+        &gt; I think it is more correct to use UTF-8 everywhere or use
+        &gt; locale.getdefaultlocale() instead sys.getdefaultencoding().
+
+        We try to use unicode strings internally, it's input/output that's
+        difficult.  This particular bug turned out to be related to our
+        mapfile storage handling.  Take a look at the be.unicode-hg branch
+        leading up to revision
+        wking@drexel.edu-20091117145118-jltbju9thsn5xvkv
+        for details.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>01e7151c-6113-4c8f-9fc5-4d594431bd2b</uuid>
+    <short-name>bea/01e</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Gianluca Montecchi &lt;gian@grys.it&gt;</reporter>
+    <creator>Gianluca Montecchi &lt;gian@grys.it&gt;</creator>
+    <created>Tue, 09 Feb 2010 23:03:33 +0000</created>
+    <summary>Short the files name used by the be html command</summary>
+    <comment>
+      <uuid>2f9beed6-4008-442a-8d44-a45cb7ce0a36</uuid>
+      <short-name>bea/01e/2f9</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 20 Feb 2010 18:10:42 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        I'm not sure that changing the URLs is a good idea.  I'd rather use
+        .htaccess and mod_rewrite to redirect short URLs to their permanent
+        long equivalents.  Nobody else seems to mind though, so I've merged
+        Gianluca's solution with a few changes:
+        * Since we're truncating bug IDs, truncate comment IDs too.
+        * Use libbe.util.id._truncate to generate the short IDs, so that `be
+        html` truncation is consistent with general BE truncation.
+        * Updated cross-linking code to match.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>8fc5d6fa-cae1-451f-9817-3e4da6d0aac1</uuid>
+    <short-name>bea/8fc</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 24 Jan 2010 16:28:06 +0000</created>
+    <summary>be crashes on outdated id-cache</summary>
+    <comment>
+      <uuid>e3d802cf-1fff-4a48-a61c-a07578969333</uuid>
+      <short-name>bea/8fc/e3d</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 25 Jan 2010 00:50:17 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Work around by removing id-cache (forcing recreation).
+
+        A better solution would be detecting the problem and recreating the
+        cache automatically.
+      </body>
+    </comment>
+    <comment>
+      <uuid>432e994f-3759-42bf-a80d-7cd626c7ce7c</uuid>
+      <short-name>bea/8fc/432</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 24 Jan 2010 16:29:46 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        For example, after merging in a branch with new bugs, the id-cache is
+        incomplete.  An example traceback (from `be list`) is
+
+        Traceback (most recent call last):
+        File "./be", line 21, in &lt;module&gt;
+        sys.exit(libbe.ui.command_line.main())
+        File ".../be.wtk/libbe/ui/command_line.py", line 327, in main
+        ret = dispatch(ui, command, args)
+        File ".../be.wtk/libbe/ui/command_line.py", line 267, in dispatch
+        ret = ui.run(command, options, args)
+        File ".../be.wtk/libbe/command/base.py", line 504, in run
+        return command.run(options, args)
+        File ".../be.wtk/libbe/command/base.py", line 233, in run
+        self.status = self._run(**params)
+        File ".../be.wtk/libbe/command/list.py", line 168, in _run
+        bugs = self._sort_bugs(bugs, cmp_list)
+        File ".../be.wtk/libbe/command/list.py", line 229, in _sort_bugs
+        bugs.sort(cmp_fn)
+        File ".../be.wtk/libbe/bug.py", line 818, in __call__
+        val = comparison(bug_1, bug_2)
+        File ".../be.wtk/libbe/bug.py", line 798, in cmp_comments
+        comms_1 = sorted(bug_1.comments(), key = lambda comm : comm.uuid)
+        File ".../be.wtk/libbe/bug.py", line 687, in comments
+        for comment in self.comment_root.traverse():
+        File ".../be.wtk/libbe/storage/util/properties.py", line 297, in _fget
+        value = generator(self)
+        File ".../be.wtk/libbe/bug.py", line 225, in _get_comment_root
+        return comment.load_comments(self, load_full=load_full)
+        File ".../be.wtk/libbe/comment.py", line 85, in load_comments
+        bug.id.storage())):
+        File ".../be.wtk/libbe/storage/base.py", line 314, in children
+        return self._children(*args, **kwargs)
+        File ".../be.wtk/libbe/storage/vcs/base.py", line 804, in _children
+        path = self.path(id, revision, relpath=False)
+        File ".../be.wtk/libbe/storage/vcs/base.py", line 705, in path
+        path = self._cached_path_id.path(id)
+        File ".../be.wtk/libbe/storage/vcs/base.py", line 242, in path
+        raise InvalidID(uuid)
+        libbe.storage.base.InvalidID: cf56e648-3b09-4131-8847-02dff12b4db2 in revision None
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>ed5eac05-80ed-411d-88a4-d2261b879713</uuid>
+    <short-name>bea/ed5</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sat, 02 Jan 2010 22:56:08 +0000</created>
+    <summary>Slow and ugly diff implementation</summary>
+    <comment>
+      <uuid>9c4b8921-7b43-4bb6-b650-34144b414dc0</uuid>
+      <short-name>bea/ed5/9c4</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 02 Jan 2010 22:58:31 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Ok, time to fix the issue I mentioned in this commit message:
+
+        revno: 473.1.63
+        revision-id: wking@drexel.edu-20091215114420-sbdnvm5jlx0ampbg
+
+        ...
+        duplicate_bugdir() works, but for the vcs backends, it could require
+        shelling out for _every_ file read.  This could, and probably will, be
+        horribly slow.  Still it works ;).
+
+        I'm not sure what a better implementation would be.  The old
+        implementation checked out the entire earlier state into a temporary
+        directory
+        pros: single shell out, simple upgrade implementation
+        cons: wouldn't work well for HTTP backens
+
+        I think a good solution would run along the lines of the currently
+        commented out code in duplicate_bugdir(), where a
+        VersionedStorage.changed_since(revision)
+        call would give you a list of changed files.  diff could work off of
+        that directly, without the need to generate a whole duplicate bugdir.
+        I'm stuck on how to handle upgrades though...
+        ...
+      </body>
+    </comment>
+    <comment>
+      <uuid>c664b7be-ded5-42dd-a16a-82b2bdb52e36</uuid>
+      <short-name>bea/ed5/c66</short-name>
+      <in-reply-to>9c4b8921-7b43-4bb6-b650-34144b414dc0</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sat, 02 Jan 2010 23:04:01 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; I'm stuck on how to handle upgrades though...
+
+        I've satisfied myself with the solution mentioned in #bea86499-824e-4e77-b085-2d581fa9ccab/1100c966-9671-4bc6-8b68-6d408a910da1/bd1207ef-f97e-4078-8c5d-046072012082#,
+        namely, upgrading on disk the way we've always done, and not
+        supporting on-the-fly upgrading at all.  This isn't important for this
+        bug, but I didn't want to just ignore that part of the commit message.
+      </body>
+    </comment>
+    <comment>
+      <uuid>9525e3f3-a044-4fa9-b311-56336267b8b5</uuid>
+      <short-name>bea/ed5/952</short-name>
+      <in-reply-to>9c4b8921-7b43-4bb6-b650-34144b414dc0</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 03 Jan 2010 12:25:03 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; I think a good solution would run along the lines of the currently
+        &gt; commented out code in duplicate_bugdir(), where a
+        &gt;   VersionedStorage.changed_since(revision)
+        &gt; call would give you a list of changed files.  diff could work off of
+        &gt; that directly, without the need to generate a whole duplicate bugdir.
+
+        This is definately the way to go.  Rough approach for the VCS family:
+
+        1) Parse `bzr diff` or such to get a list of new,changed,moved,removed
+        paths.
+        2) Convert those paths to ids.
+        3) Return a list of ids to duplicate_bugdir().
+        4) Provide Storage.parent(id, revision), so duplicate_bugdir() could
+        figure out what type of id we were dealing with (bugdir, bug,
+        comment, other?), and construct the appropriate difference tree.
+
+        There could be a DupBugDir class which stored that diff tree and a
+        link to the current bugdir, which would make diffs much easier (work
+        already done, just copy the diff tree), and provide faster access to
+        unchanged files (just use the current version).
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>1100c966-9671-4bc6-8b68-6d408a910da1</uuid>
+    <short-name>bea/110</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Tue, 08 Dec 2009 00:48:27 +0000</created>
+    <summary>Reoranize BE for more flexible backend / frontend</summary>
+    <comment>
+      <uuid>bb406a33-92b6-46dd-950c-c7cfb5440e7b</uuid>
+      <short-name>bea/110/bb4</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Tue, 08 Dec 2009 01:06:12 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Rather than all the hackery that goes on with email-bugs, the email
+        interface, etc., it would be nice for distribution if be provided a
+        uniform issue/bug tracking library and a number of interfaces and
+        backends.
+
+        Current backends:
+        filesystem (with assorted VCSs)
+        Current UIs:
+        command line (be)
+        email (be-handle-mail)
+        web (CFBE)
+
+        Future backend architecture:
+        be --repo REPO ...
+        where --repo REPO replaces and extends the current --dir DIR.  Example
+        REPOs could be
+        path/to/repo                              (the current DIR)
+        http://some-server.com:port/path/to/repo  (http interface)
+        mysql://user@server:port/?db=db-name;pwd=password
+        ...
+        Each repo would have to support a few get/set commands at the bugdir,
+        bug, and comment level.
+
+        The UIs would all load BugDir(REPO), and thus be backend agnostic.
+        This way a GUI app that let you work on your own machine could also be
+        used to work on a public repository.  Setting up a public repository
+        would just consist of exposing one of the wire-capable REPO formats
+        (e.g. http via a future `be serve MY-URL`) with public write
+        permissions.
+      </body>
+    </comment>
+    <comment>
+      <uuid>bd1207ef-f97e-4078-8c5d-046072012082</uuid>
+      <short-name>bea/110/bd1</short-name>
+      <in-reply-to>bb406a33-92b6-46dd-950c-c7cfb5440e7b</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Tue, 15 Dec 2009 12:21:11 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Some additional thoughts, as I've been developing this idea:
+
+        Different BE storage versions will be difficult to handle.
+        We currently do disk upgrades via
+        libbe.storage.util.upgrade
+        which browses through the .be/ directory, making appropriate changes.
+
+        The new formats know very little about paths, which brought on the
+        whole libbe.storage.vcs.base.CachedPathID bit.  Still, most VCSs
+        seem to be able to handle renames, e.g.
+        $ bzr cat -r 200 ./libbe/command/new.py
+        works, when as of revision 200, the file was
+        ./becommands/new.py
+        In fact, bzr recognizes both names:
+        $ diff &lt;(bzr cat -r 200 ./becommands/new.py) \
+        &lt;(bzr cat -r 200 ./libbe/commands/new.py)
+        returns nothing.  Still, I'm not sure this is something we should
+        require in a storage backend.  Which means we'd need to have a
+        version-dependent id-to-path(version) function.
+
+        We also have the unfortunate situation of duplicate UUIDs from the old
+        be merge
+        implemtation.  This means that id-to-path is not a well defined
+        mapping with single-uuid ids.  That's ok though, we get a bit uglier
+        and send the long_user() id into the storage backend instead.  While
+        not so elegant, this will avoid the need for the cached id/path table.
+
+        Ok, you say, we're fine if we have the compound bugdir/bug/comment ids
+        going out to storage, with the upgrader upgrading the file
+        appropriately for each file type.  Almost.  You'll still run into
+        trouble with upgrades like dir format v1.2 to 1.3 where targets
+        moved from a per-bug string to a seperate-bugs-with-dependencies.
+        Now you need to create virtual-target-bugs on the fly when you're
+        loading the old bugs.  Yuck.
+
+        All of this makes me wonder how much we care about being able to
+        see bug diffs for any repository format older than the current one.
+        I think that we don't really care ;).  After all, the on-disk
+        format should settle down as BE matures :p.  When you _do_ want
+        to see the long-term history of a particular bug, there's always
+        bzr log .be/123/bugs/456/values
+        or the equivalent for your VCS.  If access to the raw log ends
+        up being important, it should be very easy to add
+        libbe.storage.base.VersionedStorage.log(id)
+        libbe.command.log
+      </body>
+    </comment>
+    <comment>
+      <uuid>3646e056-a2df-46e5-b877-88608c7cc5af</uuid>
+      <short-name>bea/110/364</short-name>
+      <in-reply-to>bd1207ef-f97e-4078-8c5d-046072012082</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 28 Dec 2009 12:12:45 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; We also have the unfortunate situation of duplicate UUIDs from the old
+        &gt;   be merge
+        &gt; implemtation.  This means that id-to-path is not a well defined
+        &gt; mapping with single-uuid ids.  That's ok though, we get a bit uglier
+        &gt; and send the long_user() id into the storage backend instead.  While
+        &gt; not so elegant, this will avoid the need for the cached id/path table.
+
+        The situation is worse than just the old `be merge` effects, because
+        the existence, children, and parents of a particular UUID may be
+        revision dependent.  A UUID will always refer to the same
+        bugdir/bug/comment, but that bugdir/bug/comment may have different
+        relatives.  Another point in favor of long_user()-style storage ids,
+        but that just pushes relation-tracking up to the command level.  I'm
+        still figuring out a good way to deal with this...
+      </body>
+    </comment>
+    <comment>
+      <uuid>7812d2e5-9d4b-4621-b071-22e91e8757d2</uuid>
+      <short-name>bea/110/781</short-name>
+      <in-reply-to>3646e056-a2df-46e5-b877-88608c7cc5af</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Tue, 29 Dec 2009 16:20:06 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; The situation is worse than just the old `be merge` effects, because
+        &gt; the existence, children, and parents of a particular UUID may be
+        &gt; revision dependent.  A UUID will always refer to the same
+        &gt; bugdir/bug/comment, but that bugdir/bug/comment may have different
+        &gt; relatives.
+
+        I'm not sure how to support .children(revision) in the Arch backend
+        or the older versions of Darcs without checking out a pristine tree
+        for the revision in question.  That's how we used to support
+        BugDir.duplicate_bugdir()
+        but it doesn't fit well with the new Storage system.  Since I don't
+        feel strongly about tla or old Darcs support, I'm leaving that
+        functionality unimplemented.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>56506b73-36cc-4e32-a578-258a219edba8</uuid>
+    <short-name>bea/565</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Fri, 20 Nov 2009 13:26:59 +0000</created>
+    <summary>be email-bugs for bug submission from bzr-less users</summary>
+    <comment>
+      <uuid>0a995544-20dc-42a6-8d3f-348ebbc8921e</uuid>
+      <short-name>bea/565/0a9</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Fri, 20 Nov 2009 13:31:25 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Since we'll be distributing a non-bzr-repo version, it would be nice
+        to adapt our 'submit bug' procedure
+        $ be new "The demuxulizer is broken"
+        Created bug with ID 48f
+        $ be comment 48f
+        &lt;Describe bug&gt;
+        $ bzr commit --message "Reported bug in demuxulizer"
+        $ bzr send --mail-to "be-devel@bugseverywhere.org"
+        to one that works with this setup.  Without guaranteed versioning,
+        that would probably be something along the lines of
+        $ be new "The demuxulizer is broken"
+        Created bug with ID 48f
+        $ be comment 48f
+        &lt;Describe bug&gt;
+        $ be email-bugs [--to be-devel@bugseverywhere.org] 48f
+        With interfaces/email/interactive listening on the recieving end to
+        grab new-bug emails and import them into an incoming bug repository.
+      </body>
+    </comment>
+    <comment>
+      <uuid>4068c833-0c06-475e-8b7e-6701bc416dee</uuid>
+      <short-name>bea/565/406</short-name>
+      <in-reply-to>0a995544-20dc-42a6-8d3f-348ebbc8921e</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 29 Nov 2009 01:19:05 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; With interfaces/email/interactive listening on the recieving end to
+        &gt; grab new-bug emails and import them into an incoming bug repository.
+
+        The email-bugs -&gt; be-handle-mail import is based on `be import-xml`.
+        The current import-xml implementation allows good control over what
+        gets overwritten during a merge by overriding only those fields
+        defined in the incoming XML.
+
+        For clients without the versioned bugdir (e.g. they installed via a
+        release tarball or their distro's packaging system), `be email-bugs`
+        will not know what fields have been changed/added/etc., so it sets
+        _all_ the fields in the outgoing XML.  Importing that XML file will
+        override any changes that may have been made to the listed
+        bugs/comments between the release and your current source version, so
+        you may have to do some manual tweaking of the post-merge bugdir.
+
+        One possible workaround would be to change the merge algorithm in
+        import-xml to take advantage of version information given in the XML
+        file.  import-xml could checkout the shared root version of any
+        modified bugs, and compute the changes made by the remote user and
+        those made in the local tree.  It could then merge these changes more
+        intelligently, by prompting the user, keeping the local changes,
+        keeping the remote changes, etc.
+
+        While the more automated approach might be better, it's also more
+        complicated, so for now we'll stick with the simple "override all
+        fields defined in the XML" approach.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>764b812f-a0bb-4f4d-8e2f-c255c9474a0e</uuid>
+    <short-name>bea/764</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Mon, 31 Aug 2009 13:57:54 +0000</created>
+    <summary>Add docstrings explaining role of the libbe submodules.</summary>
+  </bug>
+  <bug>
+    <uuid>51930348-9ccc-4165-af41-6c7450de050e</uuid>
+    <short-name>bea/519</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Sun, 16 Aug 2009 19:05:59 +0000</created>
+    <summary>Upgrade path for on-disk representation</summary>
+    <extra-string>BLOCKS:22b6f620-d2f7-42a5-a02e-145733a4e366</extra-string>
+    <extra-string>BLOCKS:427e0ca7-17f5-4a5a-8c68-98cc111a2495</extra-string>
+    <comment>
+      <uuid>f1479ecf-4154-4cd4-bbd6-0ed6275b9f98</uuid>
+      <short-name>bea/519/f14</short-name>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Sun, 16 Aug 2009 19:07:06 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        There is no obvious means of using
+        ".be/version"/"libbe.bugdir.TREE_VERSION_STRING".  In the past I've
+        worked around this by keeping all the disk-reading backwards
+        compatible (e.g. homemade mapfile -&gt; YAML, the "From" hack in
+        libbe.comment.Comment.load_settings, possibly others).  However, this
+        is not the road to easily maintainable code.
+
+        Most projects only need to maintain backwards compatibility with the
+        last few versions of their disk cache, to allow users an easy upgrade
+        path.  The difficulties come with "be diff", which must be able to
+        read _every_ disk-image of the bugdir ever committed into something
+        comparible with the current cutting edge.  This makes sweeping changes
+        very difficult.  VCSs themselves avoid this by never showing their
+        disk-cache to another program, but we've shown ours to the VCS, and
+        it's difficult (or impossible, depending on the VCS) to change history
+        to match the current format.
+      </body>
+    </comment>
+    <comment>
+      <uuid>d304f93b-faf2-477e-9ff8-c77e301fd9f9</uuid>
+      <short-name>bea/519/d30</short-name>
+      <in-reply-to>f1479ecf-4154-4cd4-bbd6-0ed6275b9f98</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 31 Aug 2009 16:29:50 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Added libbe/upgrade.py to handle upgrading on-disk bugdirs.
+
+        When upgrade.BUGDIR_DISK_VERSION changes, a series of Updater
+        classes handle the upgrade.  For example, if
+        BUGDIR_DISK_VERSIONS = ["v1", "v2", "v3"]
+        and the on-disk version is "v1", you should have defined classes
+        class Upgrade_1_to_2 (Upgrader):
+        initial_version = "v1"
+        final_version = "v2"
+        def _upgrade():
+        ....
+        class Upgrade_2_to_3 (Upgrader):
+        initial_version = "v2"
+        final_version = "v3"
+        def _upgrade():
+        ....
+        and added them to upgraders:
+        upgraders = [Upgrade_1_to_2, Upgrade_2_to_3]
+        If the on-disk version is v2, then only Upgrade_2_to_3.upgrade() is
+        run.  If the on-disk version is v1, then Upgrade_1_to_2.upgrade() is
+        run, followed by Upgrade_2_to_3.upgrade().
+
+        You can optionally define shortcut upgrades (e.g. Upgrade_1_to_3) for
+        efficiency or to avoid data loss.
+
+        This upgrade occurs during BugDir.load(), which is called by
+        BugDir.__init__(from_disk=True), before any processing of the on-disk
+        data except for the access of .be/version to determine if an upgrade
+        was necessary.
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>427e0ca7-17f5-4a5a-8c68-98cc111a2495</uuid>
+    <short-name>bea/427e</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>W. Trevor King &lt;wking@drexel.edu&gt;</reporter>
+    <creator>W. Trevor King &lt;wking@drexel.edu&gt;</creator>
+    <created>Mon, 03 Aug 2009 23:10:02 +0000</created>
+    <summary>Terminology: Version control system vs. RCS</summary>
+    <extra-string>BLOCKED-BY:51930348-9ccc-4165-af41-6c7450de050e</extra-string>
+    <comment>
+      <uuid>a92f97a4-e9fe-43f7-bf56-5862b03a2641</uuid>
+      <alt-id>&lt;87d49879v7.fsf@benfinney.id.au&gt;</alt-id>
+      <short-name>bea/427e/a92</short-name>
+      <author>Ben Finney &lt;ben@benfinney.id.au&gt;</author>
+      <date>Sat, 13 Jun 2009 19:37:16 +1000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        Howdy all,
+
+        Currently, the code and interface of Bugs Everywhere speaks loosely
+        about the term “RCS”. Sometimes it means “revision control system”
+        referring in general to these types of system, and sometimes it talks
+        about GNU RCS, a specific system.
+
+        I propose that “Version Control System” (“VCS”) has emerged as a
+        consensus term to refer to such systems in general, with no specific
+        reference to any particular system.
+
+        So I'd like to modify the Bugs Everywhere code to disambiguate: the term
+        “VCS” will be used consistently to refer to version control systems in
+        general, and “RCS” will only ever refer to GNU RCS.
+
+        This will change some interface (e.g. the ‘rcs_name’ configuration
+        setting, and some of the methods on objects), but making this change
+        while Bugs Everywhere is small will be much less painful than making it
+        later.
+
+        Any objections? Any alternative suggestions?
+
+        --
+        \       “I watched the Indy 500, and I was thinking that if they left |
+        `\         earlier they wouldn't have to go so fast.” —Steven Wright |
+        _o__)                                                                  |
+        Ben Finney
+
+
+        _______________________________________________
+        Be-devel mailing list
+        Be-devel@bugseverywhere.org
+        http://void.printf.net/cgi-bin/mailman/listinfo/be-devel
+      </body>
+    </comment>
+    <comment>
+      <uuid>29ad0d9e-c05b-4793-bb8b-e8bf237f51b3</uuid>
+      <short-name>bea/427e/29a</short-name>
+      <in-reply-to>a92f97a4-e9fe-43f7-bf56-5862b03a2641</in-reply-to>
+      <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
+      <date>Mon, 03 Aug 2009 23:26:22 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        &gt; Currently, the code and interface of Bugs Everywhere speaks loosely
+        &gt; about the term “RCS”. Sometimes it means “revision control system”
+        &gt; referring in general to these types of system, and sometimes it talks
+        &gt; about GNU RCS, a specific system.
+
+        I don't think we ever rever to GNU RCS.  Our current libbe.rcs.RCS
+        default implementation is a "don't version" backend for BE, but
+        perhaps this is what you're refereing to.
+
+        &gt; I propose that “Version Control System” (“VCS”) has emerged as a
+        &gt; consensus term to refer to such systems in general, with no specific
+        &gt; reference to any particular system.
+
+        Fair enough.
+
+        &gt; This will change some interface (e.g. the ‘rcs_name’ configuration
+        &gt; setting, and some of the methods on objects), but making this change
+        &gt; while Bugs Everywhere is small will be much less painful than making it
+        &gt; later.
+
+        Hmm, we really need a method for upgrading the on-disk BugDir version.
+        It's hard when you need to maintain backwards compatibilty with
+        earlier versions in the VCS history....
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>dcca51b3-bf8f-4482-8f67-662cfbcb9c6c</uuid>
+    <short-name>bea/dcc</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Gianluca Montecchi &lt;gian@grys.it&gt;</reporter>
+    <creator>Gianluca Montecchi &lt;gian@grys.it&gt;</creator>
+    <created>Mon, 03 Aug 2009 20:30:43 +0000</created>
+    <summary>BE should not crash if user.email  and user.name are not defined</summary>
+    <comment>
+      <uuid>d4a87066-c5f4-49f1-9bd9-a872c8e4ffe6</uuid>
+      <short-name>bea/dcc/d4a</short-name>
+      <author>Gianluca Montecchi &lt;gian@grys.it&gt;</author>
+      <date>Mon, 03 Aug 2009 20:33:30 +0000</date>
+      <content-type>text/plain</content-type>
+      <body>
+        BE should not crash when be list|show is used on a git repository that
+        have not the config variables user.name and user.email defined in the
+        .git/config file.
+
+        To view the bug, in my opinion shold not be mandatory to have these two options
+        defined
+
+
+        Traceroute:
+
+        galactica:~/Devel/dumb&gt; be show 996
+        Traceback (most recent call last):
+        File "/usr/bin/be", line 62, in &lt;module&gt;
+        sys.exit(cmdutil.execute(args[0], args[1:]))
+        File "/usr/lib/python2.5/site-packages/libbe/cmdutil.py", line 76, in execute
+        ret = cmd.execute([a.decode(enc) for a in args])
+        File "/usr/lib/python2.5/site-packages/becommands/show.py", line 60, in execute
+        bd = bugdir.BugDir(from_disk=True, manipulate_encodings=not test)
+        File "/usr/lib/python2.5/site-packages/libbe/bugdir.py", line 302, in __init__
+        self.load()
+        File "/usr/lib/python2.5/site-packages/libbe/bugdir.py", line 382, in load
+        self.load_settings()
+        File "/usr/lib/python2.5/site-packages/libbe/bugdir.py", line 411, in load_settings
+        self._setup_user_id(self.user_id)
+        File "/usr/lib/python2.5/site-packages/libbe/properties.py", line 293, in _fget
+        value = generator(self)
+        File "/usr/lib/python2.5/site-packages/libbe/bugdir.py", line 177, in _guess_user_id
+        return self.rcs.get_user_id()
+        File "/usr/lib/python2.5/site-packages/libbe/rcs.py", line 258, in get_user_id
+        id = self._rcs_get_user_id()
+        File "/usr/lib/python2.5/site-packages/libbe/git.py", line 56, in _rcs_get_user_id
+        status,output,error = self._u_invoke_client("config", "user.name")
+        File "/usr/lib/python2.5/site-packages/libbe/rcs.py", line 458, in _u_invoke_client
+        return self._u_invoke(cl_args, stdin=stdin,expect=expect,cwd=directory)
+        File "/usr/lib/python2.5/site-packages/libbe/rcs.py", line 450, in _u_invoke
+        raise CommandError(args, status, error)
+        libbe.rcs.CommandError: Command failed (1):
+
+
+        while executing
+        ['git', 'config', 'user.name']
+        galactica:~/Devel/dumb&gt;
+      </body>
+    </comment>
+  </bug>
+  <bug>
+    <uuid>f77fc673-c852-4c81-bfa2-1d59de2661c8</uuid>
+    <short-name>bea/f77</short-name>
+    <severity>minor</severity>
+    <status>fixed</status>
+    <reporter>Gianluca Montecchi &lt;gian@grys.it&gt;</reporter>
+    <creator>Gianluca Montecchi &lt;gian@grys.it&gt;</creator>
+    <created>Tue, 21 Jul 2009 21:39:52 +0000</created>
+    <summary>Comment should be threaded in the "be html" output</summary>
+  </bug>
+</be-xml>

@@ -1,0 +1,1 @@
+D:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe bin\debug\BEurtle.dll /codebase /regfile:BEurtle.reg
