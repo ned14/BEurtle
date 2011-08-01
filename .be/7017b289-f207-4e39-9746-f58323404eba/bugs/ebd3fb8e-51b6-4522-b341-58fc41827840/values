@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: wishlist
 
 
-status: open
+status: fixed
 
 
 summary: Add HTML dumping option and repo create in config settings

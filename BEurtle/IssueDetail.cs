@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.XPath;
@@ -111,6 +110,16 @@ namespace BEurtle
             return document.OuterXml;
         }
 
+        internal class uuid_xpath
+        {
+            public string Item1;
+            public XPathNavigator Item2;
+            public uuid_xpath(string Item1, XPathNavigator Item2)
+            {
+                this.Item1 = Item1;
+                this.Item2 = Item2;
+            }
+        }
         private void IssueDetail_Shown(object sender, EventArgs e)
         {
             if (issue != null)
@@ -139,9 +148,10 @@ namespace BEurtle
                     root_ul.AppendChild(li);
                 }
                 XPathNodeIterator replies_ = (XPathNodeIterator)issue.Select("comment[in-reply-to]");
-                var replies = new List<Tuple<String, XPathNavigator>>();
+
+                var replies = new List<uuid_xpath>();
                 foreach (XPathNavigator reply in replies_)
-                    replies.Add(new Tuple<String, XPathNavigator>(reply.Evaluate("string(in-reply-to)").ToString(), reply));
+                    replies.Add(new uuid_xpath(reply.Evaluate("string(in-reply-to)").ToString(), reply));
                 while (replies.Count > 0)
                 {
                     var lis = document.SelectNodes("//li[@uuid]");

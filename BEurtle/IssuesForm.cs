@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
@@ -129,7 +128,20 @@ namespace BEurtle
             else
                 xml=callBEcmd(rootdir, new string[1] { arguments })[0];
             if (!xml.StartsWith("<?xml version=\"1.0\" "))
-                MessageBox.Show(xml);
+            {
+                if(xml.IndexOf("Connection Error")>=0 && !BERepoLocation.Text.StartsWith("http://"))
+                {
+                    if (DialogResult.Yes == MessageBox.Show("BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    {
+                        xml = callBEcmd(rootdir, new string[1] { "init" })[0];
+                        MessageBox.Show(xml);
+                        loadIssues();
+                        return;
+                    }
+                }
+                else
+                    MessageBox.Show(xml);
+            }
             else
             {
                 issues = new XPathDocument(new XmlTextReader(new StringReader(xml)));
@@ -162,7 +174,7 @@ namespace BEurtle
                         row.Cells[2].Style.BackColor = Color.FromArgb(255, 128, 128);
 
                     row.Cells.Add(new DataGridViewTextBoxCell());
-                    string created = (string) issue.Evaluate("string(created)");
+                    string created = (string)issue.Evaluate("string(created)");
                     if (created == "")
                         row.Cells[3].Value = "unknown";
                     else
@@ -176,7 +188,7 @@ namespace BEurtle
                             row.Cells[3].Value = "BAD";
                         }
                     }
-                    
+
                     row.Cells.Add(new DataGridViewTextBoxCell());
                     row.Cells[4].Value = issue.Evaluate("string(summary)");
 
@@ -203,6 +215,23 @@ namespace BEurtle
                     }
                 }
             }
+        }
+
+        private void changesMade()
+        {
+            if (plugin.parameters.DumpHTML && !BERepoLocation.Text.StartsWith("http://"))
+            {
+                if (plugin.parameters.DumpHTMLPath.Length == 0) throw new Exception("DumpHTMLPath has no length. This would delete your entire repo!");
+                try
+                {
+                    Directory.Delete(BERepoLocation.Text + "\\" + plugin.parameters.DumpHTMLPath, true);
+                }
+                catch (Exception)
+                {
+                }
+                string result = callBEcmd(BERepoLocation.Text, new string[1] { "html -o " + plugin.parameters.DumpHTMLPath })[0];
+            }
+            loadIssues();
         }
 
         private void IssuesForm_Shown(object sender, EventArgs e)
@@ -232,7 +261,7 @@ namespace BEurtle
             //MessageBox.Show("Would call: " + arguments[0] + "\nwith: " + inputs[0]);
             outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments, inputs);
             if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
-            loadIssues();
+            changesMade();
         }
 
         private void editIssue(string shortname)
@@ -283,7 +312,7 @@ namespace BEurtle
             //MessageBox.Show("Would do: "+l);
             outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments);
             if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
-            loadIssues();
+            changesMade();
         }
 
         private void BERepoLocation_KeyPress(object sender, KeyPressEventArgs e)
@@ -383,7 +412,7 @@ namespace BEurtle
                 //MessageBox.Show("Would do: "+l);
                 outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments);
                 if(outputs[0].Length>0) MessageBox.Show("Command output: " + outputs[0]);
-                loadIssues();
+                changesMade();
             }
         }
 
