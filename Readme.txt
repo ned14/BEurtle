@@ -84,7 +84,8 @@ version as I don't think BE supports 3.x yet.
 
 2. Go install easy_install from http://pypi.python.org/pypi/setuptools
 
-3. On the command line, do "easy_install pyyaml"
+3. On the command line, do "easy_install pyyaml". If it can't find easy_install
+you may need to modify your PATH as detailed in Appendix A.
 
 4. Download the latest BE from http://www.bugseverywhere.org/. Unpack it
 somewhere and run "python setup.py install" inside it.
@@ -158,3 +159,20 @@ ChangeLog:
 -=-=-=-=-=
 v1.00 beta 1 (31st July 2011):
   * Released first version to public.
+
+  
+Appendix A: Fixing the lack of be.bat on Windows
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Go to your python root directory and into the scripts directory. Create a file called
+be.bat and paste the following into it using a text editor:
+
+@echo off
+python -c "import sys, libbe.ui.command_line; sys.exit(libbe.ui.command_line.main());" %*
+set BE_TOOL_ERRORLEVEL=%ERRORLEVEL%
+exit /B %BE_TOOL_ERRORLEVEL%
+
+Some python installers don't add the scripts directory to PATH on Windows, so you may
+need to open the properties of My Computer, choose advanced settings, then environment
+variables, then edit the PATH system environment variable. Find where it says x:\pythonXX
+and after add x:\pythonXX\scripts. Save the changes, open a NEW command box and test
+that be is now available from the command line.
