@@ -4,6 +4,11 @@ using Interop.BugTraqProvider;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Xml.XPath;
+using System.Diagnostics;
+using System.Xml;
 
 namespace BEurtle
 {
@@ -64,20 +69,151 @@ namespace BEurtle
     [ComVisible(true), ClassInterface(ClassInterfaceType.None), Guid("233c8c6b-00ac-4e21-89fd-a66a9c10cedb"), ProgId("BEurtle")]
     public sealed class BEurtlePlugin : IBugTraqProvider2
     {
-        public string BEcmdpath="be.bat";
+        public string rootpath="";
         public ParseParameters parameters;
+        public XPathDocument issues;
+
+        public string[] callBEcmd(string BErepopath, string[] arguments, string[] inputs = null)
+        {
+            string[] outputs = new string[arguments.Length];
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                for (var i = 0; i < arguments.Length; i++)
+                {
+                    string arguments_ = arguments[i];
+                    if (BErepopath.StartsWith("http://"))
+                        arguments_ = "--repo " + BErepopath + " " + arguments_;
+                    var process = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            CreateNoWindow = true,
+                            FileName = parameters.BEPath,
+                            Arguments = arguments_,
+                            RedirectStandardInput = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            UseShellExecute = false,
+                            WorkingDirectory = rootpath
+                        }
+                    };
+                    try
+                    {
+                        string output = "", error = "";
+                        process.OutputDataReceived += new DataReceivedEventHandler((sender, e) => output += e.Data);
+                        process.ErrorDataReceived += new DataReceivedEventHandler((sender, e) => error += e.Data);
+                        if (!process.Start()) throw new Exception(parameters.BEPath + " not found");
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                        if (inputs != null && inputs[i].Length > 0)
+                            process.StandardInput.Write(inputs[i]);
+                        process.StandardInput.Close();
+                        process.WaitForExit();
+                        outputs[i] = output + error;
+                    }
+                    catch (Exception e)
+                    {
+                        outputs[i] = e.Message;
+                    }
+                }
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+            return outputs;
+        }
+
+        public bool loadIssues(string rootdir = null)
+        {
+            string arguments = "list --status=all --xml";
+            if (rootdir == null) rootdir = rootpath;
+            issues = null;
+            string xml="unknown error";
+            if (rootdir.EndsWith(".xml"))
+            {
+                var fs = new StreamReader(rootdir);
+                xml = fs.ReadToEnd();
+                fs.Close();
+            }
+            else
+                xml=callBEcmd(rootdir, new string[1] { arguments })[0];
+            if (!xml.StartsWith("<?xml version=\"1.0\" "))
+            {
+                if (xml.IndexOf("Connection Error") >= 0 && !rootdir.StartsWith("http://"))
+                {
+                    if (DialogResult.Yes == MessageBox.Show("BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    {
+                        xml = callBEcmd(rootdir, new string[1] { "init" })[0];
+                        MessageBox.Show(xml);
+                        return loadIssues();
+                    }
+                }
+                else
+                    MessageBox.Show(xml);
+            }
+            else
+            {
+                issues = new XPathDocument(new XmlTextReader(new StringReader(xml)));
+                return true;
+            }
+            return false;
+        }
+
+        public List<BEIssue> findIssues(string[] shortnames)
+        {
+            var ret = new List<BEIssue>();
+            if (shortnames.Length > 0)
+            {
+                foreach (var shortname in shortnames)
+                {
+                    var item = new BEIssue(shortname);
+                    var node = issues.CreateNavigator().SelectSingleNode("/be-xml/bug[string(short-name)='" + shortname + "']");
+                    if (node != null)
+                    {
+                        item.uuid = node.SelectSingleNode("uuid").ToString();
+                        item.summary = node.SelectSingleNode("summary").ToString();
+                        item.severity = node.SelectSingleNode("severity").ToString();
+                        item.status = node.SelectSingleNode("status").ToString();
+                    }
+                    ret.Add(item);
+                }
+            }
+            return ret;
+        }
+
+        public void writeHTML(string rootdir)
+        {
+            if (parameters.DumpHTML)
+            {
+                if (parameters.DumpHTMLPath.Length <3) throw new Exception("DumpHTMLPath has no length. This would delete your entire repo!");
+                try
+                {
+                    Directory.Delete(rootdir + "\\" + parameters.DumpHTMLPath, true);
+                }
+                catch (Exception)
+                {
+                }
+                string result = callBEcmd(rootdir, new string[1] { "html -o " + parameters.DumpHTMLPath })[0];
+            }
+        }
+
         public bool ValidateParameters(IntPtr hParentWnd, string parameters)
         {
+            this.parameters = new ParseParameters(parameters);
             return true;
         }
         public string GetLinkText(IntPtr hParentWnd, string parameters)
         {
+            this.parameters = new ParseParameters(parameters);
             return "Bugs, Bugs, Bugs!";
         }
         public string GetCommitMessage(IntPtr hParentWnd, string parameters, string commonRoot, string[] pathList, string originalMessage)
         {
             try
             {
+                rootpath = commonRoot;
                 this.parameters = new ParseParameters(parameters);
                 var form = new IssuesForm(this, commonRoot, originalMessage);
                 if (form.ShowDialog(hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null) != DialogResult.OK)
@@ -109,11 +245,47 @@ namespace BEurtle
         }
         public string CheckCommit(IntPtr hParentWnd, string parameters, string commonUrl, string commonRoot, string[] pathList, string commitMessage)
         {
+            rootpath = commonRoot;
             this.parameters = new ParseParameters(parameters);
             return null;
         }
         public string OnCommitFinished(IntPtr hParentWnd, string commonRoot, string[] pathList, string logMessage, int revision)
         {
+            rootpath = commonRoot;
+            if (logMessage.ToLower().IndexOf("fixed") >= 0)
+            {
+                var regexObj = new Regex(@"[\s;,.]([0-9a-f]{3}/[0-9a-f]{3})[\s;,.]", RegexOptions.IgnoreCase);
+                var matches = regexObj.Matches(logMessage);
+
+                if (matches.Count > 0)
+                {
+                    bool modified = false;
+                    if(parameters==null) parameters = new ParseParameters("");
+                    if (issues == null && !loadIssues())
+                        throw new Exception("Failed to load BE issues for checking commit message against");
+                    var openstatuses=new List<string>() { "unconfirmed", "open", "assigned", "test" };
+                    foreach (Match match in matches)
+                    {
+                        string shortname = match.Groups[1].ToString();
+                        BEIssue issue = findIssues(new string[1] { shortname })[0];
+                        if(openstatuses.Contains(issue.status))
+                        {
+                            var result=MessageBox.Show("Commit message implies issue " + shortname + " (" + issue.summary + ")\nwith status " + issue.status + " is now fixed. Shall I mark it as fixed for you?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                            if(DialogResult.Cancel==result)
+                                break;
+                            else if(DialogResult.Yes==result)
+                            {
+                                string[] outputs = callBEcmd(rootpath, new string[1] { "status fixed "+shortname });
+                                if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
+                                else modified = true;
+                            }
+                        }
+                    }
+                    if (modified)
+                    {
+                    }
+                }
+            }
             return null;
         }
         public bool HasOptions()

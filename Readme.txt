@@ -157,8 +157,12 @@ strike a fixed price deal with any customer.
 
 ChangeLog:
 -=-=-=-=-=
+v1.01 beta 1 (?):
+  * [SHA: b4738f6] First attempt at an IBugTraqProvider2 implementation.
+  * [SHA: 8915ee5] Bumped to v1.01.
+
 v1.00 beta 1 (31st July 2011):
-  * Released first version to public.
+  * [SHA: 4a71029] Released first version to public.
 
   
 Appendix A: Fixing the lack of be.bat on Windows

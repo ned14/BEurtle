@@ -16,7 +16,6 @@ namespace BEurtle
     {
         private BEurtlePlugin plugin;
         private string BEroot, baseComment;
-        public XPathDocument issues;
 
         public IssuesForm(BEurtlePlugin plugin, string commonRoot, string baseComment)
         {
@@ -52,101 +51,20 @@ namespace BEurtle
             }
         }
 
-        private string[] callBEcmd(string BErepopath, string[] arguments, string[] inputs = null)
-        {
-            string[] outputs=new string[arguments.Length];
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                for(var i=0; i<arguments.Length; i++)
-                {
-                    string arguments_=arguments[i];
-                    if (BERepoLocation.Text.StartsWith("http://"))
-                        arguments_="--repo " + BERepoLocation.Text + " " + arguments_;
-                    var process = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            CreateNoWindow = true,
-                            FileName = plugin.BEcmdpath,
-                            Arguments = arguments_,
-                            RedirectStandardInput=true,
-                            RedirectStandardOutput = true,
-                            RedirectStandardError=true,
-                            UseShellExecute = false,
-                            WorkingDirectory = BErepopath
-                        }
-                    };
-                    try
-                    {
-                        string output = "", error = "";
-                        process.OutputDataReceived+=new DataReceivedEventHandler((sender, e) => output+=e.Data);
-                        process.ErrorDataReceived+=new DataReceivedEventHandler((sender, e) => error+=e.Data);
-                        if (!process.Start()) throw new Exception(plugin.BEcmdpath+" not found");
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();
-                        if(inputs!=null && inputs[i].Length>0)
-                            process.StandardInput.Write(inputs[i]);
-                        process.StandardInput.Close();
-                        process.WaitForExit();
-                        outputs[i] = output + error;
-                    }
-                    catch (Exception e)
-                    {
-                        outputs[i]=e.Message;
-                    }
-                }
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
-            }
-            return outputs;
-        }
-
         private void loadIssues()
         {
-            string arguments = "list --status=all --xml", rootdir = BEroot;
-            if (!BERepoLocation.Text.StartsWith("http://"))
-                rootdir = BERepoLocation.Text;
             string focuseditem=null;
             if (IssuesList.SelectedRows.Count > 0)
                 focuseditem = IssuesList.SelectedRows[0].Cells[0].ToString();
-            issues = null;
             IssuesList.Rows.Clear();
             ButtonOk.Enabled = false;
             NewIssue.Enabled = false;
             DeleteIssue.Enabled = false;
             BoxStatus.Enabled = false;
-            string xml="unknown error";
-            if (BERepoLocation.Text.EndsWith(".xml"))
-            {
-                var fs = new StreamReader(BERepoLocation.Text);
-                xml = fs.ReadToEnd();
-                fs.Close();
-            }
-            else
-                xml=callBEcmd(rootdir, new string[1] { arguments })[0];
-            if (!xml.StartsWith("<?xml version=\"1.0\" "))
-            {
-                if(xml.IndexOf("Connection Error")>=0 && !BERepoLocation.Text.StartsWith("http://"))
-                {
-                    if (DialogResult.Yes == MessageBox.Show("BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                    {
-                        xml = callBEcmd(rootdir, new string[1] { "init" })[0];
-                        MessageBox.Show(xml);
-                        loadIssues();
-                        return;
-                    }
-                }
-                else
-                    MessageBox.Show(xml);
-            }
-            else
-            {
-                issues = new XPathDocument(new XmlTextReader(new StringReader(xml)));
 
-                var issues_nav = issues.CreateNavigator();
+            if(plugin.loadIssues())
+            {
+                var issues_nav = plugin.issues.CreateNavigator();
                 XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");
                 foreach (XPathNavigator issue in iter)
                 {
@@ -219,18 +137,7 @@ namespace BEurtle
 
         private void changesMade()
         {
-            if (plugin.parameters.DumpHTML && !BERepoLocation.Text.StartsWith("http://"))
-            {
-                if (plugin.parameters.DumpHTMLPath.Length == 0) throw new Exception("DumpHTMLPath has no length. This would delete your entire repo!");
-                try
-                {
-                    Directory.Delete(BERepoLocation.Text + "\\" + plugin.parameters.DumpHTMLPath, true);
-                }
-                catch (Exception)
-                {
-                }
-                string result = callBEcmd(BERepoLocation.Text, new string[1] { "html -o " + plugin.parameters.DumpHTMLPath })[0];
-            }
+            if (!BERepoLocation.Text.StartsWith("http://")) plugin.writeHTML(BERepoLocation.Text);
             loadIssues();
         }
 
@@ -247,7 +154,7 @@ namespace BEurtle
                 if(query!="") query+=" or ";
                 query+="string(short-name)='"+shortname+"'";
             }
-            var issues_nav = issues.CreateNavigator();
+            var issues_nav = plugin.issues.CreateNavigator();
             return (XPathNodeIterator)issues_nav.Select("/be-xml/bug[" + query + "]");
         }
 
@@ -259,7 +166,7 @@ namespace BEurtle
             inputs[0] += issue.toXML();
             inputs[0] += "</be-xml>";
             //MessageBox.Show("Would call: " + arguments[0] + "\nwith: " + inputs[0]);
-            outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments, inputs);
+            outputs = plugin.callBEcmd(BERepoLocation.Text, arguments, inputs);
             if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
             changesMade();
         }
@@ -310,7 +217,7 @@ namespace BEurtle
             foreach(string s in arguments)
                 l+=s+"\n";
             //MessageBox.Show("Would do: "+l);
-            outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments);
+            outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
             if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
             changesMade();
         }
@@ -350,21 +257,7 @@ namespace BEurtle
         public List<BEIssue> selectedIssues()
         {
             string[] shortnames = selectedIssuesAsShortnames();
-            var ret = new List<BEIssue>();
-            if (shortnames.Length > 0)
-            {
-                foreach(var shortname in shortnames)
-                {
-                    var item=new BEIssue(shortname);
-                    var node=issues.CreateNavigator().SelectSingleNode("/be-xml/bug[string(short-name)='"+shortname+"']");
-                    item.uuid = node.SelectSingleNode("uuid").ToString();
-                    item.summary = node.SelectSingleNode("summary").ToString();
-                    item.severity = node.SelectSingleNode("severity").ToString();
-                    item.status = node.SelectSingleNode("status").ToString();
-                    ret.Add(item);
-                }
-            }
-            return ret;
+            return plugin.findIssues(shortnames);
         }
 
         private bool setting_selection = false;
@@ -410,7 +303,7 @@ namespace BEurtle
                 foreach(string s in arguments)
                     l+=s+"\n";
                 //MessageBox.Show("Would do: "+l);
-                outputs = callBEcmd(BERepoLocation.Text.StartsWith("http://") ? BEroot : BERepoLocation.Text, arguments);
+                outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
                 if(outputs[0].Length>0) MessageBox.Show("Command output: " + outputs[0]);
                 changesMade();
             }
