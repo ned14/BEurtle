@@ -264,26 +264,33 @@ namespace BEurtle
                     if (issues == null && !loadIssues())
                         throw new Exception("Failed to load BE issues for checking commit message against");
                     var openstatuses=new List<string>() { "unconfirmed", "open", "assigned", "test" };
+                    var itemsdone = new List<string>();
                     foreach (Match match in matches)
                     {
                         string shortname = match.Groups[1].ToString();
-                        BEIssue issue = findIssues(new string[1] { shortname })[0];
-                        if(openstatuses.Contains(issue.status))
+                        if (!itemsdone.Contains(shortname))
                         {
-                            var result=MessageBox.Show("Commit message implies issue " + shortname + " (" + issue.summary + ")\nwith status " + issue.status + " is now fixed. Shall I mark it as fixed for you?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                            if(DialogResult.Cancel==result)
-                                break;
-                            else if(DialogResult.Yes==result)
+                            BEIssue issue = findIssues(new string[1] { shortname })[0];
+                            if (openstatuses.Contains(issue.status))
                             {
-                                string[] outputs = callBEcmd(rootpath, new string[1] { "status fixed "+shortname });
-                                if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
-                                else modified = true;
+                                var result = MessageBox.Show("Commit message implies issue " + shortname + " (" + issue.summary + ")\nwith status " + issue.status + " is now fixed. Shall I mark it as fixed for you?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                                if (DialogResult.Cancel == result)
+                                    break;
+                                else if (DialogResult.Yes == result)
+                                {
+                                    string[] outputs = callBEcmd(rootpath, new string[1] { "status fixed " + shortname });
+                                    if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
+                                    else
+                                    {
+                                        itemsdone.Add(shortname);
+                                        modified = true;
+                                    }
+                                }
                             }
                         }
                     }
                     if (modified)
-                    {
-                    }
+                        writeHTML(rootpath);
                 }
             }
             return null;
