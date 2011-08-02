@@ -30,6 +30,7 @@ namespace BEurtle
         public string BEPath="";
         public bool DumpHTML=true;
         public string DumpHTMLPath="";
+        public bool AddCommitAsComment = true;
         public ParseParameters(string parameters, bool fillindefaults=true)
         {
             string[] pars = parameters.Split('&');
@@ -41,6 +42,8 @@ namespace BEurtle
                     DumpHTML = bool.Parse(par.Substring(9));
                 else if (par.StartsWith("DumpHTMLPath="))
                     DumpHTMLPath = par.Substring(13);
+                else if (par.StartsWith("AddCommitAsComment="))
+                    AddCommitAsComment = bool.Parse(par.Substring(19));
             }
             if (fillindefaults) FillInDefaults();
         }
@@ -353,7 +356,10 @@ namespace BEurtle
                                     break;
                                 else if (DialogResult.Yes == result)
                                 {
-                                    string[] outputs = callBEcmd(rootpath, new string[1] { "status fixed " + shortname });
+                                    string[] outputs;
+                                    if(parameters.AddCommitAsComment)
+                                        outputs = callBEcmd(rootpath, new string[1] { "comment -a \"BEurtle auto issue closer\" " + shortname + " -" }, new string[1] { "Fixed in commit "+revision.ToString("x")+" (decimal "+revision.ToString()+")" });
+                                    outputs = callBEcmd(rootpath, new string[1] { "status fixed " + shortname });
                                     if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
                                     else
                                     {

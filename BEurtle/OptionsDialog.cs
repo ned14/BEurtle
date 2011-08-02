@@ -44,6 +44,7 @@ namespace BEurtle
                 BoxBEPath.Text = parsed.BEPath;
                 CheckDumpHTML.Checked = parsed.DumpHTML;
                 BoxDumpHTMLPath.Text = parsed.DumpHTMLPath;
+                CheckAddCommitAsComment.Checked = parsed.AddCommitAsComment;
             }
             finally
             {
@@ -57,6 +58,7 @@ namespace BEurtle
             if (BEPathChanged) parameters += "&BEPath=" + BoxBEPath.Text;
             parameters += "&DumpHTML=" + CheckDumpHTML.Checked.ToString();
             if (DumpHTMLPathChanged) parameters += "&DumpHTMLPath=" + BoxDumpHTMLPath.Text;
+            parameters += "&AddCommitAsComment=" + CheckAddCommitAsComment.Checked.ToString();
         }
 
         private void BoxBEPath_TextChanged(object sender, EventArgs e)

@@ -40,10 +40,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.LinkHomepage = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
-            this.LinkDonate = new System.Windows.Forms.LinkLabel();
             this.ButtonOk = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
+            this.LinkDonate = new System.Windows.Forms.LinkLabel();
+            this.CheckAddCommitAsComment = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,13 +86,14 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.CheckAddCommitAsComment);
             this.groupBox1.Controls.Add(this.BoxDumpHTMLPath);
             this.groupBox1.Controls.Add(this.CheckDumpHTML);
             this.groupBox1.Controls.Add(this.BoxBEPath);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(13, 75);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 100);
+            this.groupBox1.Size = new System.Drawing.Size(339, 122);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options:";
@@ -129,7 +131,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 182);
+            this.label3.Location = new System.Drawing.Point(13, 210);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 4;
@@ -138,7 +140,7 @@
             // LinkGithubIssues
             // 
             this.LinkGithubIssues.AutoSize = true;
-            this.LinkGithubIssues.Location = new System.Drawing.Point(95, 182);
+            this.LinkGithubIssues.Location = new System.Drawing.Point(95, 210);
             this.LinkGithubIssues.Name = "LinkGithubIssues";
             this.LinkGithubIssues.Size = new System.Drawing.Size(159, 13);
             this.LinkGithubIssues.TabIndex = 4;
@@ -149,7 +151,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 199);
+            this.label4.Location = new System.Drawing.Point(13, 227);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 6;
@@ -158,7 +160,7 @@
             // LinkHomepage
             // 
             this.LinkHomepage.AutoSize = true;
-            this.LinkHomepage.Location = new System.Drawing.Point(95, 199);
+            this.LinkHomepage.Location = new System.Drawing.Point(95, 227);
             this.LinkHomepage.Name = "LinkHomepage";
             this.LinkHomepage.Size = new System.Drawing.Size(255, 13);
             this.LinkHomepage.TabIndex = 5;
@@ -169,31 +171,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 233);
+            this.label5.Location = new System.Drawing.Point(13, 261);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(281, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Did this plugin improve your life? If so, please DONATE at:";
             // 
-            // LinkDonate
-            // 
-            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.LinkDonate.Image = global::BEurtle.Resource1.Paypal;
-            this.LinkDonate.Location = new System.Drawing.Point(12, 246);
-            this.LinkDonate.Name = "LinkDonate";
-            this.LinkDonate.Size = new System.Drawing.Size(340, 158);
-            this.LinkDonate.TabIndex = 6;
-            this.LinkDonate.TabStop = true;
-            this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
-            this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.LinkDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDonate_LinkClicked);
-            // 
             // ButtonOk
             // 
             this.ButtonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonOk.Location = new System.Drawing.Point(277, 427);
+            this.ButtonOk.Location = new System.Drawing.Point(277, 447);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(75, 23);
             this.ButtonOk.TabIndex = 9;
@@ -204,7 +192,7 @@
             // 
             this.ButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(196, 427);
+            this.ButtonCancel.Location = new System.Drawing.Point(196, 447);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 8;
@@ -213,7 +201,8 @@
             // 
             // ButtonReset
             // 
-            this.ButtonReset.Location = new System.Drawing.Point(115, 427);
+            this.ButtonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonReset.Location = new System.Drawing.Point(115, 447);
             this.ButtonReset.Name = "ButtonReset";
             this.ButtonReset.Size = new System.Drawing.Size(75, 23);
             this.ButtonReset.TabIndex = 7;
@@ -221,11 +210,35 @@
             this.ButtonReset.UseVisualStyleBackColor = true;
             this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
+            // LinkDonate
+            // 
+            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LinkDonate.Image = global::BEurtle.Resource1.Paypal;
+            this.LinkDonate.Location = new System.Drawing.Point(12, 274);
+            this.LinkDonate.Name = "LinkDonate";
+            this.LinkDonate.Size = new System.Drawing.Size(340, 158);
+            this.LinkDonate.TabIndex = 6;
+            this.LinkDonate.TabStop = true;
+            this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
+            this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.LinkDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDonate_LinkClicked);
+            // 
+            // CheckAddCommitAsComment
+            // 
+            this.CheckAddCommitAsComment.AutoSize = true;
+            this.CheckAddCommitAsComment.Location = new System.Drawing.Point(6, 95);
+            this.CheckAddCommitAsComment.Name = "CheckAddCommitAsComment";
+            this.CheckAddCommitAsComment.Size = new System.Drawing.Size(254, 17);
+            this.CheckAddCommitAsComment.TabIndex = 4;
+            this.CheckAddCommitAsComment.Text = "Add commit id as comment to auto-closed issues";
+            this.CheckAddCommitAsComment.UseVisualStyleBackColor = true;
+            // 
             // OptionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 462);
+            this.ClientSize = new System.Drawing.Size(364, 482);
             this.Controls.Add(this.ButtonReset);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
@@ -238,8 +251,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Link_nedproductions);
             this.Controls.Add(this.label1);
-            this.MaximumSize = new System.Drawing.Size(32768, 500);
-            this.MinimumSize = new System.Drawing.Size(380, 500);
+            this.MaximumSize = new System.Drawing.Size(32768, 520);
+            this.MinimumSize = new System.Drawing.Size(380, 520);
             this.Name = "OptionsDialog";
             this.Text = "OptionsDialog";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
@@ -269,5 +282,6 @@
         private System.Windows.Forms.Button ButtonOk;
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonReset;
+        private System.Windows.Forms.CheckBox CheckAddCommitAsComment;
     }
 }
