@@ -31,7 +31,7 @@ namespace BEurtle
         public bool DumpHTML=true;
         public string DumpHTMLPath="";
         public bool AddCommitAsComment = true;
-        public ParseParameters(string parameters, bool fillindefaults=true)
+        public ParseParameters(IWin32Window hwnd, string parameters, bool fillindefaults=true)
         {
             string[] pars = parameters.Split('&');
             foreach (var par in pars)
@@ -45,9 +45,9 @@ namespace BEurtle
                 else if (par.StartsWith("AddCommitAsComment="))
                     AddCommitAsComment = bool.Parse(par.Substring(19));
             }
-            if (fillindefaults) FillInDefaults();
+            if (fillindefaults) FillInDefaults(hwnd);
         }
-        public void FillInDefaults()
+        public void FillInDefaults(IWin32Window hwnd)
         {
             if (BEPath.Length == 0)
             {
@@ -61,7 +61,7 @@ namespace BEurtle
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to read what executes Python files. Is Python installed?\nError was: " + ex.Message);
+                    MessageBox.Show(hwnd, "Failed to read what executes Python files. Is Python installed?\nError was: " + ex.Message);
                 }
             }
             if (DumpHTMLPath.Length == 0)
@@ -128,7 +128,7 @@ namespace BEurtle
             return outputs;
         }
 
-        public bool loadIssues(string rootdir = null)
+        public bool loadIssues(IWin32Window hwnd, string rootdir = null)
         {
             string arguments = "list --status=all --xml";
             if (rootdir == null) rootdir = rootpath;
@@ -146,15 +146,15 @@ namespace BEurtle
             {
                 if (xml.IndexOf("Connection Error") >= 0 && !rootdir.StartsWith("http://"))
                 {
-                    if (DialogResult.Yes == MessageBox.Show("BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    if (DialogResult.Yes == MessageBox.Show(hwnd, "BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         xml = callBEcmd(rootdir, new string[1] { "init" })[0];
-                        MessageBox.Show(xml);
-                        return loadIssues();
+                        MessageBox.Show(hwnd, xml);
+                        return loadIssues(hwnd);
                     }
                 }
                 else
-                    MessageBox.Show(xml);
+                    MessageBox.Show(hwnd, xml);
             }
             else
             {
@@ -279,22 +279,25 @@ namespace BEurtle
 
         public bool ValidateParameters(IntPtr hParentWnd, string parameters)
         {
-            this.parameters = new ParseParameters(parameters);
+            var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
+            this.parameters = new ParseParameters(hwnd, parameters);
             return true;
         }
         public string GetLinkText(IntPtr hParentWnd, string parameters)
         {
-            this.parameters = new ParseParameters(parameters);
+            var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
+            this.parameters = new ParseParameters(hwnd, parameters);
             return "Bugs, Bugs, Bugs!";
         }
         public string GetCommitMessage(IntPtr hParentWnd, string parameters, string commonRoot, string[] pathList, string originalMessage)
         {
+            var hwnd=hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
             try
             {
                 rootpath = commonRoot;
-                this.parameters = new ParseParameters(parameters);
+                this.parameters = new ParseParameters(hwnd, parameters);
                 var form = new IssuesForm(this, commonRoot, originalMessage);
-                if (form.ShowDialog(hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null) != DialogResult.OK)
+                if (form.ShowDialog(hwnd) != DialogResult.OK)
                     return originalMessage;
                 var issues = form.selectedIssues();
                 if (issues.Count == 0)
@@ -306,7 +309,7 @@ namespace BEurtle
             }
             catch (Exception e)
             {
-                MessageBox.Show(hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null, e.ToString());
+                MessageBox.Show(hwnd, e.ToString());
                 throw;
             }
         }
@@ -323,12 +326,14 @@ namespace BEurtle
         }
         public string CheckCommit(IntPtr hParentWnd, string parameters, string commonUrl, string commonRoot, string[] pathList, string commitMessage)
         {
+            var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
             rootpath = commonRoot;
-            this.parameters = new ParseParameters(parameters);
+            this.parameters = new ParseParameters(hwnd, parameters);
             return null;
         }
         public string OnCommitFinished(IntPtr hParentWnd, string commonRoot, string[] pathList, string logMessage, int revision)
         {
+            var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
             rootpath = commonRoot;
             if (logMessage.ToLower().IndexOf("fixed") >= 0)
             {
@@ -338,8 +343,8 @@ namespace BEurtle
                 if (matches.Count > 0)
                 {
                     bool modified = false;
-                    if(parameters==null) parameters = new ParseParameters("");
-                    if (issues == null && !loadIssues())
+                    if(parameters==null) parameters = new ParseParameters(hwnd, "");
+                    if (issues == null && !loadIssues(hwnd))
                         throw new Exception("Failed to load BE issues for checking commit message against");
                     var openstatuses=new List<string>() { "unconfirmed", "open", "assigned", "test" };
                     var itemsdone = new List<string>();
@@ -351,7 +356,7 @@ namespace BEurtle
                             BEIssue issue = findIssues(new string[1] { shortname })[0];
                             if (openstatuses.Contains(issue.status))
                             {
-                                var result = MessageBox.Show("Commit message implies issue " + shortname + " (" + issue.summary + ")\nwith status " + issue.status + " is now fixed. Shall I mark it as fixed for you?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                                var result = MessageBox.Show(hwnd, "Commit message implies issue " + shortname + " (" + issue.summary + ")\nwith status " + issue.status + " is now fixed. Shall I mark it as fixed for you?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                                 if (DialogResult.Cancel == result)
                                     break;
                                 else if (DialogResult.Yes == result)
@@ -360,7 +365,7 @@ namespace BEurtle
                                     if(parameters.AddCommitAsComment)
                                         outputs = callBEcmd(rootpath, new string[1] { "comment -a \"BEurtle auto issue closer\" " + shortname + " -" }, new string[1] { "Fixed in commit "+revision.ToString("x")+" (decimal "+revision.ToString()+")" });
                                     outputs = callBEcmd(rootpath, new string[1] { "status fixed " + shortname });
-                                    if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
+                                    if (outputs[0].Length > 0) MessageBox.Show(hwnd, "Command output: " + outputs[0]);
                                     else
                                     {
                                         itemsdone.Add(shortname);

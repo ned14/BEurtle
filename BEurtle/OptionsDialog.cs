@@ -30,7 +30,7 @@ namespace BEurtle
                 DumpHTMLPathChanged = false;
                 BoxDumpHTMLPath.Text = "";
                 BoxDumpHTMLPath.ForeColor = Color.FromArgb(0, 0, 0);
-                ParseParameters parsed = new ParseParameters(parameters, false);
+                ParseParameters parsed = new ParseParameters(this, parameters, false);
                 if(parsed.BEPath.Length>0)
                     BEPathChanged = true;
                 else
@@ -39,7 +39,7 @@ namespace BEurtle
                     DumpHTMLPathChanged = true;
                 else
                     BoxDumpHTMLPath.ForeColor = Color.FromArgb(192, 192, 192);
-                parsed.FillInDefaults();
+                parsed.FillInDefaults(this);
 
                 BoxBEPath.Text = parsed.BEPath;
                 CheckDumpHTML.Checked = parsed.DumpHTML;

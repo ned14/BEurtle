@@ -66,13 +66,13 @@ namespace BEurtle
                 DeleteIssue.Enabled = false;
                 BoxStatus.Enabled = false;
 
-                if (plugin.loadIssues())
+                if (plugin.loadIssues(this))
                 {
                     var issues_nav = plugin.issues.CreateNavigator();
                     XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");
                     foreach (XPathNavigator issue in iter)
                     {
-                        //MessageBox.Show(issue.OuterXml);
+                        //MessageBox.Show(this, issue.OuterXml);
                         var row = new DataGridViewRow();
                         row.Cells.Add(new DataGridViewTextBoxCell());
                         row.Cells[0].Value = issue.Evaluate("string(short-name)");
@@ -175,9 +175,9 @@ namespace BEurtle
             inputs[0] = "<be-xml>\n";
             inputs[0] += issue.toXML();
             inputs[0] += "</be-xml>";
-            //MessageBox.Show("Would call: " + arguments[0] + "\nwith: " + inputs[0]);
+            //MessageBox.Show(this, "Would call: " + arguments[0] + "\nwith: " + inputs[0]);
             outputs = plugin.callBEcmd(BERepoLocation.Text, arguments, inputs);
-            if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
+            if (outputs[0].Length > 0) MessageBox.Show(this, "Command output: " + outputs[0]);
             changesMade();
         }
 
@@ -186,7 +186,7 @@ namespace BEurtle
             var iter = shortnamesToXML(new string[1] { shortname });
             iter.MoveNext();
             var detail = new IssueDetail(iter.Current);
-            if (DialogResult.OK == detail.ShowDialog() && detail.changed)
+            if (DialogResult.OK == detail.ShowDialog(this) && detail.changed)
                 writeOutIssue(detail);
         }
 
@@ -214,7 +214,7 @@ namespace BEurtle
         private void NewIssue_Click(object sender, EventArgs e)
         {
             var detail = new IssueDetail(null);
-            if (DialogResult.OK == detail.ShowDialog())
+            if (DialogResult.OK == detail.ShowDialog(this))
                 writeOutIssue(detail);
         }
 
@@ -226,9 +226,9 @@ namespace BEurtle
             string l="";
             foreach(string s in arguments)
                 l+=s+"\n";
-            //MessageBox.Show("Would do: "+l);
+            //MessageBox.Show(this, "Would do: "+l);
             outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
-            if (outputs[0].Length > 0) MessageBox.Show("Command output: " + outputs[0]);
+            if (outputs[0].Length > 0) MessageBox.Show(this, "Command output: " + outputs[0]);
             changesMade();
         }
 
@@ -245,7 +245,7 @@ namespace BEurtle
         {
             var open = new FolderBrowserDialog();
             open.SelectedPath = BERepoLocation.Text;
-            if (DialogResult.OK == open.ShowDialog())
+            if (DialogResult.OK == open.ShowDialog(this))
             {
                 BERepoLocation.Text = open.SelectedPath;
                 loadIssues();
@@ -312,9 +312,9 @@ namespace BEurtle
                 string l="";
                 foreach(string s in arguments)
                     l+=s+"\n";
-                //MessageBox.Show("Would do: "+l);
+                //MessageBox.Show(this, "Would do: "+l);
                 outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
-                if(outputs[0].Length>0) MessageBox.Show("Command output: " + outputs[0]);
+                if(outputs[0].Length>0) MessageBox.Show(this, "Command output: " + outputs[0]);
                 changesMade();
             }
         }

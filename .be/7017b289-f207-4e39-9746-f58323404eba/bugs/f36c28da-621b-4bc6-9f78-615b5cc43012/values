@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: serious
 
 
-status: open
+status: fixed
 
 
 summary: Add an installer so I can install this easily on my other machines
