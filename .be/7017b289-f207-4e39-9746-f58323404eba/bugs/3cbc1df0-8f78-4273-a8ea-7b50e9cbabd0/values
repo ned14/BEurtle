@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: Stop HTML dump including time of dump
