@@ -36,18 +36,34 @@ namespace BEurtle
             IssuesList.Sort(IssuesList.Columns[1], ListSortDirection.Ascending);
         }
 
+        private static List<string> status_order = new List<string>() { "unconfirmed", "open", "assigned", "test", "fixed", "closed", "wontfix" };
+        private static List<string> severity_order = new List<string>() { "target", "wishlist", "minor", "serious", "critical", "fatal" };
         private void IssuesList_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
+            string status1   = (string) IssuesList.Rows[e.RowIndex1].Cells[1].Value;
+            string severity1 = (string) IssuesList.Rows[e.RowIndex1].Cells[2].Value;
+            string status2   = (string) IssuesList.Rows[e.RowIndex2].Cells[1].Value;
+            string severity2 = (string) IssuesList.Rows[e.RowIndex2].Cells[2].Value;
+            int status_result = status_order.FindIndex(x => x == status1) - status_order.FindIndex(x => x == status2);
+            int severity_result = severity_order.FindIndex(x => x == severity1) - severity_order.FindIndex(x => x == severity2);
             if (e.Column.Index == 1)
             {
-                var order = new List<string>() { "unconfirmed", "open", "assigned", "test", "fixed", "closed", "wontfix" };
-                e.SortResult = order.FindIndex(x => x == (string) e.CellValue1)-order.FindIndex(x => x== (string) e.CellValue2);
+                if (status_result != 0)
+                    e.SortResult = status_result;
+                else if (severity_result != 0)
+                    e.SortResult = severity_result;
+                else
+                    e.SortResult = ((string) IssuesList.Rows[e.RowIndex1].Cells[3].Value).CompareTo((string) IssuesList.Rows[e.RowIndex2].Cells[3].Value);
                 e.Handled = true;
             }
             else if (e.Column.Index == 2)
             {
-                var order = new List<string>() { "target", "wishlist", "minor", "serious", "critical", "fatal" };
-                e.SortResult = order.FindIndex(x => x == (string)e.CellValue1) - order.FindIndex(x => x == (string)e.CellValue2);
+                if (severity_result != 0)
+                    e.SortResult = severity_result;
+                else if (status_result != 0)
+                    e.SortResult = status_result;
+                else
+                    e.SortResult = ((string)IssuesList.Rows[e.RowIndex1].Cells[3].Value).CompareTo((string)IssuesList.Rows[e.RowIndex2].Cells[3].Value);
                 e.Handled = true;
             }
         }

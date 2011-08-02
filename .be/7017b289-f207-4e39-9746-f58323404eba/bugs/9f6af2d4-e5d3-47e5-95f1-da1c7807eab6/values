@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: serious
 
 
-status: open
+status: fixed
 
 
 summary: Get dialogs to open on the window of their parent
