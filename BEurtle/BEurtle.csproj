@@ -67,6 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IssueDetail.resx">

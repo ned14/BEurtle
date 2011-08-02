@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Xml;
 using System.Xml.XPath;
+using System.Runtime.InteropServices;
 
 namespace BEurtle
 {
@@ -56,82 +57,91 @@ namespace BEurtle
             string focuseditem=null;
             if (IssuesList.SelectedRows.Count > 0)
                 focuseditem = IssuesList.SelectedRows[0].Cells[0].ToString();
-            IssuesList.Rows.Clear();
-            ButtonOk.Enabled = false;
-            NewIssue.Enabled = false;
-            DeleteIssue.Enabled = false;
-            BoxStatus.Enabled = false;
-
-            if(plugin.loadIssues())
+            try
             {
-                var issues_nav = plugin.issues.CreateNavigator();
-                XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");
-                foreach (XPathNavigator issue in iter)
+                Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, false, 0);
+                IssuesList.Rows.Clear();
+                ButtonOk.Enabled = false;
+                NewIssue.Enabled = false;
+                DeleteIssue.Enabled = false;
+                BoxStatus.Enabled = false;
+
+                if (plugin.loadIssues())
                 {
-                    //MessageBox.Show(issue.OuterXml);
-                    var row = new DataGridViewRow();
-                    row.Cells.Add(new DataGridViewTextBoxCell());
-                    row.Cells[0].Value = issue.Evaluate("string(short-name)");
-
-                    row.Cells.Add(new DataGridViewTextBoxCell());
-                    string status = (string)(row.Cells[1].Value = issue.Evaluate("string(status)"));
-                    if (status == "closed" || status == "fixed" || status == "wontfix")
-                        row.Cells[1].Style.BackColor = Color.FromArgb(128, 255, 128);
-                    else if (status == "unconfirmed")
-                        row.Cells[1].Style.BackColor = Color.FromArgb(255, 255, 128);
-                    else if (status == "open" || status == "assigned")
-                        row.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
-
-                    row.Cells.Add(new DataGridViewTextBoxCell());
-                    string severity = (string)(row.Cells[2].Value = issue.Evaluate("string(severity)"));
-                    if (severity == "target")
-                        row.Cells[2].Style.BackColor = Color.FromArgb(128, 255, 128);
-                    else if (severity == "serious")
-                        row.Cells[2].Style.BackColor = Color.FromArgb(255, 255, 128);
-                    else if (severity == "critical" || severity == "fatal")
-                        row.Cells[2].Style.BackColor = Color.FromArgb(255, 128, 128);
-
-                    row.Cells.Add(new DataGridViewTextBoxCell());
-                    string created = (string)issue.Evaluate("string(created)");
-                    if (created == "")
-                        row.Cells[3].Value = "unknown";
-                    else
+                    var issues_nav = plugin.issues.CreateNavigator();
+                    XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");
+                    foreach (XPathNavigator issue in iter)
                     {
-                        try
-                        {
-                            row.Cells[3].Value = DateTime.Parse(created).ToString("u");
-                        }
-                        catch (Exception)
-                        {
-                            row.Cells[3].Value = "BAD";
-                        }
-                    }
+                        //MessageBox.Show(issue.OuterXml);
+                        var row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewTextBoxCell());
+                        row.Cells[0].Value = issue.Evaluate("string(short-name)");
 
-                    row.Cells.Add(new DataGridViewTextBoxCell());
-                    row.Cells[4].Value = issue.Evaluate("string(summary)");
+                        row.Cells.Add(new DataGridViewTextBoxCell());
+                        string status = (string)(row.Cells[1].Value = issue.Evaluate("string(status)"));
+                        if (status == "closed" || status == "fixed" || status == "wontfix")
+                            row.Cells[1].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        else if (status == "unconfirmed")
+                            row.Cells[1].Style.BackColor = Color.FromArgb(255, 255, 128);
+                        else if (status == "open" || status == "assigned")
+                            row.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
 
-                    IssuesList.Rows.Add(row);
-                }
-                NewIssue.Enabled = true;
-                ButtonOk.Enabled = true;
-                if (IssuesList.Rows.Count > 0)
-                {
-                    DeleteIssue.Enabled = true;
-                    BoxStatus.Enabled = true;
-                    if (focuseditem != null)
-                    {
-                        foreach (DataGridViewRow item in IssuesList.Rows)
+                        row.Cells.Add(new DataGridViewTextBoxCell());
+                        string severity = (string)(row.Cells[2].Value = issue.Evaluate("string(severity)"));
+                        if (severity == "target")
+                            row.Cells[2].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        else if (severity == "serious")
+                            row.Cells[2].Style.BackColor = Color.FromArgb(255, 255, 128);
+                        else if (severity == "critical" || severity == "fatal")
+                            row.Cells[2].Style.BackColor = Color.FromArgb(255, 128, 128);
+
+                        row.Cells.Add(new DataGridViewTextBoxCell());
+                        string created = (string)issue.Evaluate("string(created)");
+                        if (created == "")
+                            row.Cells[3].Value = "unknown";
+                        else
                         {
-                            if (item.Cells[0].ToString() == focuseditem)
+                            try
                             {
-                                IssuesList.Rows[0].Selected = false;
-                                item.Selected = true;
-                                IssuesList_SelectionChanged(null, null);
-                                break;
+                                row.Cells[3].Value = DateTime.Parse(created).ToString("u");
+                            }
+                            catch (Exception)
+                            {
+                                row.Cells[3].Value = "BAD";
+                            }
+                        }
+
+                        row.Cells.Add(new DataGridViewTextBoxCell());
+                        row.Cells[4].Value = issue.Evaluate("string(summary)");
+
+                        IssuesList.Rows.Add(row);
+                    }
+                    NewIssue.Enabled = true;
+                    ButtonOk.Enabled = true;
+                    if (IssuesList.Rows.Count > 0)
+                    {
+                        DeleteIssue.Enabled = true;
+                        BoxStatus.Enabled = true;
+                        if (focuseditem != null)
+                        {
+                            foreach (DataGridViewRow item in IssuesList.Rows)
+                            {
+                                if (item.Cells[0].ToString() == focuseditem)
+                                {
+                                    IssuesList.Rows[0].Selected = false;
+                                    item.Selected = true;
+                                    IssuesList_SelectionChanged(null, null);
+                                    break;
+                                }
                             }
                         }
                     }
                 }
+            }
+            finally
+            {
+                Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, true, 0);
+                this.Refresh();
             }
         }
 
@@ -310,4 +320,5 @@ namespace BEurtle
         }
 
     }
+
 }

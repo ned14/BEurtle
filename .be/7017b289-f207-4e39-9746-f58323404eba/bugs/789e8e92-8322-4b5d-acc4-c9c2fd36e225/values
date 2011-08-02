@@ -1,0 +1,17 @@
+creator: '"Niall Douglas" <ned@kate>'
+
+
+reporter: '"Niall Douglas" <ned@kate>'
+
+
+severity: serious
+
+
+status: open
+
+
+summary: Sort by status/severity first, but sort by date (with oldest first) thereafter
+
+
+time: Tue, 02 Aug 2011 16:34:01 +0000
+
