@@ -8,7 +8,7 @@
     <ProjectGuid>{20A9AC5C-043A-4FEF-B661-958E88C1E57E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BEurtle</RootNamespace>
+    <RootNamespace>nedprod</RootNamespace>
     <AssemblyName>BEurtle</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,6 +32,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ned_dotnet.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -88,6 +94,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ned_dotnet.snk" />
+    <None Include="ned_dotnet_public.snk" />
     <None Include="Resources\Paypal.png" />
     <Content Include="testlist.xml" />
   </ItemGroup>

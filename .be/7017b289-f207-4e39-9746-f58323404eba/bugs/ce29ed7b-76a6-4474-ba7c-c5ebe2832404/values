@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: Add comment to bugs mentioned in a commit message

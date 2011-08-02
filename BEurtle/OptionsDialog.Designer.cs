@@ -214,7 +214,7 @@
             // 
             this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.LinkDonate.Image = global::BEurtle.Resource1.Paypal;
+            this.LinkDonate.Image = global::nedprod.Resource1.Paypal;
             this.LinkDonate.Location = new System.Drawing.Point(12, 274);
             this.LinkDonate.Name = "LinkDonate";
             this.LinkDonate.Size = new System.Drawing.Size(340, 158);
