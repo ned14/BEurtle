@@ -30,7 +30,7 @@ namespace BEurtle
         public string BEPath="";
         public bool DumpHTML=true;
         public string DumpHTMLPath="";
-        public bool AddCommitAsComment = true;
+        public bool AddCommitAsComment = true, FilterOutClosedIssues=false;
         public ParseParameters(IWin32Window hwnd, string parameters, bool fillindefaults=true)
         {
             string[] pars = parameters.Split('&');
@@ -44,6 +44,8 @@ namespace BEurtle
                     DumpHTMLPath = par.Substring(13);
                 else if (par.StartsWith("AddCommitAsComment="))
                     AddCommitAsComment = bool.Parse(par.Substring(19));
+                else if (par.StartsWith("FilterOutClosedIssues="))
+                    FilterOutClosedIssues = bool.Parse(par.Substring(22));
             }
             if (fillindefaults) FillInDefaults(hwnd);
         }

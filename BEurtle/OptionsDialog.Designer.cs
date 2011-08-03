@@ -31,10 +31,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Link_nedproductions = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BoxBEPath = new System.Windows.Forms.TextBox();
-            this.CheckDumpHTML = new System.Windows.Forms.CheckBox();
+            this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.CheckAddCommitAsComment = new System.Windows.Forms.CheckBox();
             this.BoxDumpHTMLPath = new System.Windows.Forms.TextBox();
+            this.CheckDumpHTML = new System.Windows.Forms.CheckBox();
+            this.BoxBEPath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.LinkGithubIssues = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,8 +45,8 @@
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.LinkLabel();
-            this.CheckAddCommitAsComment = new System.Windows.Forms.CheckBox();
-            this.groupBox1.SuspendLayout();
+            this.CheckFilterOutClosedIssues = new System.Windows.Forms.CheckBox();
+            this.OptionsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -82,147 +83,22 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "BE Path:";
             // 
-            // groupBox1
+            // OptionsGroupBox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.CheckAddCommitAsComment);
-            this.groupBox1.Controls.Add(this.BoxDumpHTMLPath);
-            this.groupBox1.Controls.Add(this.CheckDumpHTML);
-            this.groupBox1.Controls.Add(this.BoxBEPath);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(13, 75);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 122);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Options:";
-            // 
-            // BoxBEPath
-            // 
-            this.BoxBEPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.BoxBEPath.Location = new System.Drawing.Point(62, 19);
-            this.BoxBEPath.Name = "BoxBEPath";
-            this.BoxBEPath.Size = new System.Drawing.Size(271, 20);
-            this.BoxBEPath.TabIndex = 1;
-            this.BoxBEPath.TextChanged += new System.EventHandler(this.BoxBEPath_TextChanged);
-            // 
-            // CheckDumpHTML
-            // 
-            this.CheckDumpHTML.AutoSize = true;
-            this.CheckDumpHTML.Location = new System.Drawing.Point(6, 45);
-            this.CheckDumpHTML.Name = "CheckDumpHTML";
-            this.CheckDumpHTML.Size = new System.Drawing.Size(190, 17);
-            this.CheckDumpHTML.TabIndex = 2;
-            this.CheckDumpHTML.Text = "Always dump HTML on change to:";
-            this.CheckDumpHTML.UseVisualStyleBackColor = true;
-            // 
-            // BoxDumpHTMLPath
-            // 
-            this.BoxDumpHTMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.BoxDumpHTMLPath.Location = new System.Drawing.Point(62, 69);
-            this.BoxDumpHTMLPath.Name = "BoxDumpHTMLPath";
-            this.BoxDumpHTMLPath.Size = new System.Drawing.Size(271, 20);
-            this.BoxDumpHTMLPath.TabIndex = 3;
-            this.BoxDumpHTMLPath.TextChanged += new System.EventHandler(this.BoxDumpHTMLPath_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 210);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Found a bug?";
-            // 
-            // LinkGithubIssues
-            // 
-            this.LinkGithubIssues.AutoSize = true;
-            this.LinkGithubIssues.Location = new System.Drawing.Point(95, 210);
-            this.LinkGithubIssues.Name = "LinkGithubIssues";
-            this.LinkGithubIssues.Size = new System.Drawing.Size(159, 13);
-            this.LinkGithubIssues.TabIndex = 4;
-            this.LinkGithubIssues.TabStop = true;
-            this.LinkGithubIssues.Text = "Check/Report Issues on GitHub";
-            this.LinkGithubIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkGithubIssues_LinkClicked);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 227);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Homepage:";
-            // 
-            // LinkHomepage
-            // 
-            this.LinkHomepage.AutoSize = true;
-            this.LinkHomepage.Location = new System.Drawing.Point(95, 227);
-            this.LinkHomepage.Name = "LinkHomepage";
-            this.LinkHomepage.Size = new System.Drawing.Size(255, 13);
-            this.LinkHomepage.TabIndex = 5;
-            this.LinkHomepage.TabStop = true;
-            this.LinkHomepage.Text = "http://www.nedprod.com/programs/Win32/BEurtle/";
-            this.LinkHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHomepage_LinkClicked);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 261);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(281, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Did this plugin improve your life? If so, please DONATE at:";
-            // 
-            // ButtonOk
-            // 
-            this.ButtonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonOk.Location = new System.Drawing.Point(277, 447);
-            this.ButtonOk.Name = "ButtonOk";
-            this.ButtonOk.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOk.TabIndex = 9;
-            this.ButtonOk.Text = "OK";
-            this.ButtonOk.UseVisualStyleBackColor = true;
-            // 
-            // ButtonCancel
-            // 
-            this.ButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(196, 447);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 8;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
-            // 
-            // ButtonReset
-            // 
-            this.ButtonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonReset.Location = new System.Drawing.Point(115, 447);
-            this.ButtonReset.Name = "ButtonReset";
-            this.ButtonReset.Size = new System.Drawing.Size(75, 23);
-            this.ButtonReset.TabIndex = 7;
-            this.ButtonReset.Text = "Reset";
-            this.ButtonReset.UseVisualStyleBackColor = true;
-            this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
-            // 
-            // LinkDonate
-            // 
-            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.LinkDonate.Image = global::nedprod.Resource1.Paypal;
-            this.LinkDonate.Location = new System.Drawing.Point(12, 274);
-            this.LinkDonate.Name = "LinkDonate";
-            this.LinkDonate.Size = new System.Drawing.Size(340, 158);
-            this.LinkDonate.TabIndex = 6;
-            this.LinkDonate.TabStop = true;
-            this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
-            this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.LinkDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDonate_LinkClicked);
+            this.OptionsGroupBox.Controls.Add(this.CheckFilterOutClosedIssues);
+            this.OptionsGroupBox.Controls.Add(this.CheckAddCommitAsComment);
+            this.OptionsGroupBox.Controls.Add(this.BoxDumpHTMLPath);
+            this.OptionsGroupBox.Controls.Add(this.CheckDumpHTML);
+            this.OptionsGroupBox.Controls.Add(this.BoxBEPath);
+            this.OptionsGroupBox.Controls.Add(this.label2);
+            this.OptionsGroupBox.Location = new System.Drawing.Point(13, 75);
+            this.OptionsGroupBox.Name = "OptionsGroupBox";
+            this.OptionsGroupBox.Size = new System.Drawing.Size(339, 142);
+            this.OptionsGroupBox.TabIndex = 3;
+            this.OptionsGroupBox.TabStop = false;
+            this.OptionsGroupBox.Text = "Options:";
             // 
             // CheckAddCommitAsComment
             // 
@@ -234,11 +110,147 @@
             this.CheckAddCommitAsComment.Text = "Add commit id as comment to auto-closed issues";
             this.CheckAddCommitAsComment.UseVisualStyleBackColor = true;
             // 
+            // BoxDumpHTMLPath
+            // 
+            this.BoxDumpHTMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxDumpHTMLPath.Location = new System.Drawing.Point(62, 69);
+            this.BoxDumpHTMLPath.Name = "BoxDumpHTMLPath";
+            this.BoxDumpHTMLPath.Size = new System.Drawing.Size(271, 20);
+            this.BoxDumpHTMLPath.TabIndex = 3;
+            this.BoxDumpHTMLPath.TextChanged += new System.EventHandler(this.BoxDumpHTMLPath_TextChanged);
+            // 
+            // CheckDumpHTML
+            // 
+            this.CheckDumpHTML.AutoSize = true;
+            this.CheckDumpHTML.Location = new System.Drawing.Point(6, 45);
+            this.CheckDumpHTML.Name = "CheckDumpHTML";
+            this.CheckDumpHTML.Size = new System.Drawing.Size(190, 17);
+            this.CheckDumpHTML.TabIndex = 2;
+            this.CheckDumpHTML.Text = "Always dump HTML on change to:";
+            this.CheckDumpHTML.UseVisualStyleBackColor = true;
+            // 
+            // BoxBEPath
+            // 
+            this.BoxBEPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxBEPath.Location = new System.Drawing.Point(62, 19);
+            this.BoxBEPath.Name = "BoxBEPath";
+            this.BoxBEPath.Size = new System.Drawing.Size(271, 20);
+            this.BoxBEPath.TabIndex = 1;
+            this.BoxBEPath.TextChanged += new System.EventHandler(this.BoxBEPath_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 229);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Found a bug?";
+            // 
+            // LinkGithubIssues
+            // 
+            this.LinkGithubIssues.AutoSize = true;
+            this.LinkGithubIssues.Location = new System.Drawing.Point(95, 229);
+            this.LinkGithubIssues.Name = "LinkGithubIssues";
+            this.LinkGithubIssues.Size = new System.Drawing.Size(159, 13);
+            this.LinkGithubIssues.TabIndex = 6;
+            this.LinkGithubIssues.TabStop = true;
+            this.LinkGithubIssues.Text = "Check/Report Issues on GitHub";
+            this.LinkGithubIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkGithubIssues_LinkClicked);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 246);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Homepage:";
+            // 
+            // LinkHomepage
+            // 
+            this.LinkHomepage.AutoSize = true;
+            this.LinkHomepage.Location = new System.Drawing.Point(95, 246);
+            this.LinkHomepage.Name = "LinkHomepage";
+            this.LinkHomepage.Size = new System.Drawing.Size(255, 13);
+            this.LinkHomepage.TabIndex = 7;
+            this.LinkHomepage.TabStop = true;
+            this.LinkHomepage.Text = "http://www.nedprod.com/programs/Win32/BEurtle/";
+            this.LinkHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHomepage_LinkClicked);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 280);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(281, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Did this plugin improve your life? If so, please DONATE at:";
+            // 
+            // ButtonOk
+            // 
+            this.ButtonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ButtonOk.Location = new System.Drawing.Point(277, 467);
+            this.ButtonOk.Name = "ButtonOk";
+            this.ButtonOk.Size = new System.Drawing.Size(75, 23);
+            this.ButtonOk.TabIndex = 11;
+            this.ButtonOk.Text = "OK";
+            this.ButtonOk.UseVisualStyleBackColor = true;
+            // 
+            // ButtonCancel
+            // 
+            this.ButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonCancel.Location = new System.Drawing.Point(196, 467);
+            this.ButtonCancel.Name = "ButtonCancel";
+            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
+            this.ButtonCancel.TabIndex = 10;
+            this.ButtonCancel.Text = "Cancel";
+            this.ButtonCancel.UseVisualStyleBackColor = true;
+            // 
+            // ButtonReset
+            // 
+            this.ButtonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonReset.Location = new System.Drawing.Point(115, 467);
+            this.ButtonReset.Name = "ButtonReset";
+            this.ButtonReset.Size = new System.Drawing.Size(75, 23);
+            this.ButtonReset.TabIndex = 9;
+            this.ButtonReset.Text = "Reset";
+            this.ButtonReset.UseVisualStyleBackColor = true;
+            this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
+            // 
+            // LinkDonate
+            // 
+            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LinkDonate.Image = global::nedprod.Resource1.Paypal;
+            this.LinkDonate.Location = new System.Drawing.Point(12, 293);
+            this.LinkDonate.Name = "LinkDonate";
+            this.LinkDonate.Size = new System.Drawing.Size(340, 158);
+            this.LinkDonate.TabIndex = 8;
+            this.LinkDonate.TabStop = true;
+            this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
+            this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.LinkDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDonate_LinkClicked);
+            // 
+            // CheckFilterOutClosedIssues
+            // 
+            this.CheckFilterOutClosedIssues.AutoSize = true;
+            this.CheckFilterOutClosedIssues.Location = new System.Drawing.Point(6, 118);
+            this.CheckFilterOutClosedIssues.Name = "CheckFilterOutClosedIssues";
+            this.CheckFilterOutClosedIssues.Size = new System.Drawing.Size(192, 17);
+            this.CheckFilterOutClosedIssues.TabIndex = 5;
+            this.CheckFilterOutClosedIssues.Text = "Default to filtering out closed issues";
+            this.CheckFilterOutClosedIssues.UseVisualStyleBackColor = true;
+            // 
             // OptionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 482);
+            this.ClientSize = new System.Drawing.Size(364, 502);
             this.Controls.Add(this.ButtonReset);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
@@ -248,17 +260,17 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.LinkGithubIssues);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.OptionsGroupBox);
             this.Controls.Add(this.Link_nedproductions);
             this.Controls.Add(this.label1);
-            this.MaximumSize = new System.Drawing.Size(32768, 520);
-            this.MinimumSize = new System.Drawing.Size(380, 520);
+            this.MaximumSize = new System.Drawing.Size(32768, 540);
+            this.MinimumSize = new System.Drawing.Size(380, 540);
             this.Name = "OptionsDialog";
-            this.Text = "OptionsDialog";
+            this.Text = "BEurtle Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
             this.Shown += new System.EventHandler(this.OptionsDialog_Shown);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.OptionsGroupBox.ResumeLayout(false);
+            this.OptionsGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,7 +281,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel Link_nedproductions;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox OptionsGroupBox;
         private System.Windows.Forms.TextBox BoxDumpHTMLPath;
         private System.Windows.Forms.CheckBox CheckDumpHTML;
         private System.Windows.Forms.TextBox BoxBEPath;
@@ -283,5 +295,6 @@
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonReset;
         private System.Windows.Forms.CheckBox CheckAddCommitAsComment;
+        private System.Windows.Forms.CheckBox CheckFilterOutClosedIssues;
     }
 }

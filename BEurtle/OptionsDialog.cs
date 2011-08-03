@@ -30,21 +30,32 @@ namespace BEurtle
                 DumpHTMLPathChanged = false;
                 BoxDumpHTMLPath.Text = "";
                 BoxDumpHTMLPath.ForeColor = Color.FromArgb(0, 0, 0);
-                ParseParameters parsed = new ParseParameters(this, parameters, false);
-                if(parsed.BEPath.Length>0)
-                    BEPathChanged = true;
-                else
-                    BoxBEPath.ForeColor = Color.FromArgb(192, 192, 192);
-                if(parsed.DumpHTMLPath.Length>0)
-                    DumpHTMLPathChanged = true;
-                else
-                    BoxDumpHTMLPath.ForeColor = Color.FromArgb(192, 192, 192);
-                parsed.FillInDefaults(this);
+                if (parameters != null)
+                {
+                    ParseParameters parsed = new ParseParameters(this, parameters, false);
+                    if (parsed.BEPath.Length > 0)
+                        BEPathChanged = true;
+                    else
+                        BoxBEPath.ForeColor = Color.FromArgb(192, 192, 192);
+                    if (parsed.DumpHTMLPath.Length > 0)
+                        DumpHTMLPathChanged = true;
+                    else
+                        BoxDumpHTMLPath.ForeColor = Color.FromArgb(192, 192, 192);
+                    parsed.FillInDefaults(this);
 
-                BoxBEPath.Text = parsed.BEPath;
-                CheckDumpHTML.Checked = parsed.DumpHTML;
-                BoxDumpHTMLPath.Text = parsed.DumpHTMLPath;
-                CheckAddCommitAsComment.Checked = parsed.AddCommitAsComment;
+                    BoxBEPath.Text = parsed.BEPath;
+                    CheckDumpHTML.Checked = parsed.DumpHTML;
+                    BoxDumpHTMLPath.Text = parsed.DumpHTMLPath;
+                    CheckAddCommitAsComment.Checked = parsed.AddCommitAsComment;
+                    CheckFilterOutClosedIssues.Checked = parsed.FilterOutClosedIssues;
+                }
+                else
+                {
+                    this.Text = "About BEurtle";
+                    OptionsGroupBox.Enabled = false;
+                    ButtonReset.Visible = false;
+                    ButtonCancel.Visible = false;
+                }
             }
             finally
             {
@@ -59,6 +70,7 @@ namespace BEurtle
             parameters += "&DumpHTML=" + CheckDumpHTML.Checked.ToString();
             if (DumpHTMLPathChanged) parameters += "&DumpHTMLPath=" + BoxDumpHTMLPath.Text;
             parameters += "&AddCommitAsComment=" + CheckAddCommitAsComment.Checked.ToString();
+            parameters += "&FilterOutClosedIssues=" + CheckFilterOutClosedIssues.Checked.ToString();
         }
 
         private void BoxBEPath_TextChanged(object sender, EventArgs e)

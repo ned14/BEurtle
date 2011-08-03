@@ -17,6 +17,10 @@ namespace BEurtle
     {
         private BEurtlePlugin plugin;
         private string BEroot, baseComment;
+        private List<string> status_filters=new List<string>();
+        private List<string> severity_filters = new List<string>();
+        private List<string> created_filters = new List<string>();
+        private List<string> summary_filters = new List<string>();
 
         public IssuesForm(BEurtlePlugin plugin, string commonRoot, string baseComment)
         {
@@ -34,6 +38,12 @@ namespace BEurtle
             InitializeComponent();
             BERepoLocation.Text = BEroot;
             IssuesList.Sort(IssuesList.Columns[1], ListSortDirection.Ascending);
+            if (plugin.parameters.FilterOutClosedIssues)
+            {
+                if (!status_filters.Contains("closed")) status_filters.Add("closed");
+                if (!status_filters.Contains("fixed")) status_filters.Add("fixed");
+                if (!status_filters.Contains("wontfix")) status_filters.Add("wontfix");
+            }
         }
 
         private static List<string> status_order = new List<string>() { "unconfirmed", "open", "assigned", "test", "fixed", "closed", "wontfix" };
@@ -68,7 +78,7 @@ namespace BEurtle
             }
         }
 
-        private void loadIssues()
+        private void loadIssues(bool refreshData=true)
         {
             string focuseditem=null;
             if (IssuesList.SelectedRows.Count > 0)
@@ -76,25 +86,75 @@ namespace BEurtle
             try
             {
                 Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, false, 0);
+                SuspendLayout();
                 IssuesList.Rows.Clear();
                 ButtonOk.Enabled = false;
                 NewIssue.Enabled = false;
                 DeleteIssue.Enabled = false;
-                BoxStatus.Enabled = false;
 
-                if (plugin.loadIssues(this))
+                if (!refreshData || plugin.loadIssues(this))
                 {
                     var issues_nav = plugin.issues.CreateNavigator();
                     XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");
                     foreach (XPathNavigator issue in iter)
                     {
                         //MessageBox.Show(this, issue.OuterXml);
+                        string shortname=(string) issue.Evaluate("string(short-name)"), status=(string) issue.Evaluate("string(status)"), severity=(string) issue.Evaluate("string(severity)"), created, summary=(string) issue.Evaluate("string(summary)");
+                        created=(string) issue.Evaluate("string(created)");
+                        if (created == "")
+                            created = "unknown";
+                        else
+                        {
+                            try
+                            {
+                                created = DateTime.Parse(created).ToString("u");
+                            }
+                            catch (Exception)
+                            {
+                                created = "BAD";
+                            }
+                        }
+                        if (status_filters.Count > 0)
+                        {
+                            bool filter = false;
+                            foreach (var f in status_filters)
+                                if (status.Contains(f)) { filter = true; break; }
+                            if (filter) continue;
+                        }
+                        if (severity_filters.Count > 0)
+                        {
+                            bool filter = false;
+                            foreach (var f in severity_filters)
+                                if (severity.Contains(f)) { filter = true; break; }
+                            if (filter) continue;
+                        }
+                        if (status_filters.Count > 0)
+                        {
+                            bool filter = false;
+                            foreach (var f in status_filters)
+                                if (status.Contains(f)) { filter = true; break; }
+                            if (filter) continue;
+                        }
+                        if (created_filters.Count > 0)
+                        {
+                            bool filter = false;
+                            foreach (var f in created_filters)
+                                if (created.Contains(f)) { filter = true; break; }
+                            if (filter) continue;
+                        }
+                        if (summary_filters.Count > 0)
+                        {
+                            bool filter = false;
+                            foreach (var f in summary_filters)
+                                if (summary.Contains(f)) { filter = true; break; }
+                            if (filter) continue;
+                        }
                         var row = new DataGridViewRow();
                         row.Cells.Add(new DataGridViewTextBoxCell());
-                        row.Cells[0].Value = issue.Evaluate("string(short-name)");
+                        row.Cells[0].Value = shortname;
 
                         row.Cells.Add(new DataGridViewTextBoxCell());
-                        string status = (string)(row.Cells[1].Value = issue.Evaluate("string(status)"));
+                        row.Cells[1].Value = status;
                         if (status == "closed" || status == "fixed" || status == "wontfix")
                             row.Cells[1].Style.BackColor = Color.FromArgb(128, 255, 128);
                         else if (status == "unconfirmed")
@@ -103,7 +163,7 @@ namespace BEurtle
                             row.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
 
                         row.Cells.Add(new DataGridViewTextBoxCell());
-                        string severity = (string)(row.Cells[2].Value = issue.Evaluate("string(severity)"));
+                        row.Cells[2].Value = severity;
                         if (severity == "target")
                             row.Cells[2].Style.BackColor = Color.FromArgb(128, 255, 128);
                         else if (severity == "serious")
@@ -112,23 +172,10 @@ namespace BEurtle
                             row.Cells[2].Style.BackColor = Color.FromArgb(255, 128, 128);
 
                         row.Cells.Add(new DataGridViewTextBoxCell());
-                        string created = (string)issue.Evaluate("string(created)");
-                        if (created == "")
-                            row.Cells[3].Value = "unknown";
-                        else
-                        {
-                            try
-                            {
-                                row.Cells[3].Value = DateTime.Parse(created).ToString("u");
-                            }
-                            catch (Exception)
-                            {
-                                row.Cells[3].Value = "BAD";
-                            }
-                        }
+                        row.Cells[3].Value = created;
 
                         row.Cells.Add(new DataGridViewTextBoxCell());
-                        row.Cells[4].Value = issue.Evaluate("string(summary)");
+                        row.Cells[4].Value = summary;
 
                         IssuesList.Rows.Add(row);
                     }
@@ -137,7 +184,6 @@ namespace BEurtle
                     if (IssuesList.Rows.Count > 0)
                     {
                         DeleteIssue.Enabled = true;
-                        BoxStatus.Enabled = true;
                         if (focuseditem != null)
                         {
                             foreach (DataGridViewRow item in IssuesList.Rows)
@@ -146,7 +192,6 @@ namespace BEurtle
                                 {
                                     IssuesList.Rows[0].Selected = false;
                                     item.Selected = true;
-                                    IssuesList_SelectionChanged(null, null);
                                     break;
                                 }
                             }
@@ -157,7 +202,8 @@ namespace BEurtle
             finally
             {
                 Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, true, 0);
-                this.Refresh();
+                this.ResumeLayout();
+                Refresh();
             }
         }
 
@@ -286,53 +332,235 @@ namespace BEurtle
             return plugin.findIssues(shortnames);
         }
 
-        private bool setting_selection = false;
-        private void IssuesList_SelectionChanged(object sender, EventArgs e)
+        private void IssuesList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && !IssuesList.Rows[e.RowIndex].Selected)
+            {
+                while (IssuesList.SelectedRows.Count > 0)
+                    IssuesList.SelectedRows[0].Selected = false;
+                IssuesList.Rows[e.RowIndex].Selected = true;
+            }
+        }
+
+        private void fillInMenuItems(ToolStripMenuItem menu, List<string> items, EventHandler changedhandler, KeyPressEventHandler enterhandler)
+        {
+            while(menu.DropDownItems.Count>3)
+                menu.DropDownItems.RemoveAt(3);
+            foreach (var item in items)
+            {
+                var tb = new ToolStripTextBox();
+                tb.Text = item;
+                tb.TextChanged += changedhandler;
+                tb.KeyPress += enterhandler;
+                menu.DropDownItems.Add(tb);
+            }
+        }
+        bool contextmenu_initialising = false;
+        bool contextmenu_fixupclosing = false;
+        private void contextMenu_Opening(object sender, CancelEventArgs e)
         {
             try
             {
-                setting_selection = true;
-                if (IssuesList.SelectedRows.Count > 0)
-                {
-                    DeleteIssue.Enabled = true;
-                    BoxStatus.SelectedItem = "";
-                    BoxStatus.Enabled = true;
-                    for (var i = 0; i < IssuesList.SelectedRows.Count; i++)
-                    {
-                        if (i == 0)
-                            BoxStatus.SelectedItem = IssuesList.SelectedRows[i].Cells[1].Value;
-                        else if ((string) BoxStatus.SelectedItem != (string) IssuesList.SelectedRows[i].Cells[1].Value)
-                            BoxStatus.SelectedItem = "";
-                    }
-                }
-                else
-                {
-                    DeleteIssue.Enabled = false;
-                    BoxStatus.SelectedItem = "";
-                    BoxStatus.Enabled = false;
+                contextmenu_initialising = true;
+                contextMenu.SuspendLayout();
+
+                FromStatusTextBox.Text = "";
+                fillInMenuItems(fromStatusToolStripMenuItem, status_filters, new EventHandler(FromStatusTextBox_TextChanged), new KeyPressEventHandler(FromStatusTextBox_KeyPress));
+                FromSeverityTextBox.Text = "";
+                fillInMenuItems(fromSeverityToolStripMenuItem, severity_filters, new EventHandler(FromSeverityTextBox_TextChanged), new KeyPressEventHandler(FromSeverityTextBox_KeyPress));
+                FromCreatedTextBox.Text = "";
+                fillInMenuItems(fromCreatedToolStripMenuItem, created_filters, new EventHandler(FromCreatedTextBox_TextChanged), new KeyPressEventHandler(FromCreatedTextBox_KeyPress));
+                FromSummaryTextBox.Text = "";
+                fillInMenuItems(fromSummaryToolStripMenuItem, summary_filters, new EventHandler(FromSummaryTextBox_TextChanged), new KeyPressEventHandler(FromSummaryTextBox_KeyPress));
+
+                filterOutToolStripMenuItem.Checked = (status_filters.Count > 0 || severity_filters.Count > 0 || created_filters.Count > 0 || summary_filters.Count > 0);
+                allClosedItemsToolStripMenuItem.Checked = (status_filters.Contains("closed") && status_filters.Contains("fixed") && status_filters.Contains("wontfix"));
+                allNotSeriousToolStripMenuItem.Checked = (severity_filters.Contains("target") && severity_filters.Contains("wishlist") && severity_filters.Contains("minor"));
+
+                if (!contextmenu_fixupclosing)
+                {   // Hack in such that any attempts to auto-close the filter menu are prevented
+                    filterOutToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(filterOutToolStripMenuItem_Closing);
+                    fromStatusToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(filterOutToolStripMenuItem_Closing);
+                    fromSeverityToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(filterOutToolStripMenuItem_Closing);
+                    fromCreatedToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(filterOutToolStripMenuItem_Closing);
+                    fromSummaryToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(filterOutToolStripMenuItem_Closing);
+                    contextmenu_fixupclosing = true;
                 }
             }
             finally
             {
-                setting_selection = false;
+                contextMenu.ResumeLayout();
+                contextmenu_initialising = false;
+            }
+        }
+        private void filterOutToolStripMenuItem_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+            {
+                e.Cancel = true;
             }
         }
 
-        private void BoxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        private void changeStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!setting_selection)
+            string[] arguments = selectedIssuesAsShortnames(), outputs;
+            for (var i = 0; i < arguments.Length; i++)
+                arguments[i] = "status " + ((ToolStripMenuItem) sender).Text + " " + arguments[i];
+            //string l = "";
+            //foreach (string s in arguments)
+            //    l += s + "\n";
+            //MessageBox.Show(this, "Would do: "+l);
+            outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
+            if (outputs[0].Length > 0) MessageBox.Show(this, "Command output: " + outputs[0]);
+            changesMade();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            status_filters.Clear();
+            severity_filters.Clear();
+            created_filters.Clear();
+            summary_filters.Clear();
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void allClosedItemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (allClosedItemsToolStripMenuItem.Checked)
             {
-                string[] arguments=selectedIssuesAsShortnames(), outputs;
-                for (var i = 0; i < arguments.Length; i++)
-                    arguments[i] = "status " + BoxStatus.SelectedItem + " " + arguments[i];
-                string l="";
-                foreach(string s in arguments)
-                    l+=s+"\n";
-                //MessageBox.Show(this, "Would do: "+l);
-                outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
-                if(outputs[0].Length>0) MessageBox.Show(this, "Command output: " + outputs[0]);
-                changesMade();
+                status_filters.RemoveAll(x => x == "closed");
+                status_filters.RemoveAll(x => x == "fixed");
+                status_filters.RemoveAll(x => x == "wontfix");
             }
+            else
+            {
+                if (!status_filters.Contains("closed")) status_filters.Add("closed");
+                if (!status_filters.Contains("fixed")) status_filters.Add("fixed");
+                if (!status_filters.Contains("wontfix")) status_filters.Add("wontfix");
+            }
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void allNotSeriousToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (allNotSeriousToolStripMenuItem.Checked)
+            {
+                severity_filters.RemoveAll(x => x == "target");
+                severity_filters.RemoveAll(x => x == "wishlist");
+                severity_filters.RemoveAll(x => x == "minor");
+            }
+            else
+            {
+                if (!severity_filters.Contains("target")) severity_filters.Add("target");
+                if (!severity_filters.Contains("wishlist")) severity_filters.Add("wishlist");
+                if (!severity_filters.Contains("minor")) severity_filters.Add("minor");
+            }
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void FromStatusClear_Click(object sender, EventArgs e)
+        {
+            status_filters.Clear();
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void FromSeverityClear_Click(object sender, EventArgs e)
+        {
+            severity_filters.Clear();
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void FromCreatedClear_Click(object sender, EventArgs e)
+        {
+            created_filters.Clear();
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void FromSummaryClear_Click(object sender, EventArgs e)
+        {
+            summary_filters.Clear();
+            loadIssues(false);
+            contextMenu_Opening(sender, null);
+        }
+
+        private void setFilters(ToolStripMenuItem menuitem, List<string> filters)
+        {
+            if (!contextmenu_initialising)
+            {
+                var j = 0;
+                for (var i = 2; i < menuitem.DropDownItems.Count; i++)
+                {
+                    var v = menuitem.DropDownItems[i].Text;
+                    if (v.Length > 0)
+                    {
+                        if (filters.Count == j)
+                            filters.Add(v);
+                        else
+                            filters[j] = v;
+                        j++;
+                    }
+                }
+                if (filters.Count > j) filters.RemoveRange(j, filters.Count - j);
+                loadIssues(false);
+            }
+        }
+        private void FromStatusTextBox_TextChanged(object sender, EventArgs e)
+        {
+            setFilters(fromStatusToolStripMenuItem, status_filters);
+        }
+        private void FromStatusTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 127)
+                FromStatusTextBox_TextChanged(sender, e);
+            else if (e.KeyChar == 13)
+                contextMenu_Opening(sender, null);
+        }
+
+        private void FromSeverityTextBox_TextChanged(object sender, EventArgs e)
+        {
+            setFilters(fromSeverityToolStripMenuItem, severity_filters);
+        }
+        private void FromSeverityTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 127)
+                FromSeverityTextBox_TextChanged(sender, e);
+            else if (e.KeyChar == 13)
+                contextMenu_Opening(sender, null);
+        }
+
+        private void FromCreatedTextBox_TextChanged(object sender, EventArgs e)
+        {
+            setFilters(fromCreatedToolStripMenuItem, created_filters);
+        }
+        private void FromCreatedTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 127)
+                FromCreatedTextBox_TextChanged(sender, e);
+            else if (e.KeyChar == 13)
+                contextMenu_Opening(sender, null);
+        }
+
+        private void FromSummaryTextBox_TextChanged(object sender, EventArgs e)
+        {
+            setFilters(fromSummaryToolStripMenuItem, summary_filters);
+        }
+        private void FromSummaryTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 127)
+                FromSummaryTextBox_TextChanged(sender, e);
+            else if (e.KeyChar == 13)
+                contextMenu_Opening(sender, null);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new OptionsDialog(null).ShowDialog(this);
         }
 
     }
