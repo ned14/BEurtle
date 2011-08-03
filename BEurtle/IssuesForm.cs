@@ -83,6 +83,7 @@ namespace BEurtle
             string focuseditem=null;
             if (IssuesList.SelectedRows.Count > 0)
                 focuseditem = IssuesList.SelectedRows[0].Cells[0].ToString();
+            bool doredraw = (!refreshData || plugin.loadIssues(this, BERepoLocation.Text));
             try
             {
                 Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, false, 0);
@@ -92,7 +93,7 @@ namespace BEurtle
                 NewIssue.Enabled = false;
                 DeleteIssue.Enabled = false;
 
-                if (!refreshData || plugin.loadIssues(this))
+                if(doredraw)
                 {
                     var issues_nav = plugin.issues.CreateNavigator();
                     XPathNodeIterator iter = (XPathNodeIterator)issues_nav.Select("/be-xml/bug");

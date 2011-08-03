@@ -1,0 +1,3 @@
+[submodule "BE"]
+	path = BE
+	url = git@gitorious.org:~ned14/be/ned14-beurtle-be.git

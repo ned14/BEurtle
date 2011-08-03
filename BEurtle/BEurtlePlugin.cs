@@ -100,7 +100,7 @@ namespace BEurtle
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
                             UseShellExecute = false,
-                            WorkingDirectory = rootpath
+                            WorkingDirectory = BErepopath.StartsWith("http://") ? rootpath : BErepopath
                         }
                     };
                     try

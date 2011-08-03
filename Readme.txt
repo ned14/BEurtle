@@ -1,5 +1,5 @@
-BEurtle v1.0 beta 1 (31st July 2011)
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+BEurtle v1.01 beta 1 (3rd August 2011)
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 (C) 2011 Niall Douglas, ned Productions Limited
 
 Please find enclosed a TortoiseXXX plugin for the Bugs Everywhere
@@ -22,19 +22,25 @@ What is supported:
 -=-=-=-=-=-=-=-=-=
 The BEurtle plugin literally wraps the command line be. You get
 a dialog box which lists all issues, showing their current status,
-severity, creation date and summary. You can sort status and severity
-and it sorts it the right way. One simply selects the bugs about to be
-fixed in the commit and hits OK - this will list the bugs in question
-in the commit message as being fixed.
+severity, creation date and summary. By clicking on column headers, you
+can sort status and severity and it sorts it the right way. One simply
+selects the bugs about to be fixed in the commit and hits OK - this will
+list the bugs in question in the commit message as being fixed.
 
-v1.0 supports only the IBugTraqProvider interface
-(http://tortoisesvn.net/docs/release/TortoiseSVN_en/tsvn-ibugtraqprovider.html),
-so unfortunately that is as far as integration currently goes. v1.1 will
-no doubt add IBugTraqProvider2 support.
+Upon committing, BEurtle will scan your commit message for the word
+"fixed". If that word is present, it will scan it for any BE format issue
+id 'hex/hex'. It then checks to see if that issue exists and is open -
+if so, it will offer to close the issue for you. If you have enabled
+auto-issue commenting with fix revision, it will do that and mark the
+issue closed.
 
-You can also quickly change the status of issues by selecting them and
-changing their status using the combobox at the bottom. You can add and
-delete issues using the buttons provided.
+You can quickly change the status of issues by selecting them and
+right clicking to bring up a context menu. The same context menu also
+lets you filter out issues you don't want to see by typing in the relevant
+text to exclude into its relevant section. The filter menu doesn't auto-
+close, so you can mess around with settings and the list of issues will
+dynamically update itself as you change things. Of course, you can add and
+delete issues using the buttons at the bottom of the dialog.
 
 Double-clicking or hitting enter on an issue will open its detail box
 which also makes a very basic stab at showing the comments with replies
@@ -42,9 +48,9 @@ correctly sorted and indented (i.e. they're threaded). It doesn't look
 pretty, but it's sufficient. You can edit an issue by clicking the Edit
 button, and upon hitting OK it will save out the changes.
 
-Lastly, HTTP access is supported, so you can enter a http:// remote repo
-address and after some delay it will appear. All editing operations are
-also supported on remote repos.
+HTTP access is supported, so you can enter a http:// remote repo address
+and after some delay due to BE being slow it will appear. All editing
+operations are also supported on remote repos.
 
 Note that listing all bugs including closed ones on
 http://bugs.bugseverywhere.org/ pukes on the command line, so it pukes also
@@ -52,9 +58,6 @@ in this plugin. Hassle BE's author to fix this.
 
 What isn't supported:
 -=-=-=-=-=-=-=-=-=-=-
-There is currently no way to either create or delete repositories - you'll
-still have to do this on the command line.
-
 There is no way to add or edit comments.
 
 Binary attachments to comments aren't decoded.
@@ -69,9 +72,6 @@ There is no bug dependency support at all, nor for tagging.
 There is no support for diffing, setting due dates, merging, subscribing or
 targeting.
 
-Currently there is no support for dumping out a HTML copy. This will likely
-get fixed in v1.1 because it's useful for people who don't have BE installed.
-
 Lastly, I'd personally really like a way of merging GitHub issues with BE
 issues. Because I'd personally really like this, you have a good chance of
 seeing support for it soon.
@@ -79,61 +79,26 @@ seeing support for it soon.
 
 To Install:
 -=-=-=-=-=-
-1. Go install Python (http://www.python.org/). You currently want a 2.x
-version as I don't think BE supports 3.x yet.
+1. Go install Python (http://www.python.org/). You probably want a 2.x
+version as I don't think BE fully supports 3.x yet.
 
-2. Go install easy_install from http://pypi.python.org/pypi/setuptools
+2. Supposedly the installer will automatically download .NET v2.0 if it isn't
+present on your system, but if it doesn't then you need that too before installing.
 
-3. On the command line, do "easy_install pyyaml". If it can't find easy_install
-you may need to modify your PATH as detailed in Appendix A.
+3. Run either the x86 or x64 installer as appropriate to your system. Point the
+installer at your python installation and where you want to install the plugin.
 
-4. Download the latest BE from http://www.bugseverywhere.org/. Unpack it
-somewhere and run "python setup.py install" inside it.
-
-5. Current versions of BE don't come with a be shell invoker. Try typing
-"be --help" on the command line. If it can't find BE, follow the
-instructions in Appendix A below.
-
-6. Current versions of BE puke on XML import. This prevents you adding new
-issues or editing existing ones. To check this, open your python's
-site-packages/libbe/command/import_xml.py. Find this section of code around
-line 182:
-
-        for new in root_bugs:
-            try:
-                old = bugdir.bug_from_uuid(new.alt_id)
-            except KeyError:
-                old = None
-            if old == None:
-                bd.append(new)
-
-Replace as follows:
-
-        for new in root_bugs:
-            try:
-                old = bugdir.bug_from_uuid(new.alt_id)
-            except KeyError:
-                old = None
-            if old == None:
-                bugdir.append(new) # bd is supposed to be bugdir
-
-7. I haven't written an installer for BEurtle yet, so for now you're going
-to have to do it manually. Open the registry file in BEurtle/BEurtle.reg.
-Change all paths pointing to G:\BEurtle to point to wherever your BEurtle.dll
-lives. Save out the registry file. Run the registry file.
-
-8. Open up your TortoiseXXX settings dialog choosing Issue Tracker Integration.
+4. Open up your TortoiseXXX settings dialog choosing Issue Tracker Integration.
 Click Add and type in the path of the root of your repository, choosing BEurtle
-as the provider. Click OK.
+as the provider. Click on the Options button and choose what options you'd prefer.
+Exit by clicking OK, then OK to close the Issue Tracker Integration dialog.
 
-9. Try committing something in your repository. You should see a "Bugs, bugs, bugs!"
+5. Try committing something in your repository. You should see a "Bugs, Bugs, Bugs!"
 button in the top right of the commit box. Click that. You should get the dialog
-and an error because there is no BE repository in your VC repository root.
+and a message asking if you want to create a new BE repository because there is no
+BE repository in your VC repository root. Say yes to this.
 
-10. To fix this, open a command box and go to your VC repository root. Type "be init"
-and hit enter. Now retry committing something - you should no longer get an error.
-
-11. Remember that BE's tracking data is stored by your VC repository. After you
+6. Remember that BE's tracking data is stored by your VC repository. After you
 modify issues you'll need to commit to your VC repository to store the changes. Enjoy!
 
 
@@ -157,26 +122,29 @@ strike a fixed price deal with any customer.
 
 ChangeLog:
 -=-=-=-=-=
-v1.01 beta 1 (?):
-  * [SHA: b4738f6] First attempt at an IBugTraqProvider2 implementation.
+v1.01 beta 1 (3rd August 2011):
+  * [SHA: e6eadbe]
+    * Issue 701/944 (Add some filter settings so one can filter by status and
+	  severity) fixed.
+  * [SHA: 42568d8]
+    * Issue 701/789 (Sort by status/severity first, but sort by date (with oldest
+	  first) thereafter) fixed.
+  * [SHA: 55a7af7]
+    * Issue 701/9f6 (Get dialogs to open on the window of their parent) fixed.
+  * [SHA: 4058436]
+    * Issue 701/f36 (Add an installer so I can install this easily on my other
+	  machines) fixed.
+  * [SHA: e0ea876]
+    * Now can automatically mark issues mentioned in a commit message with the word
+	  "fixed". For example, having 701/ae8 will trigger that to be marked as fixed
+	  if it is currently open in the BE repo.
+    * Issue 701/ae8 (test issue for auto closing in commit messages) fixed.
+  * [SHA: b4738f6]
+    * Added options dialog
+    * Issue 701/bb5 (Add IBugTraqProvider2 support) fixed.
+    * Issue 701/ebd (Add HTML dumping option and repo create in config settings) fixed.
   * [SHA: 8915ee5] Bumped to v1.01.
 
 v1.00 beta 1 (31st July 2011):
   * [SHA: 4a71029] Released first version to public.
 
-  
-Appendix A: Fixing the lack of be.bat on Windows
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Go to your python root directory and into the scripts directory. Create a file called
-be.bat and paste the following into it using a text editor:
-
-@echo off
-python -c "import sys, libbe.ui.command_line; sys.exit(libbe.ui.command_line.main());" %*
-set BE_TOOL_ERRORLEVEL=%ERRORLEVEL%
-exit /B %BE_TOOL_ERRORLEVEL%
-
-Some python installers don't add the scripts directory to PATH on Windows, so you may
-need to open the properties of My Computer, choose advanced settings, then environment
-variables, then edit the PATH system environment variable. Find where it says x:\pythonXX
-and after add x:\pythonXX\scripts. Save the changes, open a NEW command box and test
-that be is now available from the command line.
