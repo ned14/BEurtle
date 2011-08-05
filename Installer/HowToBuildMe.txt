@@ -1,0 +1,4 @@
+To build this, you need WiX from http://wix.sourceforge.net/.
+You'll also need to fix up the hardcoded paths for the custom
+build steps in the installer project file.
+
