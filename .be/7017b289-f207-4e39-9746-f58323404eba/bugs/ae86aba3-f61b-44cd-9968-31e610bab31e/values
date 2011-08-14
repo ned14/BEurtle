@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate>'
 severity: minor
 
 
-status: open
+status: closed
 
 
 summary: test issue for auto closing in commit messages
