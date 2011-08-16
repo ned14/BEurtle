@@ -8,7 +8,7 @@
 <?endif ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="a62692c3-8596-4556-b6b7-6393f3420daa" Name="BEurtle Plugin for TortoiseXXX" Language="1033" Version="1.0.1.0" Manufacturer="ned Productions Limited" UpgradeCode="9a4a032d-90c1-46a2-8f36-38fb1655cca9">
+  <Product Id="a62692c3-8596-4556-b6b7-6393f3420daa" Name="BEurtle Plugin for TortoiseXXX" Language="1033" Version="1.0.2.0" Manufacturer="ned Productions Limited" UpgradeCode="9a4a032d-90c1-46a2-8f36-38fb1655cca9">
     <Package InstallerVersion="200" Compressed="yes" Platform="$(var.Platform)" Description="BEurtle Plugin for TortoiseXXX" />
 
     <PropertyRef Id="NETFRAMEWORK20"/>

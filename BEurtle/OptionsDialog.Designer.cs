@@ -32,6 +32,7 @@
             this.Link_nedproductions = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.CheckFilterOutClosedIssues = new System.Windows.Forms.CheckBox();
             this.CheckAddCommitAsComment = new System.Windows.Forms.CheckBox();
             this.BoxDumpHTMLPath = new System.Windows.Forms.TextBox();
             this.CheckDumpHTML = new System.Windows.Forms.CheckBox();
@@ -45,26 +46,25 @@
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.LinkLabel();
-            this.CheckFilterOutClosedIssues = new System.Windows.Forms.CheckBox();
             this.OptionsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(339, 41);
             this.label1.TabIndex = 0;
-            this.label1.Text = "BEurtle v1.01";
+            this.label1.Text = "BEurtle v1.02";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Link_nedproductions
             // 
-            this.Link_nedproductions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.Link_nedproductions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Link_nedproductions.Location = new System.Drawing.Point(13, 58);
             this.Link_nedproductions.Name = "Link_nedproductions";
             this.Link_nedproductions.Size = new System.Drawing.Size(339, 13);
@@ -85,8 +85,8 @@
             // 
             // OptionsGroupBox
             // 
-            this.OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.OptionsGroupBox.Controls.Add(this.CheckFilterOutClosedIssues);
             this.OptionsGroupBox.Controls.Add(this.CheckAddCommitAsComment);
             this.OptionsGroupBox.Controls.Add(this.BoxDumpHTMLPath);
@@ -100,6 +100,16 @@
             this.OptionsGroupBox.TabStop = false;
             this.OptionsGroupBox.Text = "Options:";
             // 
+            // CheckFilterOutClosedIssues
+            // 
+            this.CheckFilterOutClosedIssues.AutoSize = true;
+            this.CheckFilterOutClosedIssues.Location = new System.Drawing.Point(6, 118);
+            this.CheckFilterOutClosedIssues.Name = "CheckFilterOutClosedIssues";
+            this.CheckFilterOutClosedIssues.Size = new System.Drawing.Size(192, 17);
+            this.CheckFilterOutClosedIssues.TabIndex = 5;
+            this.CheckFilterOutClosedIssues.Text = "Default to filtering out closed issues";
+            this.CheckFilterOutClosedIssues.UseVisualStyleBackColor = true;
+            // 
             // CheckAddCommitAsComment
             // 
             this.CheckAddCommitAsComment.AutoSize = true;
@@ -112,8 +122,8 @@
             // 
             // BoxDumpHTMLPath
             // 
-            this.BoxDumpHTMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxDumpHTMLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoxDumpHTMLPath.Location = new System.Drawing.Point(62, 69);
             this.BoxDumpHTMLPath.Name = "BoxDumpHTMLPath";
             this.BoxDumpHTMLPath.Size = new System.Drawing.Size(271, 20);
@@ -132,8 +142,8 @@
             // 
             // BoxBEPath
             // 
-            this.BoxBEPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxBEPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoxBEPath.Location = new System.Drawing.Point(62, 19);
             this.BoxBEPath.Name = "BoxBEPath";
             this.BoxBEPath.Size = new System.Drawing.Size(271, 20);
@@ -224,8 +234,8 @@
             // 
             // LinkDonate
             // 
-            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LinkDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LinkDonate.Image = global::nedprod.Resource1.Paypal;
             this.LinkDonate.Location = new System.Drawing.Point(12, 293);
             this.LinkDonate.Name = "LinkDonate";
@@ -235,16 +245,6 @@
             this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
             this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.LinkDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDonate_LinkClicked);
-            // 
-            // CheckFilterOutClosedIssues
-            // 
-            this.CheckFilterOutClosedIssues.AutoSize = true;
-            this.CheckFilterOutClosedIssues.Location = new System.Drawing.Point(6, 118);
-            this.CheckFilterOutClosedIssues.Name = "CheckFilterOutClosedIssues";
-            this.CheckFilterOutClosedIssues.Size = new System.Drawing.Size(192, 17);
-            this.CheckFilterOutClosedIssues.TabIndex = 5;
-            this.CheckFilterOutClosedIssues.Text = "Default to filtering out closed issues";
-            this.CheckFilterOutClosedIssues.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 

@@ -62,8 +62,8 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PreBuildEvent>xcopy /E /Q /Y /D /I ..\..\..\BE ..\..\..\BEforinstaller /EXCLUDE:..\..\exclude.txt
-"G:\Program Files\Windows Installer XML v3.5\bin\heat" dir ..\..\..\BEforinstaller -ag -cg BE -dr INSTALLDIR -var var.BE_srcdir -out ..\..\BE.wxs
-"G:\Program Files\Windows Installer XML v3.5\bin\heat" file ..\..\..\BEurtle\bin\Release\BEurtle.dll -ag -srd -cg BEurtle.dll -dr INSTALLDIR -var var.BEurtle_bindir -out ..\..\BEurtle.dll.wxs</PreBuildEvent>
+"C:\Program Files (x86)\Windows Installer XML v3.5\bin\heat" dir ..\..\..\BEforinstaller -ag -cg BE -dr INSTALLDIR -var var.BE_srcdir -out ..\..\BE.wxs
+"C:\Program Files (x86)\Windows Installer XML v3.5\bin\heat" file ..\..\..\BEurtle\bin\Release\BEurtle.dll -ag -srd -cg BEurtle.dll -dr INSTALLDIR -var var.BEurtle_bindir -out ..\..\BEurtle.dll.wxs</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

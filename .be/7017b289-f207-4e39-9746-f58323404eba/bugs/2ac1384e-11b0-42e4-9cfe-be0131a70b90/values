@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate.nedland.local>'
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: HTML dumping no longer seems to add new bugs in HTML dump for some reason
