@@ -273,8 +273,9 @@ namespace BEurtle
                             CreateNoWindow = true,
                             FileName = command,
                             Arguments = arguments,
-                            UseShellExecute = false,
-                            WorkingDirectory = rootdir
+                            UseShellExecute = true,
+                            WorkingDirectory = rootdir,
+                            WindowStyle= ProcessWindowStyle.Minimized
                         }
                     };
                     process.Start();

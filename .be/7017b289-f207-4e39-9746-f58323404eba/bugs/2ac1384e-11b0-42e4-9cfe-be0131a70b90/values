@@ -1,0 +1,17 @@
+creator: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+reporter: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+severity: minor
+
+
+status: open
+
+
+summary: HTML dumping no longer seems to add new bugs in HTML dump for some reason
+
+
+time: Tue, 16 Aug 2011 14:13:45 +0000
+
