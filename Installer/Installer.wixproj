@@ -9,7 +9,7 @@
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <OutputName>BEurtle Plugin for TortoiseXXX v1.01 %28x86%29</OutputName>
+    <OutputName>BEurtle Plugin for TortoiseXXX v1.02 %28x86%29</OutputName>
     <OutputPath>bin\$(Platform)_$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)_$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;BE_srcdir=..\..\..\BEforinstaller;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
@@ -17,13 +17,13 @@
     </WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputName>BEurtle Plugin for TortoiseXXX v1.01 %28x86%29</OutputName>
+    <OutputName>BEurtle Plugin for TortoiseXXX v1.02 %28x86%29</OutputName>
     <OutputPath>bin\$(Platform)_$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)_$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>BE_srcdir=..\..\..\BEforinstaller;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <OutputName>BEurtle Plugin for TortoiseXXX v1.01 %28x64%29</OutputName>
+    <OutputName>BEurtle Plugin for TortoiseXXX v1.02 %28x64%29</OutputName>
     <DefineConstants>Debug;BE_srcdir=..\..\..\BEforinstaller;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
     <WixVariables />
     <OutputPath>bin\$(Platform)_$(Configuration)\</OutputPath>
@@ -31,7 +31,7 @@
     <DefineConstants>Debug;BE_srcdir=..\..\..\BEforinstaller;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <OutputName>BEurtle Plugin for TortoiseXXX v1.01 %28x64%29</OutputName>
+    <OutputName>BEurtle Plugin for TortoiseXXX v1.02 %28x64%29</OutputName>
     <OutputPath>bin\$(Platform)_$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)_$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>BE_srcdir=..\..\..\BEforinstaller;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
