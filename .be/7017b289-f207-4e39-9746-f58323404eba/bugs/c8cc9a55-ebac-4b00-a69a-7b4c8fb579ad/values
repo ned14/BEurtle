@@ -1,0 +1,18 @@
+creator: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+reporter: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+severity: serious
+
+
+status: open
+
+
+summary: Still got a failure to invoke git add at line 281 in BEurtlePlugin.cs on
+  the mini laptop.
+
+
+time: Thu, 08 Sep 2011 13:05:10 +0000
+

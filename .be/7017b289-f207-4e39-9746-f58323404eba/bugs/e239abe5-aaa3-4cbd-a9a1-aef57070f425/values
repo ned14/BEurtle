@@ -1,0 +1,17 @@
+creator: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+reporter: '"Niall Douglas" <ned@kate.nedland.local>'
+
+
+severity: minor
+
+
+status: open
+
+
+summary: Installer should upgrade existing install, not require manual deinstall first
+
+
+time: Thu, 08 Sep 2011 13:08:20 +0000
+
