@@ -96,7 +96,6 @@
   <ItemGroup>
     <None Include="ned_dotnet.snk" />
     <None Include="Resources\Paypal.png" />
-    <Content Include="testlist.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service References\" />

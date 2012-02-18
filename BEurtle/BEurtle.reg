@@ -4,33 +4,33 @@ REGEDIT4
 @="BEurtle.Win32"
 
 [HKEY_CLASSES_ROOT\BEurtle.Win32\CLSID]
-@="{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}"
+@="{D2C073B7-859A-3057-B978-F6433A313753}"
 
-[HKEY_CLASSES_ROOT\CLSID\{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}]
+[HKEY_CLASSES_ROOT\CLSID\{D2C073B7-859A-3057-B978-F6433A313753}]
 @="BEurtle.Win32"
 
-[HKEY_CLASSES_ROOT\CLSID\{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}\InprocServer32]
+[HKEY_CLASSES_ROOT\CLSID\{D2C073B7-859A-3057-B978-F6433A313753}\InprocServer32]
 @="mscoree.dll"
 "ThreadingModel"="Both"
 "Class"="BEurtle.Win32"
-"Assembly"="BEurtle, Version=1.0.1.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
+"Assembly"="BEurtle, Version=1.0.2.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
 "RuntimeVersion"="v2.0.50727"
 "CodeBase"="file:///G:/BEurtle/BEurtle/bin/debug/BEurtle.dll"
 
-[HKEY_CLASSES_ROOT\CLSID\{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}\InprocServer32\1.0.1.0]
+[HKEY_CLASSES_ROOT\CLSID\{D2C073B7-859A-3057-B978-F6433A313753}\InprocServer32\1.0.2.0]
 "Class"="BEurtle.Win32"
-"Assembly"="BEurtle, Version=1.0.1.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
+"Assembly"="BEurtle, Version=1.0.2.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
 "RuntimeVersion"="v2.0.50727"
 "CodeBase"="file:///G:/BEurtle/BEurtle/bin/debug/BEurtle.dll"
 
-[HKEY_CLASSES_ROOT\CLSID\{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}\ProgId]
+[HKEY_CLASSES_ROOT\CLSID\{D2C073B7-859A-3057-B978-F6433A313753}\ProgId]
 @="BEurtle.Win32"
 
-[HKEY_CLASSES_ROOT\CLSID\{083BFBCD-9A98-3135-9DEE-00BAA40F1CC7}\Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}]
+[HKEY_CLASSES_ROOT\CLSID\{D2C073B7-859A-3057-B978-F6433A313753}\Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}]
 
-[HKEY_CLASSES_ROOT\Record\{BD74B6DF-711A-3C03-B756-5D689D4A4BD6}\1.0.1.0]
+[HKEY_CLASSES_ROOT\Record\{2CECADDC-589C-36F6-A553-309ED9DC9837}\1.0.2.0]
 "Class"="BEurtle.Win32+EXTENDED_NAME_FORMAT"
-"Assembly"="BEurtle, Version=1.0.1.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
+"Assembly"="BEurtle, Version=1.0.2.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
 "RuntimeVersion"="v2.0.50727"
 "CodeBase"="file:///G:/BEurtle/BEurtle/bin/debug/BEurtle.dll"
 
@@ -47,13 +47,13 @@ REGEDIT4
 @="mscoree.dll"
 "ThreadingModel"="Both"
 "Class"="BEurtle.BEurtlePlugin"
-"Assembly"="BEurtle, Version=1.0.1.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
+"Assembly"="BEurtle, Version=1.0.2.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
 "RuntimeVersion"="v2.0.50727"
 "CodeBase"="file:///G:/BEurtle/BEurtle/bin/debug/BEurtle.dll"
 
-[HKEY_CLASSES_ROOT\CLSID\{233C8C6B-00AC-4E21-89FD-A66A9C10CEDB}\InprocServer32\1.0.1.0]
+[HKEY_CLASSES_ROOT\CLSID\{233C8C6B-00AC-4E21-89FD-A66A9C10CEDB}\InprocServer32\1.0.2.0]
 "Class"="BEurtle.BEurtlePlugin"
-"Assembly"="BEurtle, Version=1.0.1.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
+"Assembly"="BEurtle, Version=1.0.2.0, Culture=neutral, PublicKeyToken=d10dc1fa3d522af5"
 "RuntimeVersion"="v2.0.50727"
 "CodeBase"="file:///G:/BEurtle/BEurtle/bin/debug/BEurtle.dll"
 
@@ -61,5 +61,3 @@ REGEDIT4
 @="BEurtle"
 
 [HKEY_CLASSES_ROOT\CLSID\{233C8C6B-00AC-4E21-89FD-A66A9C10CEDB}\Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}]
-
-[HKEY_CLASSES_ROOT\CLSID\{233C8C6B-00AC-4E21-89FD-A66A9C10CEDB}\Implemented Categories\{3494FA92-B139-4730-9591-01135D5E7831}]
