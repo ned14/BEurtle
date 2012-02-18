@@ -70,7 +70,7 @@
             this.Link_nedproductions.Size = new System.Drawing.Size(339, 13);
             this.Link_nedproductions.TabIndex = 0;
             this.Link_nedproductions.TabStop = true;
-            this.Link_nedproductions.Text = "(C) 2011 Niall Douglas, ned Productions Limited";
+            this.Link_nedproductions.Text = "(C) 2011-2012 Niall Douglas, ned Productions Limited";
             this.Link_nedproductions.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Link_nedproductions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_nedproductions_LinkClicked);
             // 

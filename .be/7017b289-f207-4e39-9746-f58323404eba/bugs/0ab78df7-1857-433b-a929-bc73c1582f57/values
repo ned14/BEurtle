@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate.nedland.local>'
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: F5 needs to refresh bug list

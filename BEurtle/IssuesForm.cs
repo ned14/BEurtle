@@ -211,7 +211,7 @@ namespace BEurtle
 
         private void changesMade()
         {
-            if (!BERepoLocation.Text.StartsWith("http://")) plugin.writeHTML(BERepoLocation.Text);
+            if (!BERepoLocation.Text.StartsWith("http://")) plugin.writeHTML(new Win32Window(this.Handle), BERepoLocation.Text);
             loadIssues();
         }
 
@@ -249,7 +249,7 @@ namespace BEurtle
         {
             var iter = shortnamesToXML(new string[1] { shortname });
             iter.MoveNext();
-            var detail = new IssueDetail(iter.Current);
+            var detail = new IssueDetail(iter.Current, plugin.creators, plugin.reporters, plugin.assigneds);
             if (DialogResult.OK == detail.ShowDialog(this) && detail.changed)
                 writeOutIssue(detail);
         }
@@ -277,7 +277,7 @@ namespace BEurtle
 
         private void NewIssue_Click(object sender, EventArgs e)
         {
-            var detail = new IssueDetail(null);
+            var detail = new IssueDetail(null, plugin.creators, plugin.reporters, plugin.assigneds);
             if (DialogResult.OK == detail.ShowDialog(this))
                 writeOutIssue(detail);
         }
@@ -408,6 +408,20 @@ namespace BEurtle
             string[] arguments = selectedIssuesAsShortnames(), outputs;
             for (var i = 0; i < arguments.Length; i++)
                 arguments[i] = "status " + ((ToolStripMenuItem) sender).Text + " " + arguments[i];
+            //string l = "";
+            //foreach (string s in arguments)
+            //    l += s + "\n";
+            //MessageBox.Show(this, "Would do: "+l);
+            outputs = plugin.callBEcmd(BERepoLocation.Text, arguments);
+            if (outputs[0].Length > 0) MessageBox.Show(this, "Command output: " + outputs[0]);
+            changesMade();
+        }
+
+        private void changeSeverityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] arguments = selectedIssuesAsShortnames(), outputs;
+            for (var i = 0; i < arguments.Length; i++)
+                arguments[i] = "severity " + ((ToolStripMenuItem)sender).Text + " " + arguments[i];
             //string l = "";
             //foreach (string s in arguments)
             //    l += s + "\n";
@@ -573,6 +587,7 @@ namespace BEurtle
                 e.Handled = true;
             }
         }
+
 
     }
 

@@ -16,10 +16,13 @@ namespace BEurtle
     {
         private XPathNavigator issue;
         public bool changed { get; set; }
-        public IssueDetail(XPathNavigator issue)
+        public IssueDetail(XPathNavigator issue, AutoCompleteStringCollection creators, AutoCompleteStringCollection reporters, AutoCompleteStringCollection assigneds)
         {
             this.issue = issue;
             InitializeComponent();
+            BoxCreator.AutoCompleteCustomSource = creators;
+            BoxReporter.AutoCompleteCustomSource = reporters;
+            BoxAssigned.AutoCompleteCustomSource = assigneds;
             if (issue == null)
             {
                 StringBuilder fullname_=new StringBuilder(1024);

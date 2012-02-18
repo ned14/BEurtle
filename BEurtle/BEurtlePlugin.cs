@@ -79,6 +79,8 @@ namespace BEurtle
         public string rootpath="";
         public ParseParameters parameters;
         public XPathDocument issues;
+        // Keep a list of these for autocomplete
+        public AutoCompleteStringCollection creators, reporters, assigneds;
 
         public string[] callBEcmd(string BErepopath, string[] arguments, string[] inputs = null)
         {
@@ -142,6 +144,9 @@ namespace BEurtle
             string arguments = "list --status=all --xml";
             if (rootdir == null) rootdir = rootpath;
             issues = null;
+            creators = new AutoCompleteStringCollection();
+            reporters = new AutoCompleteStringCollection();
+            assigneds=new AutoCompleteStringCollection();
             string xml="unknown error";
             if (rootdir.EndsWith(".xml"))
             {
@@ -168,6 +173,9 @@ namespace BEurtle
             else
             {
                 issues = new XPathDocument(new XmlTextReader(new StringReader(xml)));
+                creators.AddRange(XMLitems(issues, "creator", true, true).ToArray());
+                reporters.AddRange(XMLitems(issues, "reporter", true, true).ToArray());
+                assigneds.AddRange(XMLitems(issues, "assigned", true, true).ToArray());
                 return true;
             }
             return false;
@@ -195,6 +203,26 @@ namespace BEurtle
             return ret;
         }
 
+        public List<string> XMLitems(XPathDocument xml, string item, bool unique = false, bool sorted=false)
+        {
+            List<string> ret = new List<string>();
+            Dictionary<string, int> uniqueness = new Dictionary<string, int>();
+            var nodes_iter = xml.CreateNavigator().SelectDescendants(item, "", true);
+            while(nodes_iter.MoveNext())
+            {
+                if (unique)
+                {
+                    if (uniqueness.ContainsKey(nodes_iter.Current.Value))
+                        continue;
+                    uniqueness.Add(nodes_iter.Current.Value, 0);
+                }
+                ret.Add(nodes_iter.Current.Value);
+            }
+            if (sorted)
+                ret.Sort();
+            return ret;
+        }
+
         public List<string> walkDirectoryTree(DirectoryInfo root, string[] filters)
         {
             var ret = new List<string>();
@@ -216,7 +244,7 @@ namespace BEurtle
             return ret;
         }
 
-        public void writeHTML(string rootdir)
+        public void writeHTML(Win32Window hwnd, string rootdir)
         {
             try
             {
@@ -293,7 +321,7 @@ namespace BEurtle
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error when writing HTML: " + e.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(hwnd, "Error when writing HTML: " + e.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -396,7 +424,7 @@ namespace BEurtle
                         }
                     }
                     if (modified)
-                        writeHTML(rootpath);
+                        writeHTML(hwnd, rootpath);
                 }
             }
             return null;
@@ -412,7 +440,7 @@ namespace BEurtle
             return dialog.ShowDialog(hParentWnd!=IntPtr.Zero ? new Win32Window(hParentWnd) : null) == DialogResult.OK ? dialog.parameters : parameters;
         }
     }
-    internal class Win32Window : IWin32Window
+    public class Win32Window : IWin32Window
     {
         IntPtr hwnd;
         public Win32Window(IntPtr hwnd)

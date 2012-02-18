@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Commentary = new System.Windows.Forms.WebBrowser();
             this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
@@ -51,15 +52,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BoxReporter = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Commentary
             // 
             this.Commentary.AllowNavigation = false;
-            this.Commentary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.Commentary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Commentary.Location = new System.Drawing.Point(6, 19);
             this.Commentary.MinimumSize = new System.Drawing.Size(20, 20);
             this.Commentary.Name = "Commentary";
@@ -100,8 +102,8 @@
             // 
             // BoxUUID
             // 
-            this.BoxUUID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxUUID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoxUUID.Location = new System.Drawing.Point(82, 12);
             this.BoxUUID.Name = "BoxUUID";
             this.BoxUUID.ReadOnly = true;
@@ -128,12 +130,15 @@
             // 
             // BoxCreator
             // 
-            this.BoxCreator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxCreator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxCreator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.BoxCreator.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.BoxCreator.Location = new System.Drawing.Point(82, 65);
             this.BoxCreator.Name = "BoxCreator";
             this.BoxCreator.Size = new System.Drawing.Size(295, 20);
             this.BoxCreator.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.BoxCreator, "Try entering \" to start auto-completion");
             // 
             // label3
             // 
@@ -147,12 +152,15 @@
             // 
             // BoxAssigned
             // 
-            this.BoxAssigned.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxAssigned.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxAssigned.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.BoxAssigned.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.BoxAssigned.Location = new System.Drawing.Point(82, 117);
             this.BoxAssigned.Name = "BoxAssigned";
             this.BoxAssigned.Size = new System.Drawing.Size(295, 20);
             this.BoxAssigned.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.BoxAssigned, "Try entering \" to start auto-completion");
             // 
             // label4
             // 
@@ -175,8 +183,8 @@
             // 
             // BoxCreated
             // 
-            this.BoxCreated.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxCreated.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoxCreated.Location = new System.Drawing.Point(255, 39);
             this.BoxCreated.Name = "BoxCreated";
             this.BoxCreated.ReadOnly = true;
@@ -243,8 +251,8 @@
             // 
             // BoxSummary
             // 
-            this.BoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoxSummary.Location = new System.Drawing.Point(83, 170);
             this.BoxSummary.Multiline = true;
             this.BoxSummary.Name = "BoxSummary";
@@ -266,9 +274,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.Commentary);
             this.groupBox1.Location = new System.Drawing.Point(12, 212);
             this.groupBox1.Name = "groupBox1";
@@ -279,12 +287,15 @@
             // 
             // BoxReporter
             // 
-            this.BoxReporter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxReporter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoxReporter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.BoxReporter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.BoxReporter.Location = new System.Drawing.Point(82, 91);
             this.BoxReporter.Name = "BoxReporter";
             this.BoxReporter.Size = new System.Drawing.Size(295, 20);
             this.BoxReporter.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.BoxReporter, "Try entering \" to start auto-completion");
             // 
             // label9
             // 
@@ -358,5 +369,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox BoxReporter;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

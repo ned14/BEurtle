@@ -2234,12 +2234,18 @@ the default cmp_full list...</body>
     <author>abentley</author>
     <date>Thu, 06 Apr 2006 16:54:57 +0000</date>
     <content-type>text/restructured</content-type>
-    <body>This is an *rst* comment.
-Which means newlines don't matter, except when they gang up.
-
-lala
-
- - Bullet
+    <body>This is an *rst* comment.
+
+Which means newlines don't matter, except when they gang up.
+
+
+
+lala
+
+
+
+ - Bullet
+
  - Bullet</body>
   </comment>
   <comment>
@@ -2282,12 +2288,18 @@ lala
     <author>abentley</author>
     <date>Thu, 06 Apr 2006 16:54:57 +0000</date>
     <content-type>text/restructured</content-type>
-    <body>This is an *rst* comment.
-Which means newlines don't matter, except when they gang up.
-
-lala
-
- - Bullet
+    <body>This is an *rst* comment.
+
+Which means newlines don't matter, except when they gang up.
+
+
+
+lala
+
+
+
+ - Bullet
+
  - Bullet</body>
   </comment>
 </bug>
@@ -3402,10 +3414,14 @@ AttributeError: 'BugDir' object has no attribute 'bug_shortname'</body>
     <author>W. Trevor King &lt;wking@drexel.edu&gt;</author>
     <date>Thu, 15 Jul 2010 10:35:43 +0000</date>
     <content-type>text/plain</content-type>
-    <body>Fixed by replacing
-  '/bug?id=%s' % shortname
-with
-  '/bug?%s' % urlencode({'id':bug.id.long_user()})</body>
+    <body>Fixed by replacing
+
+  '/bug?id=%s' % shortname
+
+with
+
+  '/bug?%s' % urlencode({'id':bug.id.long_user()})
+</body>
   </comment>
 </bug>
 <bug>
@@ -5150,8 +5166,10 @@ _rcs_get_user_id() anyway.</body>
     <author>abentley</author>
     <date>Wed, 04 Jan 2006 21:03:54 +0000</date>
     <content-type>text/plain</content-type>
-    <body>We should support:
-WONTFIX
+    <body>We should support:
+
+WONTFIX
+
 EMPTY</body>
   </comment>
 </bug>
