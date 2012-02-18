@@ -47,6 +47,7 @@
             this.filterOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allClosedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allNotSeriousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.fromStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FromStatusClear = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +68,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAsXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonOk = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
@@ -75,8 +77,6 @@
             this.NewIssue = new System.Windows.Forms.Button();
             this.DeleteIssue = new System.Windows.Forms.Button();
             this.BERepoLocationBrowse = new System.Windows.Forms.Button();
-            this.allNotSeriousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyAsXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -86,9 +86,9 @@
             this.IssuesList.AllowUserToAddRows = false;
             this.IssuesList.AllowUserToDeleteRows = false;
             this.IssuesList.AllowUserToResizeRows = false;
-            this.IssuesList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.IssuesList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.IssuesList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.IssuesList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -182,49 +182,49 @@
             // unconfirmedToolStripMenuItem
             // 
             this.unconfirmedToolStripMenuItem.Name = "unconfirmedToolStripMenuItem";
-            this.unconfirmedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.unconfirmedToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.unconfirmedToolStripMenuItem.Text = "unconfirmed";
             this.unconfirmedToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.openToolStripMenuItem.Text = "open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // assignedToolStripMenuItem
             // 
             this.assignedToolStripMenuItem.Name = "assignedToolStripMenuItem";
-            this.assignedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assignedToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.assignedToolStripMenuItem.Text = "assigned";
             this.assignedToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.testToolStripMenuItem.Text = "test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // closedToolStripMenuItem
             // 
             this.closedToolStripMenuItem.Name = "closedToolStripMenuItem";
-            this.closedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closedToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.closedToolStripMenuItem.Text = "closed";
             this.closedToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // fixedToolStripMenuItem
             // 
             this.fixedToolStripMenuItem.Name = "fixedToolStripMenuItem";
-            this.fixedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fixedToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.fixedToolStripMenuItem.Text = "fixed";
             this.fixedToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
             // wontfixToolStripMenuItem
             // 
             this.wontfixToolStripMenuItem.Name = "wontfixToolStripMenuItem";
-            this.wontfixToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wontfixToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.wontfixToolStripMenuItem.Text = "wontfix";
             this.wontfixToolStripMenuItem.Click += new System.EventHandler(this.changeStatusToolStripMenuItem_Click);
             // 
@@ -257,6 +257,14 @@
             this.allClosedItemsToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.allClosedItemsToolStripMenuItem.Text = "&All Closed Items";
             this.allClosedItemsToolStripMenuItem.Click += new System.EventHandler(this.allClosedItemsToolStripMenuItem_Click);
+            // 
+            // allNotSeriousToolStripMenuItem
+            // 
+            this.allNotSeriousToolStripMenuItem.Name = "allNotSeriousToolStripMenuItem";
+            this.allNotSeriousToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.allNotSeriousToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.allNotSeriousToolStripMenuItem.Text = "All &Not Serious";
+            this.allNotSeriousToolStripMenuItem.Click += new System.EventHandler(this.allNotSeriousToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -400,6 +408,13 @@
             this.pasteToolStripMenuItem.Text = "&Paste";
             this.pasteToolStripMenuItem.Visible = false;
             // 
+            // copyAsXMLToolStripMenuItem
+            // 
+            this.copyAsXMLToolStripMenuItem.Name = "copyAsXMLToolStripMenuItem";
+            this.copyAsXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyAsXMLToolStripMenuItem.Text = "Copy as &XML";
+            this.copyAsXMLToolStripMenuItem.Visible = false;
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -440,8 +455,8 @@
             // 
             // BERepoLocation
             // 
-            this.BERepoLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.BERepoLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BERepoLocation.Location = new System.Drawing.Point(77, 14);
             this.BERepoLocation.Name = "BERepoLocation";
             this.BERepoLocation.Size = new System.Drawing.Size(454, 20);
@@ -481,21 +496,6 @@
             this.BERepoLocationBrowse.UseVisualStyleBackColor = true;
             this.BERepoLocationBrowse.Click += new System.EventHandler(this.BERepoLocationBrowse_Click);
             // 
-            // allNotSeriousToolStripMenuItem
-            // 
-            this.allNotSeriousToolStripMenuItem.Name = "allNotSeriousToolStripMenuItem";
-            this.allNotSeriousToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.allNotSeriousToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.allNotSeriousToolStripMenuItem.Text = "All &Not Serious";
-            this.allNotSeriousToolStripMenuItem.Click += new System.EventHandler(this.allNotSeriousToolStripMenuItem_Click);
-            // 
-            // copyAsXMLToolStripMenuItem
-            // 
-            this.copyAsXMLToolStripMenuItem.Name = "copyAsXMLToolStripMenuItem";
-            this.copyAsXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.copyAsXMLToolStripMenuItem.Text = "Copy as &XML";
-            this.copyAsXMLToolStripMenuItem.Visible = false;
-            // 
             // IssuesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -513,6 +513,7 @@
             this.Name = "IssuesForm";
             this.Text = "Bugs Everywhere Issues";
             this.Shown += new System.EventHandler(this.IssuesForm_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);

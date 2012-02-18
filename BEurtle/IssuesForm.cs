@@ -36,6 +36,7 @@ namespace BEurtle
                 }
             }*/
             InitializeComponent();
+            this.KeyPreview = true;
             BERepoLocation.Text = BEroot;
             IssuesList.Sort(IssuesList.Columns[1], ListSortDirection.Ascending);
             if (plugin.parameters.FilterOutClosedIssues)
@@ -562,6 +563,15 @@ namespace BEurtle
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new OptionsDialog(null).ShowDialog(this);
+        }
+
+        private void IssuesForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                loadIssues();
+                e.Handled = true;
+            }
         }
 
     }
