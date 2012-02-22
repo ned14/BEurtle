@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate.nedland.local>'
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: Fix missing severity change feature on context menu. After that mark the
