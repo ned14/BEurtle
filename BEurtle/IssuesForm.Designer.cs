@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssuesForm));
             this.IssuesList = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,6 +85,7 @@
             this.NewIssue = new System.Windows.Forms.Button();
             this.DeleteIssue = new System.Windows.Forms.Button();
             this.BERepoLocationBrowse = new System.Windows.Forms.Button();
+            this.VCSInfo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -105,13 +107,13 @@
             this.Summary});
             this.IssuesList.ContextMenuStrip = this.contextMenu;
             this.IssuesList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.IssuesList.Location = new System.Drawing.Point(16, 41);
+            this.IssuesList.Location = new System.Drawing.Point(16, 63);
             this.IssuesList.Name = "IssuesList";
             this.IssuesList.ReadOnly = true;
             this.IssuesList.RowHeadersVisible = false;
             this.IssuesList.RowTemplate.ReadOnly = true;
             this.IssuesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.IssuesList.Size = new System.Drawing.Size(600, 360);
+            this.IssuesList.Size = new System.Drawing.Size(600, 338);
             this.IssuesList.TabIndex = 0;
             this.IssuesList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.IssuesList_CellDoubleClick);
             this.IssuesList.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.IssuesList_CellMouseDown);
@@ -252,42 +254,42 @@
             // targetToolStripMenuItem
             // 
             this.targetToolStripMenuItem.Name = "targetToolStripMenuItem";
-            this.targetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.targetToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.targetToolStripMenuItem.Text = "target";
             this.targetToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
             // wishlistToolStripMenuItem
             // 
             this.wishlistToolStripMenuItem.Name = "wishlistToolStripMenuItem";
-            this.wishlistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wishlistToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.wishlistToolStripMenuItem.Text = "wishlist";
             this.wishlistToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
             // minorToolStripMenuItem
             // 
             this.minorToolStripMenuItem.Name = "minorToolStripMenuItem";
-            this.minorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.minorToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.minorToolStripMenuItem.Text = "minor";
             this.minorToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
             // seriousToolStripMenuItem
             // 
             this.seriousToolStripMenuItem.Name = "seriousToolStripMenuItem";
-            this.seriousToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.seriousToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.seriousToolStripMenuItem.Text = "serious";
             this.seriousToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
             // criticalToolStripMenuItem
             // 
             this.criticalToolStripMenuItem.Name = "criticalToolStripMenuItem";
-            this.criticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.criticalToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.criticalToolStripMenuItem.Text = "critical";
             this.criticalToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
             // fatalToolStripMenuItem
             // 
             this.fatalToolStripMenuItem.Name = "fatalToolStripMenuItem";
-            this.fatalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fatalToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.fatalToolStripMenuItem.Text = "fatal";
             this.fatalToolStripMenuItem.Click += new System.EventHandler(this.changeSeverityToolStripMenuItem_Click);
             // 
@@ -559,11 +561,22 @@
             this.BERepoLocationBrowse.UseVisualStyleBackColor = true;
             this.BERepoLocationBrowse.Click += new System.EventHandler(this.BERepoLocationBrowse_Click);
             // 
+            // VCSInfo
+            // 
+            this.VCSInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.VCSInfo.Location = new System.Drawing.Point(16, 37);
+            this.VCSInfo.Name = "VCSInfo";
+            this.VCSInfo.ReadOnly = true;
+            this.VCSInfo.Size = new System.Drawing.Size(600, 20);
+            this.VCSInfo.TabIndex = 8;
+            // 
             // IssuesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
+            this.Controls.Add(this.VCSInfo);
             this.Controls.Add(this.BERepoLocationBrowse);
             this.Controls.Add(this.DeleteIssue);
             this.Controls.Add(this.NewIssue);
@@ -572,6 +585,7 @@
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
             this.Controls.Add(this.IssuesList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(540, 200);
             this.Name = "IssuesForm";
             this.Text = "Bugs Everywhere Issues";
@@ -641,5 +655,6 @@
         private System.Windows.Forms.ToolStripMenuItem seriousToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem criticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fatalToolStripMenuItem;
+        private System.Windows.Forms.TextBox VCSInfo;
     }
 }

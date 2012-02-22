@@ -93,6 +93,7 @@ namespace BEurtle
                 ButtonOk.Enabled = false;
                 NewIssue.Enabled = false;
                 DeleteIssue.Enabled = false;
+                VCSInfo.Text = plugin.VCSInfo;
 
                 if(doredraw)
                 {
@@ -249,7 +250,7 @@ namespace BEurtle
         {
             var iter = shortnamesToXML(new string[1] { shortname });
             iter.MoveNext();
-            var detail = new IssueDetail(iter.Current, plugin.creators, plugin.reporters, plugin.assigneds);
+            var detail = new IssueDetail(iter.Current, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this) && detail.changed)
                 writeOutIssue(detail);
         }
@@ -277,7 +278,7 @@ namespace BEurtle
 
         private void NewIssue_Click(object sender, EventArgs e)
         {
-            var detail = new IssueDetail(null, plugin.creators, plugin.reporters, plugin.assigneds);
+            var detail = new IssueDetail(null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this))
                 writeOutIssue(detail);
         }

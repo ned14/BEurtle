@@ -55,17 +55,33 @@ namespace BEurtle
         {
             if (BEPath.Length == 0)
             {
-                try
+                // Try the embedded copy first, then python
+                string mylocation;
+                using (RegistryKey r=Registry.ClassesRoot.OpenSubKey(@"CLSID\{233C8C6B-00AC-4E21-89FD-A66A9C10CEDB}\InprocServer32"))
+                    mylocation=r.GetValue("CodeBase").ToString().Substring(8);
+                mylocation=Path.GetDirectoryName(mylocation);
+                while(mylocation.Length>0 && !Directory.Exists(mylocation+@"\dist"))
+                    mylocation = Path.GetDirectoryName(mylocation);
+                if (mylocation.Length > 0)
                 {
-                    RegistryKey r = Registry.ClassesRoot.OpenSubKey(@"Python.File\shell\open\command");
-                    string pythonexe = r.GetValue("").ToString();
-                    r.Close();
-                    pythonexe = pythonexe.Substring(1, pythonexe.IndexOf('"', 1) - 1);
-                    BEPath = Path.GetDirectoryName(pythonexe) + "\\Scripts\\be.bat";
+                    if (File.Exists(mylocation + @"\dist\be.exe"))
+                        BEPath = mylocation + @"\dist\be.exe";
                 }
-                catch (Exception ex)
+                // Still haven't found a BE, so try python
+                if(BEPath.Length==0)
                 {
-                    MessageBox.Show(hwnd, "Failed to read what executes Python files. Is Python installed?\nError was: " + ex.Message);
+                    try
+                    {
+                        RegistryKey r = Registry.ClassesRoot.OpenSubKey(@"Python.File\shell\open\command");
+                        string pythonexe = r.GetValue("").ToString();
+                        r.Close();
+                        pythonexe = pythonexe.Substring(1, pythonexe.IndexOf('"', 1) - 1);
+                        BEPath = Path.GetDirectoryName(pythonexe) + "\\Scripts\\be.bat";
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(hwnd, "Failed to find a copy of BE and failed to read what executes Python files. Is Python installed?\nError was: " + ex.Message);
+                    }
                 }
             }
             if (DumpHTMLPath.Length == 0)
@@ -79,8 +95,9 @@ namespace BEurtle
         public string rootpath="";
         public ParseParameters parameters;
         public XPathDocument issues;
+        public string VCSInfo="";
         // Keep a list of these for autocomplete
-        public AutoCompleteStringCollection creators, reporters, assigneds;
+        public AutoCompleteStringCollection creators, reporters, assigneds, authors;
 
         public string[] callBEcmd(string BErepopath, string[] arguments, string[] inputs = null)
         {
@@ -147,17 +164,24 @@ namespace BEurtle
             creators = new AutoCompleteStringCollection();
             reporters = new AutoCompleteStringCollection();
             assigneds=new AutoCompleteStringCollection();
-            string xml="unknown error";
+            authors = new AutoCompleteStringCollection();
+            string xml = "unknown error";
             if (rootdir.EndsWith(".xml"))
             {
                 var fs = new StreamReader(rootdir);
                 xml = fs.ReadToEnd();
                 fs.Close();
+                VCSInfo = "Direct load of XML database";
             }
             else
+            {
                 xml=callBEcmd(rootdir, new string[1] { arguments })[0];
+                string VCSVersion=callBEcmd(rootdir, new string[1] { "vcs version" })[0];
+                VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
+            }
             if (!xml.StartsWith("<?xml version=\"1.0\" "))
             {
+                VCSInfo = xml;
                 if (xml.IndexOf("Connection Error") >= 0 && !rootdir.StartsWith("http://"))
                 {
                     if (DialogResult.Yes == MessageBox.Show(hwnd, "BE repository not found at " + rootdir + ". Would you like me to create it there for you?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -176,6 +200,7 @@ namespace BEurtle
                 creators.AddRange(XMLitems(issues, "creator", true, true).ToArray());
                 reporters.AddRange(XMLitems(issues, "reporter", true, true).ToArray());
                 assigneds.AddRange(XMLitems(issues, "assigned", true, true).ToArray());
+                authors.AddRange(XMLitems(issues, "author", true, true).ToArray());
                 return true;
             }
             return false;
@@ -258,7 +283,7 @@ namespace BEurtle
                     catch (Exception)
                     {
                     }
-                    string result = callBEcmd(rootdir, new string[1] { "html -o \"" + parameters.DumpHTMLPath + "\"" })[0], command = null, arguments = "";
+                    string result = callBEcmd(rootdir, new string[1] { "html -o \"" + parameters.DumpHTMLPath + "\"" })[0];
                     if (Directory.Exists(rootdir + "\\" + parameters.DumpHTMLPath))
                     {
                         // Strip out the generated date
@@ -280,42 +305,9 @@ namespace BEurtle
                             }
                         }
                         // Add any new HTML files
-                        if (Directory.Exists(rootdir + "\\.git"))
-                        {
-                            command = "git.cmd";
-                            arguments = "add " + parameters.DumpHTMLPath + "";
-                        }
-                        else if (Directory.Exists(rootdir + "\\.bzr"))
-                        {
-                            command = "bzr.exe";
-                            arguments = "add " + parameters.DumpHTMLPath + "";
-                        }
-                        else if (Directory.Exists(rootdir + "\\_darcs"))
-                        {
-                            command = "darcs.exe";
-                            arguments = "add " + parameters.DumpHTMLPath + "";
-                        }
-                        else if (Directory.Exists(rootdir + "\\.hg"))
-                        {
-                            command = "hg.exe";
-                            arguments = "add " + parameters.DumpHTMLPath + "";
-                        }
-                    }
-                    if (command != null)
-                    {
-                        var process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                CreateNoWindow = true,
-                                FileName = command,
-                                Arguments = arguments,
-                                UseShellExecute = true,
-                                WorkingDirectory = rootdir,
-                                WindowStyle = ProcessWindowStyle.Minimized
-                            }
-                        };
-                        process.Start();
+                        result = callBEcmd(rootdir, new string[1] { "vcs add \"" + parameters.DumpHTMLPath + "\"" })[0];
+                        if (result.Contains("ERROR:"))
+                            throw new Exception(result);
                     }
                 }
             }
