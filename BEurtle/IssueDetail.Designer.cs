@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Comment1Reply");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Comment1Reply");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
+            treeNode7});
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueDetail));
             this.ButtonOK = new System.Windows.Forms.Button();
@@ -414,12 +414,12 @@
             this.Comments.HideSelection = false;
             this.Comments.Location = new System.Drawing.Point(3, 3);
             this.Comments.Name = "Comments";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Comment1Reply";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Comment1";
+            treeNode7.Name = "Node1";
+            treeNode7.Text = "Comment1Reply";
+            treeNode8.Name = "Node0";
+            treeNode8.Text = "Comment1";
             this.Comments.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4});
+            treeNode8});
             this.Comments.Size = new System.Drawing.Size(349, 97);
             this.Comments.TabIndex = 6;
             this.Comments.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Comments_AfterSelect);
@@ -766,6 +766,8 @@
             this.Text = "Issue Detail";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssueDetail_FormClosing);
             this.Shown += new System.EventHandler(this.IssueDetail_Shown);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragEnter);
             this.Commentary.Panel1.ResumeLayout(false);
             this.Commentary.Panel2.ResumeLayout(false);
             this.Commentary.Panel2.PerformLayout();

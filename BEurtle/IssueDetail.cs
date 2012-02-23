@@ -584,51 +584,91 @@ namespace BEurtle
             }
         }
 
+        internal class TemporarySaveFile : IDisposable
+        {
+            public string tempfilename;
+            public FileStream data;
+            private bool disposed = false;
+            public TemporarySaveFile(IssueDetail form)
+            {
+                var comment = form.commentToUUID[form.Comments.SelectedNode];
+                var ext = MIMETypesDictionary.ContainsKey(form.DraggableIcon.Items[0].Text) ? MIMETypesDictionary[form.DraggableIcon.Items[0].Text] : "bin";
+                string tempfilepath = Path.GetTempPath() + "BEurtle";
+                tempfilename = tempfilepath + @"\comment-" + comment.Item1 + "." + ext;
+                if (!Directory.Exists(tempfilepath)) Directory.CreateDirectory(tempfilepath);
+                data = new FileStream(tempfilename, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete | FileShare.ReadWrite);
+                form.SaveAsFile(data);
+                data.Seek(0, SeekOrigin.Begin);
+            }
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private void Dispose(bool disposing)
+            {
+                if (!this.disposed)
+                {
+                    if (data.CanRead)
+                        data.Close();
+                    if (disposing)
+                    {
+                        data.Dispose();
+                    }
+                    try
+                    {
+                        File.Delete(tempfilename);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                disposed = true;
+            }
+            ~TemporarySaveFile()
+            {
+                Dispose(false);
+            }
+        }
         private void DraggableIcon_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: Save out to a temporary file and launch");
+            using (var tsf = new TemporarySaveFile(this))
+            {
+                tsf.data.Close();
+                try
+                {
+                    this.UseWaitCursor = true;
+                    var result = System.Diagnostics.Process.Start(tsf.tempfilename);
+                    result.WaitForInputIdle();
+                }
+                finally
+                {
+                    this.UseWaitCursor = false;
+                }
+            }
         }
 
         private void DraggableIcon_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            var comment = commentToUUID[Comments.SelectedNode];
-            var ext = MIMETypesDictionary.ContainsKey(DraggableIcon.Items[0].Text) ? MIMETypesDictionary[DraggableIcon.Items[0].Text] : "bin";
-            DataObject obj = new DataObject();
-            string tempfilepath = Path.GetTempPath() + "BEurtle";
-            string tempfilename = tempfilepath+@"\comment-"+comment.Item1+"." +ext;
-            if (!Directory.Exists(tempfilepath)) Directory.CreateDirectory(tempfilepath);
-            FileStream data = new FileStream(tempfilename, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete|FileShare.ReadWrite);
-            try
+            using (var tsf = new TemporarySaveFile(this))
             {
-                SaveAsFile(data);
-                data.Seek(0, SeekOrigin.Begin);
+                DataObject obj = new DataObject();
                 if (DraggableIcon.Items[0].Text.StartsWith("text/"))
                 {
-                    string data_ = new StreamReader(data).ReadToEnd();
+                    string data_ = new StreamReader(tsf.data).ReadToEnd();
                     obj.SetText(data_, DraggableIcon.Items[0].Text == "text/html" ? TextDataFormat.Html : TextDataFormat.UnicodeText);
                 }
                 else if (DraggableIcon.Items[0].Text.StartsWith("image/"))
                 {
-                    var data_ = new Bitmap(data);
+                    var data_ = new Bitmap(tsf.data);
                     obj.SetImage(data_);
                 }
                 else
-                    obj.SetData(data);
-                data.Close();
-                obj.SetData(DataFormats.FileDrop, true, new String[] {tempfilename} );
+                    obj.SetData(tsf.data);
+                tsf.data.Close();
+                obj.SetData(DataFormats.FileDrop, true, new String[] { tsf.tempfilename });
                 DraggableIcon.DoDragDrop(obj, DragDropEffects.All);
-            }
-            finally
-            {
-                if (data.CanRead)
-                    data.Close();
-                try
-                {
-                    File.Delete(tempfilename);
-                }
-                catch (Exception)
-                {
-                }
             }
         }
 
@@ -658,6 +698,16 @@ namespace BEurtle
         private void SaveComment()
         {
             MessageBox.Show("TODO: Save Comment");
+        }
+
+        private void IssueDetail_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.AllowedEffect;
+        }
+
+        private void IssueDetail_DragDrop(object sender, DragEventArgs e)
+        {
+            MessageBox.Show("TODO: Add new comment containing dropped file");
         }
 
     }
