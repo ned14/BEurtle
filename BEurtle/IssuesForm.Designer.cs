@@ -573,6 +573,7 @@
             // 
             // IssuesForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
@@ -592,6 +593,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssuesForm_FormClosing);
             this.Load += new System.EventHandler(this.IssuesForm_Load);
             this.Shown += new System.EventHandler(this.IssuesForm_Shown);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.IssuesForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.IssuesForm_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).EndInit();
             this.contextMenu.ResumeLayout(false);

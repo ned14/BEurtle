@@ -104,13 +104,13 @@
             // ButtonOK
             // 
             this.ButtonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ButtonOK.Location = new System.Drawing.Point(384, 13);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 21;
             this.ButtonOK.Text = "OK";
             this.ButtonOK.UseVisualStyleBackColor = true;
+            this.ButtonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // ButtonCancel
             // 
@@ -422,6 +422,8 @@
             treeNode2});
             this.Comments.Size = new System.Drawing.Size(349, 97);
             this.Comments.TabIndex = 6;
+            this.Comments.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Comments_ItemDrag);
+            this.Comments.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.Comments_BeforeSelect);
             this.Comments.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Comments_AfterSelect);
             this.Comments.DragDrop += new System.Windows.Forms.DragEventHandler(this.Comments_DragDrop);
             this.Comments.DragEnter += new System.Windows.Forms.DragEventHandler(this.Comments_DragEnter);
@@ -603,6 +605,7 @@
             this.CommentBody.Size = new System.Drawing.Size(410, 120);
             this.CommentBody.TabIndex = 11;
             this.CommentBody.WebBrowserShortcutsEnabled = false;
+            this.CommentBody.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.CommentBody_Navigated);
             // 
             // CommentBodyViewRaw
             // 
@@ -764,14 +767,15 @@
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(488, 600);
             this.Name = "IssueDetail";
             this.Text = "Issue Detail";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssueDetail_FormClosing);
             this.Load += new System.EventHandler(this.IssueDetail_Load);
-            this.Shown += new System.EventHandler(this.IssueDetail_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragEnter);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssueDetail_KeyDown);
             this.Commentary.Panel1.ResumeLayout(false);
             this.Commentary.Panel2.ResumeLayout(false);
             this.Commentary.Panel2.PerformLayout();

@@ -101,7 +101,7 @@ namespace BEurtle
         public string rootpath="";
         public ParseParameters parameters;
         public XPathDocument issues;
-        public string VCSInfo="";
+        public string VCSInfo="", VCSUser=null;
         // Keep a list of these for autocomplete
         public AutoCompleteStringCollection creators, reporters, assigneds, authors;
 
@@ -183,7 +183,13 @@ namespace BEurtle
             {
                 xml=callBEcmd(rootdir, new string[1] { arguments })[0];
                 string VCSVersion=callBEcmd(rootdir, new string[1] { "vcs version" })[0];
-                VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
+                if (-1 == VCSVersion.IndexOf("RESULT:"))
+                    VCSInfo = "VCS: Error reading VCS version";
+                else
+                    VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
+                string VCSUser_ = callBEcmd(rootdir, new string[1] { "vcs get_user_id" })[0];
+                if(-1!=VCSUser_.IndexOf("RESULT:"))
+                    VCSUser = VCSUser_.Substring(VCSUser_.IndexOf("RESULT:") + 8);
             }
             if (!xml.StartsWith("<?xml version=\"1.0\" "))
             {

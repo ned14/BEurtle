@@ -250,7 +250,7 @@ namespace BEurtle
         {
             var iter = shortnamesToXML(new string[1] { shortname });
             iter.MoveNext();
-            var detail = new IssueDetail(iter.Current, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            var detail = new IssueDetail(plugin, iter.Current, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this) && detail.changed)
                 writeOutIssue(detail);
         }
@@ -276,9 +276,33 @@ namespace BEurtle
             }
         }
 
+        private void IssuesForm_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void IssuesForm_DragDrop(object sender, DragEventArgs e)
+        {
+            var detail = new IssueDetail(plugin, null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            // Hack the drag/drop load onto event shown
+            detail_Shown_sender = sender;
+            detail_Shown_e = e;
+            detail.Shown += new EventHandler(detail_Shown);
+            if (DialogResult.OK == detail.ShowDialog(this))
+                writeOutIssue(detail);
+        }
+        private object detail_Shown_sender=null;
+        private DragEventArgs detail_Shown_e=null;
+        void detail_Shown(object sender, EventArgs e)
+        {
+            ((IssueDetail)sender).IssueDetail_DragDrop(detail_Shown_sender, detail_Shown_e);
+            detail_Shown_sender = null;
+            detail_Shown_e = null;
+        }
+
         private void NewIssue_Click(object sender, EventArgs e)
         {
-            var detail = new IssueDetail(null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            var detail = new IssueDetail(plugin, null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this))
                 writeOutIssue(detail);
         }
