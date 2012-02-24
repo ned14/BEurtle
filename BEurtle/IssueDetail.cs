@@ -322,7 +322,8 @@ namespace BEurtle
         }
         private void SaveAsFile(Stream s)
         {
-            XPathNavigator comment = commentToUUID[Comments.SelectedNode].Item2;
+            XPathNavigator comment = commentToUUID.ContainsKey(Comments.SelectedNode) ? commentToUUID[Comments.SelectedNode].Item2 : null;
+            if (comment == null) throw new Exception("Comment not found");
             var commentbody = comment.SelectSingleNode("body").ToString();
             var commenttype = comment.SelectSingleNode("content-type").ToString();
             if (commenttype.StartsWith("text/"))
@@ -458,12 +459,19 @@ namespace BEurtle
 
         private void LoadAttachment_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == openFileDialog.ShowDialog())
+            try
             {
-                using (var s = openFileDialog.OpenFile())
+                if (DialogResult.OK == openFileDialog.ShowDialog())
                 {
-                    LoadFromFile(s);
+                    using (var s = openFileDialog.OpenFile())
+                    {
+                        LoadFromFile(s);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Error when loading file: " + ex.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -594,14 +602,21 @@ namespace BEurtle
           };
         private void SaveAttachment_Click(object sender, EventArgs e)
         {
-            var ext = MIMETypesDictionary.ContainsKey(DraggableIcon.Items[0].Text) ? MIMETypesDictionary[DraggableIcon.Items[0].Text] : "bin";
-            saveFileDialog.DefaultExt=ext;
-            saveFileDialog.FileName = "comment." + ext;
-            saveFileDialog.Filter = DraggableIcon.Items[0].Text + " (*." + ext + ")|" + ext;
-            if (DialogResult.OK == saveFileDialog.ShowDialog())
+            try
             {
-                using (var s = saveFileDialog.OpenFile())
-                    SaveAsFile(s);
+                var ext = MIMETypesDictionary.ContainsKey(DraggableIcon.Items[0].Text) ? MIMETypesDictionary[DraggableIcon.Items[0].Text] : "bin";
+                saveFileDialog.DefaultExt = ext;
+                saveFileDialog.FileName = "comment." + ext;
+                saveFileDialog.Filter = DraggableIcon.Items[0].Text + " (*." + ext + ")|" + ext;
+                if (DialogResult.OK == saveFileDialog.ShowDialog())
+                {
+                    using (var s = saveFileDialog.OpenFile())
+                        SaveAsFile(s);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Error when saving file: " + ex.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -612,10 +627,10 @@ namespace BEurtle
             private bool disposed = false;
             public TemporarySaveFile(IssueDetail form)
             {
-                var comment = form.commentToUUID[form.Comments.SelectedNode];
+                var comment = form.commentToUUID.ContainsKey(form.Comments.SelectedNode) ? form.commentToUUID[form.Comments.SelectedNode] : null;
                 var ext = MIMETypesDictionary.ContainsKey(form.DraggableIcon.Items[0].Text) ? MIMETypesDictionary[form.DraggableIcon.Items[0].Text] : "bin";
                 string tempfilepath = Path.GetTempPath() + "BEurtle";
-                tempfilename = tempfilepath + @"\comment-" + comment.Item1 + "." + ext;
+                tempfilename = tempfilepath + @"\comment-" + (comment!=null ? comment.Item1 : "new") + "." + ext;
                 if (!Directory.Exists(tempfilepath)) Directory.CreateDirectory(tempfilepath);
                 data = new FileStream(tempfilename, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete | FileShare.ReadWrite);
                 form.SaveAsFile(data);
@@ -654,42 +669,56 @@ namespace BEurtle
         }
         private void DraggableIcon_DoubleClick(object sender, EventArgs e)
         {
-            using (var tsf = new TemporarySaveFile(this))
+            try
             {
-                tsf.data.Close();
-                try
+                using (var tsf = new TemporarySaveFile(this))
                 {
-                    this.UseWaitCursor = true;
-                    var result = System.Diagnostics.Process.Start(tsf.tempfilename);
-                    result.WaitForInputIdle();
+                    tsf.data.Close();
+                    try
+                    {
+                        this.UseWaitCursor = true;
+                        var result = System.Diagnostics.Process.Start(tsf.tempfilename);
+                        result.WaitForInputIdle();
+                    }
+                    finally
+                    {
+                        this.UseWaitCursor = false;
+                    }
                 }
-                finally
-                {
-                    this.UseWaitCursor = false;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Error when launching file: " + ex.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void DraggableIcon_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            using (var tsf = new TemporarySaveFile(this))
+            try
             {
-                DataObject obj = new DataObject();
-                if (DraggableIcon.Items[0].Text.StartsWith("text/"))
+                using (var tsf = new TemporarySaveFile(this))
                 {
-                    string data_ = new StreamReader(tsf.data).ReadToEnd();
-                    obj.SetText(data_, DraggableIcon.Items[0].Text == "text/html" ? TextDataFormat.Html : TextDataFormat.UnicodeText);
+                    DataObject obj = new DataObject();
+                    if (DraggableIcon.Items[0].Text.StartsWith("text/"))
+                    {
+                        string data_ = new StreamReader(tsf.data).ReadToEnd();
+                        obj.SetText(data_, DraggableIcon.Items[0].Text == "text/html" ? TextDataFormat.Html : TextDataFormat.UnicodeText);
+                    }
+                    else if (DraggableIcon.Items[0].Text.StartsWith("image/"))
+                    {
+                        var data_ = new Bitmap(tsf.data);
+                        obj.SetImage(data_);
+                    }
+                    else
+                        obj.SetData(tsf.data);
+                    tsf.data.Close();
+                    obj.SetData(DataFormats.FileDrop, true, new String[] { tsf.tempfilename });
+                    DraggableIcon.DoDragDrop(obj, DragDropEffects.All);
                 }
-                else if (DraggableIcon.Items[0].Text.StartsWith("image/"))
-                {
-                    var data_ = new Bitmap(tsf.data);
-                    obj.SetImage(data_);
-                }
-                else
-                    obj.SetData(tsf.data);
-                tsf.data.Close();
-                obj.SetData(DataFormats.FileDrop, true, new String[] { tsf.tempfilename });
-                DraggableIcon.DoDragDrop(obj, DragDropEffects.All);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Error when dragging file: " + ex.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -739,24 +768,31 @@ namespace BEurtle
         {
             if (CommentEdit.Visible)
                 CommentAdd_Click(null, null);
-            // Load in preferred order
-            bool ishtml=false;
-            if ((ishtml = e.Data.GetDataPresent(DataFormats.Html)) || e.Data.GetDataPresent(DataFormats.UnicodeText))
+            try
             {
-                string text = e.Data.GetData(ishtml ? DataFormats.Html : DataFormats.UnicodeText).ToString();
-                if (!ishtml) text = fixUp(text);
-                CommentBodyRaw.Text = CommentBody.Document.Body.InnerHtml = text;
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
-                using(var s = new FileStream(files[0], FileMode.Open))
+                // Load in preferred order
+                bool ishtml = false;
+                if ((ishtml = e.Data.GetDataPresent(DataFormats.Html)) || e.Data.GetDataPresent(DataFormats.UnicodeText))
+                {
+                    string text = e.Data.GetData(ishtml ? DataFormats.Html : DataFormats.UnicodeText).ToString();
+                    if (!ishtml) text = fixUp(text);
+                    CommentBodyRaw.Text = CommentBody.Document.Body.InnerHtml = text;
+                }
+                else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    using (var s = new FileStream(files[0], FileMode.Open))
+                        LoadFromFile(s);
+                }
+                else
+                {
+                    var s = (MemoryStream)e.Data.GetData(e.Data.GetFormats()[0]);
                     LoadFromFile(s);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var s = (MemoryStream) e.Data.GetData(e.Data.GetFormats()[0]);
-                LoadFromFile(s);
+                MessageBox.Show(this, "Error when loading file: " + ex.ToString(), "Error from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
