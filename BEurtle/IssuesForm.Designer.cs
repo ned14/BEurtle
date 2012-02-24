@@ -172,7 +172,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.ShowCheckMargin = true;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(160, 186);
+            this.contextMenu.Size = new System.Drawing.Size(160, 164);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // changeStatusToolStripMenuItem
@@ -589,6 +589,8 @@
             this.MinimumSize = new System.Drawing.Size(540, 200);
             this.Name = "IssuesForm";
             this.Text = "Bugs Everywhere Issues";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssuesForm_FormClosing);
+            this.Load += new System.EventHandler(this.IssuesForm_Load);
             this.Shown += new System.EventHandler(this.IssuesForm_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).EndInit();

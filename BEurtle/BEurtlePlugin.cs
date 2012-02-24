@@ -14,6 +14,12 @@ using System.Text;
 
 namespace BEurtle
 {
+    public class WindowSettings : nedprod.WindowSettings
+    {
+        public WindowSettings(Form form) : base(form) { }
+        protected override string CompanyId() { return "ned Productions Limited"; }
+        protected override string AppId() { return "BEurtle"; }
+    }
     public class BEIssue
     {
         public string uuid { get; set; }

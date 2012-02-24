@@ -589,6 +589,16 @@ namespace BEurtle
             }
         }
 
+        private void IssuesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            new WindowSettings(this).save();
+        }
+
+        private void IssuesForm_Load(object sender, EventArgs e)
+        {
+            new WindowSettings(this).load();
+        }
+
 
     }
 

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Comment1Reply");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Comment1Reply");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueDetail));
             this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
@@ -414,15 +414,18 @@
             this.Comments.HideSelection = false;
             this.Comments.Location = new System.Drawing.Point(3, 3);
             this.Comments.Name = "Comments";
-            treeNode7.Name = "Node1";
-            treeNode7.Text = "Comment1Reply";
-            treeNode8.Name = "Node0";
-            treeNode8.Text = "Comment1";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Comment1Reply";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Comment1";
             this.Comments.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            treeNode2});
             this.Comments.Size = new System.Drawing.Size(349, 97);
             this.Comments.TabIndex = 6;
             this.Comments.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Comments_AfterSelect);
+            this.Comments.DragDrop += new System.Windows.Forms.DragEventHandler(this.Comments_DragDrop);
+            this.Comments.DragEnter += new System.Windows.Forms.DragEventHandler(this.Comments_DragEnter);
+            this.Comments.DragOver += new System.Windows.Forms.DragEventHandler(this.Comments_DragOver);
             // 
             // CommentBodyView
             // 
@@ -667,7 +670,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DraggableIcon.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.DraggableIcon.LargeImageList = this.imageList1;
             this.DraggableIcon.Location = new System.Drawing.Point(6, 6);
             this.DraggableIcon.Name = "DraggableIcon";
@@ -765,6 +768,7 @@
             this.Name = "IssueDetail";
             this.Text = "Issue Detail";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssueDetail_FormClosing);
+            this.Load += new System.EventHandler(this.IssueDetail_Load);
             this.Shown += new System.EventHandler(this.IssueDetail_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.IssueDetail_DragEnter);

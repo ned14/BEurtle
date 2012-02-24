@@ -31,6 +31,7 @@ namespace BEurtle
         private Dictionary<TreeNode, uuid_xpath> commentToUUID = new Dictionary<TreeNode, uuid_xpath>();
         public bool changed { get; set; }
         private IHTMLDocument2 doc;
+        private string defaultcreator;
 
         public IssueDetail(XPathNavigator issue, AutoCompleteStringCollection creators, AutoCompleteStringCollection reporters, AutoCompleteStringCollection assigneds, AutoCompleteStringCollection authors)
         {
@@ -42,17 +43,19 @@ namespace BEurtle
             BoxReporter.AutoCompleteCustomSource = reporters;
             BoxAssigned.AutoCompleteCustomSource = assigneds;
             CommentAuthor.AutoCompleteCustomSource = authors;
+
+            StringBuilder fullname_=new StringBuilder(1024);
+            string fullname, login, machine;
+            uint l=(uint) fullname_.Capacity;
+            int code=Win32.GetUserNameEx((int) Win32.EXTENDED_NAME_FORMAT.NameDisplay, fullname_, ref l);
+            fullname = fullname_.ToString();
+            if (fullname == "") fullname = "<set full name in user account settings>";
+            login = WindowsIdentity.GetCurrent().Name.Split('\\')[1];
+            machine = System.Net.Dns.GetHostEntry("").HostName;
+            defaultcreator=BoxReporter.Text = "\"" + fullname + "\" <" + login + "@" + machine + ">";
             if (issue == null)
             {
-                StringBuilder fullname_=new StringBuilder(1024);
-                string fullname, login, machine;
-                uint l=(uint) fullname_.Capacity;
-                int code=Win32.GetUserNameEx((int) Win32.EXTENDED_NAME_FORMAT.NameDisplay, fullname_, ref l);
-                fullname = fullname_.ToString();
-                if (fullname == "") fullname = "<set full name in user account settings>";
-                login = WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-                machine = System.Net.Dns.GetHostEntry("").HostName;
-                BoxCreator.Text = BoxReporter.Text = "\"" + fullname + "\" <" + login + "@" + machine + ">";
+                BoxCreator.Text = defaultcreator;
             }
         }
 
@@ -134,6 +137,7 @@ namespace BEurtle
 
         private void IssueDetail_Shown(object sender, EventArgs e)
         {
+            CommentBody.AllowWebBrowserDrop = false;
             if (issue != null)
             {
                 BoxUUID.Text = issue.Evaluate("string(uuid)").ToString();
@@ -200,6 +204,7 @@ namespace BEurtle
             CommentAdd.Enabled = true;
             if (Comments.Nodes.Count > 0)
             {
+                Comments.ExpandAll();
                 Commentary.Panel2.Enabled = true;
                 Comments.SelectedNode = Comments.Nodes[0];
                 CommentDelete.Enabled = CommentEdit.Enabled = true;
@@ -208,8 +213,14 @@ namespace BEurtle
 
         private void IssueDetail_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (doc != null)
+            if (!CommentEdit.Visible)
                 SaveComment();
+            new WindowSettings(this).save();
+        }
+
+        private void IssueDetail_Load(object sender, EventArgs e)
+        {
+            new WindowSettings(this).load();
         }
 
         private void ButtonEdit_Click(object sender, EventArgs e)
@@ -223,9 +234,12 @@ namespace BEurtle
             ButtonOK.Enabled = (BoxSummary.Text.Length > 0);
         }
 
+        private bool disable_afterselect = false;
         private void Comments_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (doc != null)
+            if (disable_afterselect) return;
+            if (Comments.Nodes.Count == 0) return;
+            if (!CommentEdit.Visible)
                 SaveComment();
             XPathNavigator comment = commentToUUID[Comments.SelectedNode].Item2;
             CommentAuthor.Text = comment.SelectSingleNode("author").ToString();
@@ -335,7 +349,7 @@ namespace BEurtle
             }
         }
 
-        private void CommentEdit_Click(object sender, EventArgs e)
+        private void TurnOnCommentEditing()
         {
             // Bind the MSHTML COM control and turn on editing
             doc = CommentBody.Document.DomDocument as IHTMLDocument2;
@@ -345,10 +359,16 @@ namespace BEurtle
             CommentBodyRaw.Enabled = true;
             LoadAttachment.Enabled = true;
             CommentAuthor.ReadOnly = false;
-            CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = false;
+            CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = false;
             Application.DoEvents(); // Let MSHTML get around to binding
             Comments_AfterSelect(null, null);
             DraggableIcon.Items[0].Text = "text/html";
+            DraggableIcon.Items[0].ImageIndex = 0;
+            CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = false;
+        }
+        private void CommentEdit_Click(object sender, EventArgs e)
+        {
+            TurnOnCommentEditing();
         }
         private void CommentEditCancel_Click(object sender, EventArgs e)
         {
@@ -360,8 +380,9 @@ namespace BEurtle
             LoadAttachment.Enabled = false;
             CommentAuthor.ReadOnly = true;
             CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = true;
+            CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = true;
             Application.DoEvents(); // Let MSHTML get around to unbinding
-            Comments_AfterSelect(null, null);
+            IssueDetail_Shown(null, null);
         }
 
         // List of commands is available at http://msdn.microsoft.com/en-us/library/ms533049(v=vs.85).aspx
@@ -674,18 +695,25 @@ namespace BEurtle
 
         private void CommentAdd_Click(object sender, EventArgs e)
         {
-            // Bind the MSHTML COM control and turn on editing
-            doc = CommentBody.Document.DomDocument as IHTMLDocument2;
-            doc.designMode = "On";
-
-            HTMLEditorControls.Enabled = true;
-            CommentBodyRaw.Enabled = true;
-            LoadAttachment.Enabled = true;
-            CommentEdit.Enabled = false;
-
+            try
+            {
+                disable_afterselect = true;
+                if (Comments.SelectedNode != null)
+                {
+                    Comments.SelectedNode = Comments.SelectedNode.Nodes.Add("*** new comment ***");
+                }
+                TurnOnCommentEditing();
+            }
+            finally
+            {
+                disable_afterselect = false;
+            }
+            CommentBody.Document.Body.InnerHtml = "";
             CommentBodyRaw.Text = "";
-            CommentAuthor.Text = "";
+            CommentAuthor.Text = defaultcreator;
             CommentDate.Text = "";
+            CommentBody.Focus();
+            CommentBody.Document.ActiveElement.Focus();
         }
 
         private void CommentDelete_Click(object sender, EventArgs e)
@@ -693,21 +721,75 @@ namespace BEurtle
             XPathNavigator comment = commentToUUID[Comments.SelectedNode].Item2;
             string shortname = comment.SelectSingleNode("short-name").ToString();
             MessageBox.Show("TODO: Delete Comment "+shortname);
+            IssueDetail_Shown(null, null);
         }
 
         private void SaveComment()
         {
             MessageBox.Show("TODO: Save Comment");
+            CommentEditCancel_Click(null, null);
         }
 
         private void IssueDetail_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = e.AllowedEffect;
+            e.Effect = DragDropEffects.Copy;
         }
 
         private void IssueDetail_DragDrop(object sender, DragEventArgs e)
         {
-            MessageBox.Show("TODO: Add new comment containing dropped file");
+            if (CommentEdit.Visible)
+                CommentAdd_Click(null, null);
+            // Load in preferred order
+            bool ishtml=false;
+            if ((ishtml = e.Data.GetDataPresent(DataFormats.Html)) || e.Data.GetDataPresent(DataFormats.UnicodeText))
+            {
+                string text = e.Data.GetData(ishtml ? DataFormats.Html : DataFormats.UnicodeText).ToString();
+                if (!ishtml) text = fixUp(text);
+                CommentBodyRaw.Text = CommentBody.Document.Body.InnerHtml = text;
+            }
+            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+                using(var s = new FileStream(files[0], FileMode.Open))
+                    LoadFromFile(s);
+            }
+            else
+            {
+                var s = (MemoryStream) e.Data.GetData(e.Data.GetFormats()[0]);
+                LoadFromFile(s);
+            }
+        }
+
+        private void Comments_DragEnter(object sender, DragEventArgs e)
+        {   // Accept drops directly into comments only if not editing
+            if (CommentEdit.Visible)
+                e.Effect = DragDropEffects.Move;
+        }
+
+        private void Comments_DragOver(object sender, DragEventArgs e)
+        {
+            var pt = Comments.PointToClient(new Point(e.X, e.Y));
+            var node = Comments.GetNodeAt(pt);
+            // Why the hell is auto-scrolling only implemented downwards? Stupid!
+            if (node != null)
+            {
+                if (pt.Y <= Comments.Font.Height / 2)
+                    if (node.PrevNode != null)
+                        node = node.PrevNode;
+                    else if (node.Parent != null)
+                        node = node.Parent;
+            }
+            Comments.SelectedNode = node;
+        }
+
+        private void Comments_DragDrop(object sender, DragEventArgs e)
+        {
+            var pt = Comments.PointToClient(new Point(e.X, e.Y));
+            var node = Comments.GetNodeAt(pt);
+            if (node != null)
+            {
+                IssueDetail_DragDrop(sender, e);
+            }
         }
 
     }

@@ -77,6 +77,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="Win32.cs" />
+    <Compile Include="WindowSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IssueDetail.resx">
@@ -97,6 +98,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="ned_dotnet.snk" />
     <None Include="Resources\Paypal.png" />
   </ItemGroup>
