@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" elementFormDefault="qualified">
+  <xs:element name="be-xml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="bug"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="bug">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:element ref="short-name"/>
+        <xs:element ref="severity"/>
+        <xs:element ref="status"/>
+        <xs:element minOccurs="0" ref="assigned"/>
+        <xs:element minOccurs="0" ref="reporter"/>
+        <xs:element minOccurs="0" ref="creator"/>
+        <xs:element ref="created"/>
+        <xs:element ref="summary"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="extra-string"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="comment"/>
+      </xs:sequence>
+    </xs:complexType>
+    <xs:key name="bug_uuid">
+      <xs:selector xpath="uuid"/>
+      <xs:field xpath="."/>
+    </xs:key>    
+    <xs:key name="bug_short-name">
+      <xs:selector xpath="short-name"/>
+      <xs:field xpath="."/>
+    </xs:key>
+    <xs:key name="comment_uuid">
+      <xs:selector xpath="comment/uuid"/>
+      <xs:field xpath="."/>
+    </xs:key>    
+    <xs:key name="comment_short-name">
+      <xs:selector xpath="comment/short-name"/>
+      <xs:field xpath="."/>
+    </xs:key>    
+    <xs:keyref refer="comment_uuid" name="in-reply-to">
+      <xs:selector xpath="*/in-reply-to"/>
+      <xs:field xpath="."/>
+    </xs:keyref>
+  </xs:element>
+
+  <xs:element name="severity">
+    <xs:simpleType>
+      <xs:restriction base="xs:NCName">
+        <xs:enumeration value="minor"/>
+        <xs:enumeration value="wishlist"/>
+        <xs:enumeration value="serious"/>
+        <xs:enumeration value="major"/>
+        <xs:enumeration value="critical"/>
+        <xs:enumeration value="fatal"/>
+        <xs:enumeration value="target"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="status">
+    <xs:simpleType>
+      <xs:restriction base="xs:NCName">
+        <xs:enumeration value="unconfirmed"/>
+        <xs:enumeration value="open"/>
+        <xs:enumeration value="closed"/>
+        <xs:enumeration value="fixed"/>
+        <xs:enumeration value="wontfix"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="assigned" type="xs:string"/>
+  <xs:element name="reporter" type="xs:string"/>
+  <xs:element name="creator" type="xs:string"/>
+  <xs:element name="created"> <!-- Tue, 21 Jul 2009 18:32:12 +0000 -->
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(|.* [0-3]{0,1}[0-9] (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4} [0-2][0-9]:[0-5][0-9]:[0-5][0-9] (\+|-)[0-9]{4})"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="summary" type="xs:string"/>
+  <xs:element name="extra-string">
+    <!-- contains TAG: or BLOCKS: or BLOCKED-BY: -->
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(TAG:|BLOCKS:|BLOCKED-BY:).+"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="alt-id" type="xs:string"/>
+  <xs:element name="in-reply-to" type="xs:string"/>
+  <xs:element name="uuid" type="xs:string"/>
+  <xs:element name="short-name" type="xs:string"/>
+
+  <xs:element name="comment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:element minOccurs="0" ref="alt-id"/>
+        <xs:element ref="short-name"/>
+        <xs:element minOccurs="0" ref="in-reply-to"/>
+        <xs:element ref="author"/>
+        <xs:element ref="date"/>
+        <xs:element ref="content-type"/>
+        <xs:element ref="body"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="author" type="xs:string"/>
+  <xs:element name="date">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(|.* [0-3]{0,1}[0-9] (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4} [0-2][0-9]:[0-5][0-9]:[0-5][0-9] (\+|-)[0-9]{4})"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="content-type" type="xs:string"/>
+  <xs:element name="body" type="xs:string"/>  
+</xs:schema>
