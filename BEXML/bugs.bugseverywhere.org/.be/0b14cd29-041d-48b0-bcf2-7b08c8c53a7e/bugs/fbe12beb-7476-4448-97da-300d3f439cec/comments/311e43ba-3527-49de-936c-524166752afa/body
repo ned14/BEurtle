@@ -1,0 +1,54 @@
+On both be-1.0.1 and the latest git master, 'be init' on an existing mercurial
+repo fails.
+
+As reported for the Fedora package:
+
+  https://bugzilla.redhat.com/show_bug.cgi?id=726637
+
+Reproduction:
+
+$ hg init foo
+$ cd foo
+$ be init
+Traceback (most recent call last):
+  File "/usr/bin/be", line 26, in <module>
+    sys.exit(libbe.ui.command_line.main())
+  File "/usr/lib/python2.7/site-packages/libbe/ui/command_line.py", line 333,
+in main
+    ret = dispatch(ui, command, args)
+  File "/usr/lib/python2.7/site-packages/libbe/ui/command_line.py", line 265,
+in dispatch
+    ret = ui.run(command, options, args)
+  File "/usr/lib/python2.7/site-packages/libbe/command/base.py", line 535, in
+run
+    return command.run(options, args)
+  File "/usr/lib/python2.7/site-packages/libbe/command/base.py", line 263, in
+run
+    self.status = self._run(**params)
+  File "/usr/lib/python2.7/site-packages/libbe/command/init.py", line 91, in
+_run
+    storage.connect()
+  File "/usr/lib/python2.7/site-packages/libbe/storage/base.py", line 217, in
+connect
+    self._connect()
+  File "/usr/lib/python2.7/site-packages/libbe/storage/vcs/base.py", line 614,
+in _connect
+    self.root()
+  File "/usr/lib/python2.7/site-packages/libbe/storage/vcs/base.py", line 577,
+in root
+    root = self._vcs_root(self.repo)
+  File "/usr/lib/python2.7/site-packages/libbe/storage/vcs/hg.py", line 109, in
+_vcs_root
+    return self._u_invoke_client('root', cwd=path)
+  File "/usr/lib/python2.7/site-packages/libbe/storage/vcs/hg.py", line 90, in
+_u_invoke_client
+    mercurial.dispatch.dispatch(fullargs)
+  File "/usr/lib64/python2.7/site-packages/mercurial/dispatch.py", line 31, in
+dispatch
+    if req.ferr:
+AttributeError: 'list' object has no attribute 'ferr'
+
+$ yum list mercurial be
+Installed Packages
+be.noarch                                      1.0.1-1.fc15
+mercurial.x86_64                               1.9-2.fc15

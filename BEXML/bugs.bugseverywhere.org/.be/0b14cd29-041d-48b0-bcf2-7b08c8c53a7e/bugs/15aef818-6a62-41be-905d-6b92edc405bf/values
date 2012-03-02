@@ -1,0 +1,18 @@
+creator: sasha <sasha@rey>
+
+
+reporter: sasha <sasha@rey>
+
+
+severity: minor
+
+
+status: open
+
+
+summary: 'mercurial 1.9 breaks be with AttributeError: ''list'' object has no attribute
+  ''ferr'' in mercurial.dispatch'
+
+
+time: Wed, 20 Jul 2011 12:21:51 +0000
+

@@ -1,0 +1,17 @@
+creator: michel <michel@sojourner.localdomain>
+
+
+reporter: michel <michel@sojourner.localdomain>
+
+
+severity: minor
+
+
+status: open
+
+
+summary: Crash on 'be init' in existing mercurial repo
+
+
+time: Tue, 02 Aug 2011 16:50:11 +0000
+

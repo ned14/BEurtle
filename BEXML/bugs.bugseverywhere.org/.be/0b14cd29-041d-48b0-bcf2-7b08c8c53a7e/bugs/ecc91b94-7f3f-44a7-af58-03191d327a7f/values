@@ -1,0 +1,14 @@
+creator: abentley
+
+
+severity: minor
+
+
+status: fixed
+
+
+summary: no tests for missing $EDITOR
+
+
+time: Tue, 17 May 2005 13:27:33 +0000
+

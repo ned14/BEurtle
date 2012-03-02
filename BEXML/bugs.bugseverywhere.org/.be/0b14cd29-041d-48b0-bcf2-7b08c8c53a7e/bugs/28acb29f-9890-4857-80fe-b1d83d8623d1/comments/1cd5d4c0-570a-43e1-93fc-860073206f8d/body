@@ -1,0 +1,1 @@
+Installing on Windows oddly enough succeeds except for the following two problems: (i) you need to install a be.bat file in the scripts directory (which I hopefully will shortly attach) and (ii) there is a dependency on pyyaml which needs to be easy_install'ed. The latter really ought to be automated during BE's setup.py. Thanks,

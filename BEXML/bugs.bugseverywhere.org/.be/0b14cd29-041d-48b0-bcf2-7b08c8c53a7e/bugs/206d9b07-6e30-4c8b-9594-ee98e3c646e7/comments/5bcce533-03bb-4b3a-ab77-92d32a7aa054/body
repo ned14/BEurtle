@@ -1,0 +1,7 @@
+Fixed by replacing
+
+  '/bug?id=%s' % shortname
+
+with
+
+  '/bug?%s' % urlencode({'id':bug.id.long_user()})

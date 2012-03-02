@@ -1,0 +1,1 @@
+The mercurial API has changed so that instead of passing a list, one needs a mercurial.dispatch.request. One way this can be done is by calling mercurial.dispatch.dispatch(fullargs) in line 90 of libbe.storage.vcs.hg, which should resolve the error for hg 1.9 but might create a problem for some earlier versions.
