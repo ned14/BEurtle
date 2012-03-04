@@ -12,12 +12,12 @@ except:
 
 setup(
     name='BEXML',
-	console=['bexmlcgi.py'],
+	console=['bexmlsrv.py'],
     version="0.01",
-    description='Provides fast, lazy, RESTful access to various issue (bug) trackers. Compilable into a fast binary with IronPython and PyPy for even faster access.',
+    description='Provides fast, lazy, RESTful fastcgi access to various issue (bug) trackers. Compilable into a fast binary with IronPython and PyPy for even faster access.',
     author='Niall Douglas',
     url='http://www.nedprod.com/programs/portable/bexml',
     packages=find_packages('libBEXML'),
     test_suite='tests',
-    install_requires=['pyyaml', 'webpy'],
+    install_requires=['pyyaml', 'omnijson', 'ujson', 'webpy', 'mimerender'],
     )

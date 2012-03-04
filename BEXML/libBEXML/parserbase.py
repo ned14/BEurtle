@@ -14,8 +14,8 @@ class ParserBase():
     def __init__(self, uri):
         up=urlparse.urlparse(uri)
         assert up.scheme is not ""
-        if up.scheme=="file":
-            up=(up.scheme, os.path.abspath(up.netloc).replace(os.sep, '/'), up.path, up.params, up.query, up.fragment)
+        if up.scheme.lower()=="file":
+            up=(up.scheme.lower(), os.path.abspath(up.netloc).replace(os.sep, '/'), up.path, up.params, up.query, up.fragment)
             uri2=urlparse.urlunparse(up)
             if uri!=uri2:
                 log.warn("Fixed up URI '"+uri+"' to '"+uri2+"'")
