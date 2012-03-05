@@ -5,6 +5,8 @@
 #
 # Deliberately written to compile in IronPython and PyPy
 
+import sys
+if sys.path[0]!='.': sys.path.insert(0, '.')
 from libBEXML import BEXML
 import logging, time, unittest
 
@@ -24,22 +26,34 @@ class TestParseBErepoWithLib(unittest.TestCase):
         print("Loading the bugs everywhere repository took %f secs" % (end-start-self.emptyloop))
 
         start=time.time()
-        for issue in parser.parse():
+        issues=comments=0
+        for issue in parser.parseIssues():
+            issues+=1
             issue.status
+            #print "  "+str(issue.uuid)+": "+issue.summary
             for commentuuid in issue.comments:
+                comments+=1
                 issue.comments[commentuuid].alt_id
         end=time.time()
-        print("Reading the bugs everywhere repository for the first time took %f secs" % (end-start-self.emptyloop))
+        print("Reading %d issues and %d comments from the bugs everywhere repository for the first time took %f secs" % (issues, comments, end-start-self.emptyloop))
 
         start=time.time()
-        for issue in parser.parse():
+        for issue in parser.parseIssues():
             issue.status
             for commentuuid in issue.comments:
                 issue.comments[commentuuid].alt_id
         end=time.time()
         print("Reading the bugs everywhere repository for the second time took %f secs" % (end-start-self.emptyloop))
-        #for issue in parser.parse():
-        #    print("   %s: %s" % (issue.uuid, issue.summary))
+
+        print("\nIssues created by anyone called Steve:")
+        start=time.time()
+        n=0
+        for issue in parser.parseIssues("{{creator}}:{{Steve}}"):
+            n+=1
+            #print "  "+str(issue.uuid)+": "+issue.summary
+        end=time.time()
+        print("Reading %d items from the bugs everywhere repository for the first time took %f secs" % (n, end-start-self.emptyloop))
+
 
 if __name__=="__main__":
     unittest.main()

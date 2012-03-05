@@ -9,6 +9,7 @@ from ..comment import Comment as CommentBase
 import urllib2, os, re, codecs, logging
 from urlparse import urlparse
 from collections import namedtuple
+from uuid import UUID
 import yaml
 
 log=logging.getLogger(__name__)
@@ -180,7 +181,7 @@ class BEDirParser(ParserBase):
                 for commentuuid in issue.comments:
                     issue.comments[commentuuid].uuid
 
-    def parse(self, issuefilter=None):
+    def parseIssues(self, issuefilter=None):
         if len(self.__bedir)==0:
             self.reload()
         for bugdir in self.__bedir:
@@ -190,16 +191,29 @@ class BEDirParser(ParserBase):
                 # Refresh if loaded and stale
                 if issue.isLoaded and issue.tracksStaleness and issue.isStale:
                     issue.load(True)
-                if issuefilter is None:
+                if issuefilter is None or issue._match(issuefilter):
                     yield issue
-                else:
-                    if issuefilter.match(issue):
-                        yield issue
                 if not self.cache_in_memory:
                     # Replace with a fresh structure. If the caller took
                     # a copy of the issue, it'll live on, otherwise it'll
                     # get GCed
                     self.__loadIssueAndComments(issueuuid, os.path.dirname(issue.dirpath))
+
+    def parseComments(self, issue_uuid, commentfilter=None):
+        if not isinstance(issue_uuid, str):
+            issue_uuid=str(issue_uuid)
+        if len(self.__bedir)==0:
+            self.reload()
+        issue=None
+        for bugdir in self.__bedir:
+            issueuuids=self.__bedir[bugdir]
+            if issue_uuid in issueuuids:
+                issue=issueuuids[issue_uuid]
+                break
+        if issue is None:
+            raise AssertionError, "Issue uuid '"+str(issue_uuid)+"' not found"
+        for commentuuid in issue.comments:
+            yield issue.comments[commentuuid]
 
 def instantiate(uri, **args):
     return BEDirParser(uri, **args)

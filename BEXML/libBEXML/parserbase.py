@@ -41,6 +41,11 @@ class ParserBase():
         pass
 
     @abstractmethod
-    def parse(self, issuefilter=None):
+    def parseIssues(self, issuefilter=None):
         """Coroutine parsing the issues at the uri filtering out anything not matching issuefilter"""
+        pass
+
+    @abstractmethod
+    def parseComments(self, issue_uuid, commentfilter=None):
+        """Coroutine parsing the comments for issue_uuid filtering out anything not matching commentfilter"""
         pass

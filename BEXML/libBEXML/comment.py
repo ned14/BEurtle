@@ -113,26 +113,6 @@ class Comment(PropertiedDictionary):
         """True if the file backing for this comment is newer than us"""
         pass
 
-    def match(self, commentfilter):
-        """Returns true if this comment matches commentfilter"""
-        if issuefilter.uuid!=nullUUID:
-            if not re.match(str(commentfilter.uuid), str(self.uuid)): return False
-        if issuefilter.short_name!="":
-            if not re.search(commentfilter.short_name, self.short_name): return False
-        if issuefilter.alt_id!="":
-            if not re.search(commentfilter.alt_id, self.alt_id): return False
-        if issuefilter.in_reply_to!=nullUUID:
-            if not re.match(str(commentfilter.in_reply_to), str(self.in_reply_to)): return False
-        if issuefilter.author!="":
-            if not re.search(commentfilter.author, self.author): return False
-        if issuefilter.date!=nullDatetime:
-            if not re.search(str(commentfilter.date), str(self.date)): return False
-        if issuefilter.content_type!="":
-            if not re.search(commentfilter.content_type, self.content_type): return False
-        if issuefilter.body!="":
-            if not re.search(commentfilter.body, self.body): return False
-        return True
-
     @abstractmethod
     def load(self, reload=False):
         """Loads in the comment from the backing store"""

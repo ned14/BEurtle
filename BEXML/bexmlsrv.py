@@ -3,10 +3,11 @@
 # Created: March 2012
 
 from libBEXML import BEXML, parserbase
-import web, urlparse, os, inspect, logging, sys, traceback
+import web, urlparse, os, inspect, logging, sys, traceback, types, collections
 import omnijson as json
 from mimerender import mimerender
 from cgi import escape
+from uuid import UUID
 
 DEBUG=True
 
@@ -29,37 +30,58 @@ def inspect_apis(routines):
 
 
 def XMLise(v, indent=0):
-    ret=""
+    ret=u''.rjust(indent)
+    ret+=u"<dictionary>\n"
+    indent+=3
     for k in v:
         x=v[k]
         ret+=u''.rjust(indent)
-        ret+=u'<'+unicode(k)+u'>'
+        ret+=u'<item key="'+unicode(k)+u'">'
         if isinstance(x, dict):
             ret+=u'\n'
             ret+=XMLise(x, indent+3)
             ret+=u''.rjust(indent)
         elif isinstance(x, list):
-            ret+=u'\n'
+            ret+=u'<list>\n'
             for i in x:
-                ret+=u''.rjust(indent+3)
-                ret+=unicode(i)
-                ret+=',\n'
-            ret+=u''.rjust(indent)
+                ret+=u''.rjust(indent+6)+u'<item>'
+                ret+=escape(unicode(i))
+                ret+='</item>\n'
+            ret+=u''.rjust(indent+3)+u'</list>'
         else:
-            ret+=unicode(x)
-        ret+=u'</'+unicode(k)+u'>\n'
+            ret+=escape(unicode(x))
+        ret+=u'</item>\n'
+    indent-=3
+    ret+=u''.rjust(indent)
+    ret+=u"</dictionary>\n"
     return ret
 
-render_xml = lambda **args: XMLise(args)
-render_json = lambda **args: json.dumps(args)
-render_html = lambda **args: u'<html><body><pre>%s</pre></body></html>'%escape(XMLise(args))
-render_txt = lambda **args: repr(args)
+def FixupTypes(v):
+    """Specialised serialisation for certain types"""
+    if isinstance(v, UUID):
+        return v.urn[9:]
+    elif isinstance(v, dict):
+        ret={}
+        for item in v:
+            ret[item]=FixupTypes(v[item])
+        return ret
+    elif isinstance(v, list):
+        for i in xrange(0, len(v)):
+            v[i]=FixupTypes(v[i])
+        return v
+    return v
+
+render_xml = lambda **args: XMLise(FixupTypes(args))
+render_json = lambda **args: json.dumps(FixupTypes(args))
+render_html = lambda **args: u'<html><body><pre>%s</pre></body></html>'%escape(XMLise(FixupTypes(args)))
+render_txt = lambda **args: repr(FixupTypes(args))
 
 urls = (
     '/', 'index',
     '/apilist', 'apilist',
     '/open(.*)', 'open',
-    '/parser/(.+)', 'parser'
+    '/cancel/(.+)', 'cancel',
+    '/(.+)', 'catchall',
 )
 app = web.application(urls, locals())
 session = web.session.Session(app, web.session.DiskStore('bexmlsrv_sessions'), initializer={'uri': None})
@@ -70,6 +92,8 @@ class ParserInfo:
         self.session=session
         self.uri=uri
         self.parser=parser
+        self.generators={}
+        # TODO: Find some way of poking a hook into session such that when it expires, it deletes this object
 
 def excfilter(func):
     def dec(*args, **kwargs):
@@ -117,7 +141,7 @@ class open:
         txt  = render_txt
     )
     @excfilter
-    def GET(self):
+    def GET(self, api):
         query=urlparse.parse_qs(web.ctx.env['QUERY_STRING'])
         if 'uri' not in query:
             raise AssertionError, "Need the uri parameter"
@@ -133,9 +157,36 @@ class open:
                 raise AssertionError, "Path '"+up.netloc+"' not found under the current working directory"
         session.uri=uri
         sessionToParserInfo[session.session_id]=ParserInfo(session, uri, BEXML(session.uri))
+        return {'version': '0.01', 'result': 'OK'}
+
+class cancel:
+    @mimerender(
+        default = 'html',
+        html = render_html,
+        xml  = render_xml,
+        json = render_json,
+        txt  = render_txt
+    )
+    @excfilter
+    def GET(self, api):
+        query=urlparse.parse_qs(web.ctx.env['QUERY_STRING'])
+        if session.uri is None:
+            raise AssertionError, "Need to call /open to open a parsing session first"
+        if api not in parserAPIs:
+            raise AssertionError, "API '"+api+"' not in allowed APIs: "+repr(parserAPIs)
+        reloaded=False
+        if session.session_id in sessionToParserInfo:
+            pi=sessionToParserInfo[session.session_id]
+        else:
+            raise AssertionError, "Cannot cancel in an invalid session"
+        method=getattr(pi.parser, api)
+        if method not in pi.generators:
+            raise AssertionError, "Cannot cancel an API not in operation"
+        else:
+            del pi.generators[method]
         return {'result': 'OK'}
 
-class parser:
+class catchall:
     @mimerender(
         default = 'html',
         html = render_html,
@@ -156,15 +207,27 @@ class parser:
         else:
             sessionToParserInfo[session.session_id]=pi=ParserInfo(session, uri, BEXML(session.uri))
             reloaded=True
-        method=parserAPIs[api].__get__(pi.parser, type(pi.parser))
-        methodspec=inspect.getargspec(method)
-        mandpars=[x for x in methodspec.args if x is not 'self']
-        if methodspec.defaults is not None:
-            mandpars=mandpars[:-len(methodspec.defaults)]
-        for parameter in mandpars:
-            if parameter not in query:
-                raise AssertionError, "Mandatory parameter '"+parameter+"' is missing"
-        return {'reloaded' : reloaded, 'result': method(**query)}
+        method=getattr(pi.parser, api)
+        if method not in pi.generators:
+            methodspec=inspect.getargspec(method)
+            mandpars=[x for x in methodspec.args if x is not 'self']
+            if methodspec.defaults is not None:
+                mandpars=mandpars[:-len(methodspec.defaults)]
+            for parameter in mandpars:
+                if parameter not in query:
+                    raise AssertionError, "Mandatory parameter '"+parameter+"' is missing"
+                # urlparse allows multiple values per parameter, we only want the first
+                query[parameter]=query[parameter][0]
+            result=method(**query)
+            if isinstance(result, types.GeneratorType):
+                pi.generators[method]=result
+        if method in pi.generators:
+            try:
+                result=pi.generators[method].next()
+            except StopIteration:
+                del pi.generators[method]
+                result=None
+        return {'reloaded' : reloaded, 'result': result}
 
 if __name__ == "__main__":
     app.run()

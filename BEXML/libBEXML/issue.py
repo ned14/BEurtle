@@ -35,7 +35,6 @@
 """
 
 from abc import ABCMeta, abstractmethod, abstractproperty
-import re
 from uuid import UUID
 from datetime import datetime
 
@@ -118,26 +117,6 @@ class Issue(PropertiedDictionary):
     def isStale(self):
         """True if the backing for this issue is newer than us"""
         pass
-
-    def match(self, issuefilter):
-        """Returns true if this issue matches issuefilter"""
-        if issuefilter.uuid!=nullUUID:
-            if not re.match(str(issuefilter.uuid), str(self.uuid)): return False
-        if issuefilter.short_name!="":
-            if not re.search(issuefilter.short_name, self.short_name): return False
-        if issuefilter.severity!="":
-            if not re.search(issuefilter.severity, self.severity): return False
-        if issuefilter.status!="":
-            if not re.search(issuefilter.status, self.status): return False
-        if issuefilter.reporter!="":
-            if not re.search(issuefilter.reporter, self.reporter): return False
-        if issuefilter.creator!="":
-            if not re.search(issuefilter.creator, self.creator): return False
-        if issuefilter.created!=nullDatetime:
-            if not re.search(str(issuefilter.created), str(self.created)): return False
-        if issuefilter.summary!="":
-            if not re.search(issuefilter.summary, self.summary): return False
-        return True
 
     def addComment(self, comment):
         """Adds a comment to the issue"""

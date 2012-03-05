@@ -306,7 +306,7 @@ class PropertiedDictionary(dict, object):
         for key in self:
             value=unicode(self[key])
             for f in filters:
-                f.matched=f.matched or (f.property.match(key) and f.value.match(value))
+                f.matched=f.matched or (f.property.match(key) and f.value.search(value))
         matchedAnything=False
         for f in filters:
             if f.required and not f.matched:
