@@ -3,6 +3,7 @@
 # Created: March 2012
 
 from collections import namedtuple
+import re
 
 class Property:
     """A property in a propertied dictionary"""
@@ -212,6 +213,107 @@ class PropertiedDictionary(dict, object):
             p.reset()
         else:
             return object.__delattr__(self, name)
+
+    def _match(self, filterstring):
+        """Returns true if the filterstring matches this item. Filter string looks like this:
+
+        [+]{{regexp fieldname}}:{{regexp contents}},[+]{{regexp fieldname}}:{{regexp contents}}...
+
+        The optional preceding + operator makes matching the fieldname compulsory. Otherwise True
+        will be returned if any fieldname matches.
+
+        It also handles plain strings, in which case it matches any value.
+
+        >>> x=PropertiedDictionary()
+        >>> x._addProperty("name", "", str, "")
+        >>> x._addProperty("phone", "", str, "")
+        >>> x._addProperty("room", "", int, 0)
+        >>> x.name="Niall Douglas"
+        >>> x.phone="4964925"
+        >>> x.room=53
+        >>> print x._match("{{name}}:{{niall}},{{.*o.*}}:{{5}}")
+        True
+        >>> print x._match("+{{name}}:{{niall}},{{.*o.*}}:{{5}}")
+        False
+        >>> print x._match("+{{name}}{{niall}},{{.*o.*}}:{{5}}")
+        Traceback (most recent call last):
+            ...
+        ValueError: Filter string '+{{name}}{{niall}},{{.*o.*}}:{{5}}' has incorrect format at around index 9 'name}}{{nial'
+        >>> print x._match("+{{name}}:{{niall}},{{.*o.*}}:{{5}")
+        Traceback (most recent call last):
+            ...
+        ValueError: Filter string '+{{name}}:{{niall}},{{.*o.*}}:{{5}' has incorrect format at around index 30 'o.*}}:{{5}'
+        >>> print x._match("+:,")
+        Traceback (most recent call last):
+            ...
+        ValueError: Filter string '+:,' has incorrect format at around index 3 '+:,'
+        >>> print x._match(",:")
+        Traceback (most recent call last):
+            ...
+        ValueError: Filter string ',:' has incorrect format at around index 2 ',:'
+        >>> print x._match("Niall")
+        True
+        >>> print x._match("niall")
+        False
+        """
+        if len(filterstring)==0: return False
+        # Break up into bits first ..
+        filters=[]
+        class Filter:
+            def __init__(self):
+                self.required=False
+                self.property=""
+                self.value=""
+                self.matched=False
+            def __repr__(self):
+                return repr(namedtuple("Filter", ["required", "property", "value", "matched"])(self.required, self.property, self.value, self.matched))
+        infield=0
+        lastbreak=0
+        seenPunct=True
+        f=Filter()
+        for i in xrange(0, len(filterstring)):
+            #print infield, filterstring[i:]
+            if filterstring[i:i+2]=='{{':
+                if infield==0 and not seenPunct:
+                    raise ValueError, "Filter string '"+filterstring+"' has incorrect format at around index "+str(i)+" '"+filterstring[i-6:i+6]+"'"
+                infield+=1
+            elif filterstring[i:i+2]=='}}':
+                infield-=1
+                seenPunct=False
+            elif infield==0:
+                if filterstring[i]=='+':
+                    f.required=True
+                    lastbreak=i+1
+                    seenPunct=True
+                elif filterstring[i]==':':
+                    f.property=filterstring[lastbreak+2:i-2].strip()
+                    lastbreak=i+1
+                    seenPunct=True
+                elif filterstring[i]==',' or i==len(filterstring)-1:
+                    if filterstring[i]!=',': i+=1
+                    f.value=filterstring[lastbreak:i].strip('\t\n\x0b\x0c\r {}')
+                    #print "Parsed", f
+                    filters.append(f)
+                    f=Filter()
+                    lastbreak=i+1
+                    seenPunct=True
+        if lastbreak!=len(filterstring)+1: raise ValueError, "Filter string '"+filterstring+"' has incorrect format at around index "+str(lastbreak)+" '"+filterstring[lastbreak-6:]+"'"
+        if len(filters)==0: raise ValueError, "Filter string '"+filterstring+"' could not be parsed!"
+        for f in filters:
+            #print f
+            f.property=re.compile(f.property)
+            f.value=re.compile(f.value)
+        for key in self:
+            value=unicode(self[key])
+            for f in filters:
+                f.matched=f.matched or (f.property.match(key) and f.value.match(value))
+        matchedAnything=False
+        for f in filters:
+            if f.required and not f.matched:
+                return False
+            if f.matched:
+                matchedAnything=True
+        return matchedAnything
 
 
 if __name__=="__main__":
