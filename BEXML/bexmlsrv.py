@@ -202,6 +202,12 @@ class catchall:
         if api not in parserAPIs:
             raise AssertionError, "API '"+api+"' not in allowed APIs: "+repr(parserAPIs)
         reloaded=False
+        batchitems=1
+        if '__batch_items' in query:
+            batchitems=int(query['__batch_items'][0])
+            del query['__batch_items']
+            if batchitems<1: batchitems=1
+            elif batchitems>50: batchitems=50
         if session.session_id in sessionToParserInfo:
             pi=sessionToParserInfo[session.session_id]
         else:
@@ -216,17 +222,19 @@ class catchall:
             for parameter in mandpars:
                 if parameter not in query:
                     raise AssertionError, "Mandatory parameter '"+parameter+"' is missing"
-                # urlparse allows multiple values per parameter, we only want the first
+            # urlparse allows multiple values per parameter, we only want the first
+            for parameter in query:
                 query[parameter]=query[parameter][0]
             result=method(**query)
             if isinstance(result, types.GeneratorType):
                 pi.generators[method]=result
         if method in pi.generators:
             try:
-                result=pi.generators[method].next()
+                result=[]
+                for n in xrange(0, batchitems):
+                    result.append(pi.generators[method].next())
             except StopIteration:
                 del pi.generators[method]
-                result=None
         return {'reloaded' : reloaded, 'result': result}
 
 if __name__ == "__main__":

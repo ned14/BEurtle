@@ -256,6 +256,7 @@ class PropertiedDictionary(dict, object):
         >>> print x._match("niall")
         False
         """
+        assert isinstance(filterstring, str), "Filter string '"+repr(filterstring)+"' is not a string"
         if len(filterstring)==0: return False
         # Break up into bits first ..
         filters=[]

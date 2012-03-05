@@ -18,8 +18,8 @@ class TestParseBErepoWithLib(unittest.TestCase):
         self.emptyloop=end-start
         self.cookies={}
 
-    def request(self, api, pars=None):
-        req=api+('?'+urllib.urlencode(pars) if pars is not None else "")
+    def request(self, api, **pars):
+        req=api+('?'+urllib.urlencode(pars) if len(pars)>0 else "")
         headers={'Accept' : 'application/json'}
         if len(self.cookies):
             cookie=""
@@ -40,7 +40,7 @@ class TestParseBErepoWithLib(unittest.TestCase):
     def test(self):
         print "API list is", self.request("/apilist")[0]
 
-        self.request("/open", { 'uri' : "file://tests/bugs.bugseverywhere.org"})
+        self.request("/open", uri="file://tests/bugs.bugseverywhere.org")
 
         print("\nIssues in the bugs everywhere repository:")
         start=time.time()
@@ -51,16 +51,33 @@ class TestParseBErepoWithLib(unittest.TestCase):
         start=time.time()
         issues=comments=0
         while True:
-            data=self.request("/parseIssues")[0]
-            issue=data['result']
-            if issue is None: break
-            issues+=1
-            #print "  "+issue['uuid']+": "+issue['summary']
-            while True:
-                data=self.request("/parseComments", {'issue_uuid': issue['uuid']})[0]
-                comment=data['result']
-                if comment is None: break
-                comments+=1
+            data=self.request("/parseIssues", __batch_items=50)[0]
+            issues_=data['result']
+            issues+=len(issues_)
+            for issue in issues_:
+                #print "  "+issue['uuid']+": "+issue['summary']
+                while True:
+                    data=self.request("/parseComments", issue_uuid=issue['uuid'], __batch_items=50)[0]
+                    comments_=data['result']
+                    comments+=len(comments_)
+                    for comment in comments_:
+                        pass
+                    if len(comments_)<50: break
+            if len(issues_)<50: break
+        end=time.time()
+        print("Reading %d issues and %d comments from the bugs everywhere repository for the first time took %f secs" % (issues, comments, end-start-self.emptyloop))
+
+        print("\nIssues created by anyone called Steve:")
+        start=time.time()
+        issues=comments=0
+        while True:
+            data=self.request("/parseIssues", issuefilter="{{creator}}:{{Steve}}", __batch_items=50)[0]
+            issues_=data['result']
+            issues+=len(issues_)
+            for issue in issues_:
+                #print "  "+issue['uuid']+": "+issue['summary']
+                pass
+            if len(issues_)<50: break
         end=time.time()
         print("Reading %d issues and %d comments from the bugs everywhere repository for the first time took %f secs" % (issues, comments, end-start-self.emptyloop))
 
