@@ -24,7 +24,7 @@ class BEDirComment(CommentBase):
         self.__loaded=True
         self.uuid=os.path.basename(dirpath)
         self.__loaded=False
-        self.__refreshStat()
+        self.stat=None
 
     @property
     def isLoaded(self):
@@ -41,17 +41,12 @@ class BEDirComment(CommentBase):
         stat.body=os.stat(os.path.join(self.dirpath, "body"))
         return stat
 
-    def __refreshStat(self):
-        """Reloads the stats for the file backing of this comment"""
-        self.stat=self.__getStat()
-
     @property
     def isStale(self):
         """True if the file backing for this comment is newer than us"""
-        stat=self.__getStat()
         if not self.__loaded:
-            self.stat=stat
-            return False
+            return None
+        stat=self.__getStat()
         return stat.values!=self.stat.values
 
     def load(self, reload=False):
@@ -68,7 +63,7 @@ class BEDirComment(CommentBase):
             log.warn("The following values from comment '"+self.dirpath+"' were not recognised: "+repr(notloaded))
         self.__loaded=True
         self._dirty=False
-        stat=self.__getStat()
+        self.stat=self.__getStat()
 
     def __getitem__(self, name):
         if self._isProperty(name) and not self.isLoaded:
@@ -107,7 +102,7 @@ class BEDirIssue(IssueBase):
         self.__loaded=True
         self.uuid=os.path.basename(dirpath)
         self.__loaded=False
-        self.__refreshStat()
+        self.stat=None
 
     @property
     def isLoaded(self):
@@ -120,17 +115,12 @@ class BEDirIssue(IssueBase):
         stat.values=os.stat(os.path.join(self.dirpath, "values"))
         return stat
 
-    def __refreshStat(self):
-        """Reloads the stats for the file backing of this issue"""
-        self.stat=self.__getStat()
-
     @property
     def isStale(self):
         """True if the file backing for this issue is newer than us"""
-        stat=self.__getStat()
         if not self.__loaded:
-            self.stat=stat
-            return False
+            return None
+        stat=self.__getStat()
         return stat.values!=self.stat.values
 
     def addComment(self, dirpath):
@@ -165,7 +155,7 @@ class BEDirIssue(IssueBase):
             log.warn("The following values from issue '"+self.dirpath+"' were not recognised: "+repr(notloaded))
         self.__loaded=True
         self._dirty=False
-        stat=self.__getStat()
+        self.stat=self.__getStat()
 
     def __getitem__(self, name):
         if self._isProperty(name) and not self.isLoaded:
@@ -203,7 +193,7 @@ class BEDirParser(ParserBase):
         ParserBase.__init__(self, uri)
         self.version=""         # This repo's version string
         self.encoding=encoding  # How to treat text files in this repo
-        self.__bedir={}      # Dictionary of bug directories in repo
+        self.__bedir={}         # Dictionary of bug directories in repo
         if not cache_in_memory:
             log.warn("cache_in_memory=False not supported and therefore ignored")
 
