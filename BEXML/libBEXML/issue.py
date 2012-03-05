@@ -113,7 +113,6 @@ class Issue(PropertiedDictionary):
 
     def addComment(self, comment):
         """Adds a comment to the issue"""
-        assert isinstance(comment, Comment)
         self.comments[comment.uuid]=comment
         return comment
 
