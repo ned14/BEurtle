@@ -34,6 +34,7 @@
 </bug>
 """
 
+from abc import ABCMeta, abstractmethod, abstractproperty
 import re
 from uuid import UUID
 from datetime import datetime
@@ -43,7 +44,8 @@ from comment import Comment
 from coerce_datetime import coerce_datetime
 
 class Issue(PropertiedDictionary):
-    """Base class for issues"""
+    """Abstract base class for issues"""
+    __metaclass__=ABCMeta
     severities=["target",
             "wishlist",
             "minor",
@@ -62,7 +64,9 @@ class Issue(PropertiedDictionary):
 
     def __init__(self, *entries, **args):
         PropertiedDictionary.__init__(self)
+        self.__loaded=False
         self.__dirty=False
+        self.__trackStaleness=False
         self._addProperty("uuid", "The uuid of the issue", lambda x: x if isinstance(x, UUID) else UUID(x), self.nullUUID)
         self._addProperty("short-name", "The short name of the issue", str, "")
         self._addProperty("severity", "The severity of the issue", self.__coerce_severity, "")
@@ -87,9 +91,33 @@ class Issue(PropertiedDictionary):
         return v
 
     @property
-    def isDirty(self, includeChildren=False):
+    def isLoaded(self):
+        """True if issue has been loaded from filing system"""
+        return self.__loaded
+    @isLoaded.setter
+    def isLoaded(self, value):
+        self.__loaded=value
+
+    @property
+    def isDirty(self):
         """True if this comment has been modified and needs writing to disk"""
         return self.__dirty
+    @isDirty.setter
+    def isDirty(self, value):
+        self.__dirty=value
+
+    @property
+    def tracksStaleness(self):
+        """True is staleness is tracked"""
+        return self.__trackStaleness
+    @tracksStaleness.setter
+    def tracksStaleness(self, value):
+        self.__trackStaleness=value
+        
+    @abstractproperty
+    def isStale(self):
+        """True if the backing for this issue is newer than us"""
+        pass
 
     def match(self, issuefilter):
         """Returns true if this issue matches issuefilter"""
@@ -113,6 +141,7 @@ class Issue(PropertiedDictionary):
 
     def addComment(self, comment):
         """Adds a comment to the issue"""
+        assert isinstance(comment, Comment)
         self.comments[comment.uuid]=comment
         return comment
 
@@ -126,6 +155,44 @@ class Issue(PropertiedDictionary):
             del self.comments[comment.uuid]
         else:
             raise LookupError, "comment is not a string, uuid or comment"
+
+    @abstractmethod
+    def load(self, reload=False):
+        """Loads in the issue from the backing store"""
+        pass
+
+    @abstractmethod
+    def unload(self):
+        """Releases any data used by this issue"""
+        pass
+
+    def __getitem__(self, name):
+        if self._isProperty(name) and not self.isLoaded and name is not 'uuid':
+            self.load()
+        return PropertiedDictionary.__getitem__(self, name)
+    def __getattr__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__getattr__(self, name)
+
+    def __setitem__(self, name, value):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__setitem__(self, name, value)
+    def __setattr__(self, name, value):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__setattr__(self, name, value)
+
+    def __delitem__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__delitem__(self, name)
+    def __delattr__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__delattr__(self, name)
+
 
 if __name__=="__main__":
     import doctest

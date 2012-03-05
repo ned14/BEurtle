@@ -37,6 +37,7 @@
 from propertieddictionary import PropertiedDictionary
 from coerce_datetime import coerce_datetime
 
+from abc import ABCMeta, abstractmethod, abstractproperty
 from uuid import UUID
 from datetime import datetime
 import mimetypes
@@ -48,6 +49,7 @@ mimetypes.add_type("application/bat", "bat", False)
 
 class Comment(PropertiedDictionary):
     """Base class for comments"""
+    __metaclass__=ABCMeta
     mime_types=mimetypes.types_map.values()
     mime_types+=mimetypes.common_types.values()
     mime_types.sort()
@@ -58,7 +60,9 @@ class Comment(PropertiedDictionary):
     def __init__(self, parentIssue, *entries, **args):
         PropertiedDictionary.__init__(self)
         self.__parent=parentIssue
-        self._dirty=False
+        self.__loaded=False
+        self.__dirty=False
+        self.__trackStaleness=False
         self._addProperty("uuid", "The uuid of the comment", lambda x: x if isinstance(x, UUID) else UUID(x), self.nullUUID)
         self._addProperty("alt-id", "The alt-id of the comment", str, "")
         self._addProperty("short-name", "The short name of the comment", str, "")
@@ -81,9 +85,33 @@ class Comment(PropertiedDictionary):
         return self.__parent
 
     @property
+    def isLoaded(self):
+        """True if comment has been loaded from backing store"""
+        return self.__loaded
+    @isLoaded.setter
+    def isLoaded(self, value):
+        self.__loaded=value
+
+    @property
     def isDirty(self):
         """True if this comment has been modified and needs writing to disk"""
-        return self._dirty
+        return self.__dirty
+    @isDirty.setter
+    def isDirty(self, value):
+        self.__dirty=value
+
+    @property
+    def tracksStaleness(self):
+        """True is staleness is tracked"""
+        return self.__trackStaleness
+    @tracksStaleness.setter
+    def tracksStaleness(self, value):
+        self.__trackStaleness=value
+        
+    @abstractproperty
+    def isStale(self):
+        """True if the file backing for this comment is newer than us"""
+        pass
 
     def match(self, commentfilter):
         """Returns true if this comment matches commentfilter"""
@@ -104,6 +132,38 @@ class Comment(PropertiedDictionary):
         if issuefilter.body!="":
             if not re.search(commentfilter.body, self.body): return False
         return True
+
+    @abstractmethod
+    def load(self, reload=False):
+        """Loads in the comment from the backing store"""
+        pass
+
+    def __getitem__(self, name):
+        if self._isProperty(name) and not self.isLoaded and name is not 'uuid':
+            self.load()
+        return PropertiedDictionary.__getitem__(self, name)
+    def __getattr__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__getattr__(self, name)
+
+    def __setitem__(self, name, value):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__setitem__(self, name, value)
+    def __setattr__(self, name, value):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__setattr__(self, name, value)
+
+    def __delitem__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__delitem__(self, name)
+    def __delattr__(self, name):
+        if self._isProperty(name) and not self.isLoaded:
+            self.load()
+        return PropertiedDictionary.__delattr__(self, name)
 
 if __name__=="__main__":
     import doctest

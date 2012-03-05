@@ -25,17 +25,17 @@ class TestParseBErepoWithLib(unittest.TestCase):
 
         start=time.time()
         for issue in parser.parse():
+            issue.status
             for commentuuid in issue.comments:
-                issue.comments[commentuuid].uuid
-                pass
+                issue.comments[commentuuid].alt_id
         end=time.time()
         print("Reading the bugs everywhere repository for the first time took %f secs" % (end-start-self.emptyloop))
 
         start=time.time()
         for issue in parser.parse():
+            issue.status
             for commentuuid in issue.comments:
-                issue.comments[commentuuid].uuid
-                pass
+                issue.comments[commentuuid].alt_id
         end=time.time()
         print("Reading the bugs everywhere repository for the second time took %f secs" % (end-start-self.emptyloop))
         #for issue in parser.parse():

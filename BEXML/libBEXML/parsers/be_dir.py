@@ -21,18 +21,10 @@ class BEDirComment(CommentBase):
         CommentBase.__init__(self, parentIssue)
         self.dirpath=dirpath
         self.encoding=encoding
-        self.__loaded=True
+        self.isLoaded=True
         self.uuid=os.path.basename(dirpath)
-        self.__loaded=False
+        self.isLoaded=False
         self.stat=None
-
-    @property
-    def isLoaded(self):
-        """True if comment has been loaded from filing system"""
-        return self.__loaded
-    @isLoaded.setter
-    def isLoaded(self, value):
-        self.__loaded=value
 
     def __getStat(self):
         """Returns the stat for the file backing of this comment"""
@@ -44,14 +36,14 @@ class BEDirComment(CommentBase):
     @property
     def isStale(self):
         """True if the file backing for this comment is newer than us"""
-        if not self.__loaded:
+        if not self.isLoaded or not self.tracksStaleness:
             return None
         stat=self.__getStat()
         return stat.values!=self.stat.values
 
     def load(self, reload=False):
         """Loads in the comment from the filing system"""
-        if not reload and self.__loaded:
+        if not reload and self.isLoaded:
             return
         with codecs.open(os.path.join(self.dirpath, "values"), 'r', self.encoding) as ih:
             values=yaml.safe_load(ih)
@@ -61,36 +53,11 @@ class BEDirComment(CommentBase):
         notloaded=self._load_mostly(values)
         if len(notloaded)>0:
             log.warn("The following values from comment '"+self.dirpath+"' were not recognised: "+repr(notloaded))
-        self.__loaded=True
-        self._dirty=False
-        self.stat=self.__getStat()
+        self.isLoaded=True
+        self.isDirty=False
+        if self.tracksStaleness:
+            self.stat=self.__getStat()
 
-    def __getitem__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__getitem__(self, name)
-    def __getattr__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__getattr__(self, name)
-
-    def __setitem__(self, name, value):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__setitem__(self, name, value)
-    def __setattr__(self, name, value):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__setattr__(self, name, value)
-
-    def __delitem__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__delitem__(self, name)
-    def __delattr__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return CommentBase.__delattr__(self, name)
 
 class BEDirIssue(IssueBase):
     """An issue loaded from a filing system based BE repo"""
@@ -99,15 +66,10 @@ class BEDirIssue(IssueBase):
         IssueBase.__init__(self)
         self.dirpath=dirpath
         self.encoding=encoding
-        self.__loaded=True
+        self.isLoaded=True
         self.uuid=os.path.basename(dirpath)
-        self.__loaded=False
+        self.isLoaded=False
         self.stat=None
-
-    @property
-    def isLoaded(self):
-        """True if issue has been loaded from filing system"""
-        return self.__loaded
 
     def __getStat(self):
         """Returns the stat for the file backing of this issue"""
@@ -118,34 +80,34 @@ class BEDirIssue(IssueBase):
     @property
     def isStale(self):
         """True if the file backing for this issue is newer than us"""
-        if not self.__loaded:
+        if not self.isLoaded or not self.tracksStaleness:
             return None
         stat=self.__getStat()
         return stat.values!=self.stat.values
 
     def addComment(self, dirpath):
         """Adds a comment to the issue"""
-        temp1=self.__loaded
+        temp1=self.isLoaded
         comment=BEDirComment(self, dirpath, self.encoding)
         try:
-            self.__loaded=True
+            self.isLoaded=True
             comment.isLoaded=True
             return IssueBase.addComment(self, comment)
         finally:
             comment.isLoaded=False
-            self.__loaded=temp1
+            self.isLoaded=temp1
 
     def removeComment(self, comment):
-        temp=self.__loaded
+        temp=self.isLoaded
         try:
-            self.__loaded=True
+            self.isLoaded=True
             return IssueBase.removeComment(self, comment)
         finally:
-            self.__loaded=temp
+            self.isLoaded=temp
 
     def load(self, reload=False):
         """Loads in the issue from the filing system"""
-        if not reload and self.__loaded:
+        if not reload and self.isLoaded:
             return
         with codecs.open(os.path.join(self.dirpath, "values"), 'r', self.encoding) as ih:
             values=yaml.safe_load(ih)
@@ -153,49 +115,23 @@ class BEDirIssue(IssueBase):
         notloaded=self._load_mostly(values)
         if len(notloaded)>0:
             log.warn("The following values from issue '"+self.dirpath+"' were not recognised: "+repr(notloaded))
-        self.__loaded=True
-        self._dirty=False
-        self.stat=self.__getStat()
-
-    def __getitem__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__getitem__(self, name)
-    def __getattr__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__getattr__(self, name)
-
-    def __setitem__(self, name, value):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__setitem__(self, name, value)
-    def __setattr__(self, name, value):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__setattr__(self, name, value)
-
-    def __delitem__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__delitem__(self, name)
-    def __delattr__(self, name):
-        if self._isProperty(name) and not self.isLoaded:
-            self.load()
-        return IssueBase.__delattr__(self, name)
+        self.isLoaded=True
+        self.isDirty=False
+        if self.tracksStaleness:
+            self.stat=self.__getStat()
 
 
 class BEDirParser(ParserBase):
     """Parses a filing system based BE repo"""
     uuid_match=re.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
-    def __init__(self, uri, encoding="UTF-8", cache_in_memory=True):
+    def __init__(self, uri, encoding="UTF-8", cache_in_memory=False, precache_in_memory=False):
         ParserBase.__init__(self, uri)
         self.version=""         # This repo's version string
         self.encoding=encoding  # How to treat text files in this repo
+        self.cache_in_memory=cache_in_memory or precache_in_memory
+        self.precache_in_memory=precache_in_memory
         self.__bedir={}         # Dictionary of bug directories in repo
-        if not cache_in_memory:
-            log.warn("cache_in_memory=False not supported and therefore ignored")
 
     def try_location(self):
         path=self._pathFromURI()
@@ -215,6 +151,16 @@ class BEDirParser(ParserBase):
             return (-996, "Can't find a uuid bug directory")
         return (1, None)
 
+    def __loadIssueAndComments(self, bug, bugspath):
+        """Adds an unloaded issue and comments"""
+        self.__bedir[bugspath][bug]=bugitem=BEDirIssue(os.path.join(bugspath, bug), self.encoding)
+        commentspath=os.path.join(bugspath, bug, "comments")
+        if os.path.exists(commentspath):
+            comments=filter(self.uuid_match.match, os.listdir(commentspath))
+            for comment in comments:
+                bugitem.addComment(os.path.join(commentspath, comment))
+        return bugitem
+        
     def reload(self):
         """Loads a BE directory structure into memory"""
         if self.version=="":
@@ -225,15 +171,14 @@ class BEDirParser(ParserBase):
         for item in items:
             bugspath=os.path.join(path, item, "bugs")
             if os.path.exists(bugspath):
-                self.__bedir[bugspath]=bugsdict={}
+                self.__bedir[bugspath]={}
                 bugs=filter(self.uuid_match.match, os.listdir(bugspath))
                 for bug in bugs:
-                    bugsdict[bug]=bugitem=BEDirIssue(os.path.join(bugspath, bug), self.encoding)
-                    commentspath=os.path.join(bugspath, bug, "comments")
-                    if os.path.exists(commentspath):
-                        comments=filter(self.uuid_match.match, os.listdir(commentspath))
-                        for comment in comments:
-                            bugitem.addComment(os.path.join(commentspath, comment))
+                    self.__loadIssueAndComments(bug, bugspath)
+        if self.precache_in_memory:
+            for issue in self.parse():
+                for commentuuid in issue.comments:
+                    issue.comments[commentuuid].uuid
 
     def parse(self, issuefilter=None):
         if len(self.__bedir)==0:
@@ -243,13 +188,18 @@ class BEDirParser(ParserBase):
             for issueuuid in issueuuids:
                 issue=issueuuids[issueuuid]
                 # Refresh if loaded and stale
-                if issue.isLoaded and issue.isStale:
+                if issue.isLoaded and issue.tracksStaleness and issue.isStale:
                     issue.load(True)
                 if issuefilter is None:
                     yield issue
                 else:
                     if issuefilter.match(issue):
                         yield issue
+                if not self.cache_in_memory:
+                    # Replace with a fresh structure. If the caller took
+                    # a copy of the issue, it'll live on, otherwise it'll
+                    # get GCed
+                    self.__loadIssueAndComments(issueuuid, os.path.dirname(issue.dirpath))
 
 def instantiate(uri, **args):
     return BEDirParser(uri, **args)
