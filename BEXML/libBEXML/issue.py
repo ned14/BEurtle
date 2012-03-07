@@ -140,11 +140,6 @@ class Issue(PropertiedDictionary):
         """Loads in the issue from the backing store"""
         pass
 
-    @abstractmethod
-    def unload(self):
-        """Releases any data used by this issue"""
-        pass
-
     def __getitem__(self, name):
         if self._isProperty(name) and not self.isLoaded and name is not 'uuid':
             self.load()

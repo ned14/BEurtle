@@ -7,6 +7,7 @@ from ..issue import Issue as IssueBase
 from ..comment import Comment as CommentBase
 
 import urllib2, os, re, codecs, logging
+from encodings import utf_8 as ironpython_utf8_override
 from urlparse import urlparse
 from collections import namedtuple
 from uuid import UUID
@@ -126,7 +127,7 @@ class BEDirParser(ParserBase):
     """Parses a filing system based BE repo"""
     uuid_match=re.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
-    def __init__(self, uri, encoding="UTF-8", cache_in_memory=False, precache_in_memory=False):
+    def __init__(self, uri, encoding="utf-8", cache_in_memory=False, precache_in_memory=False):
         ParserBase.__init__(self, uri)
         self.version=""         # This repo's version string
         self.encoding=encoding  # How to treat text files in this repo

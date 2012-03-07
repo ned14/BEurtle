@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{acaefc7d-2e27-4e17-8184-89468d9edfb1}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>tests\TestParseBErepoWithHTTP.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <InterpreterId>fcc291aa-427c-498c-a4d7-4502d6449b8c</InterpreterId>
+    <LaunchProvider>IronPython (.NET) launcher</LaunchProvider>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <OutputPath>.</OutputPath>
+    <Name>BEXML</Name>
+    <RootNamespace>BEXML</RootNamespace>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <DebugStdLib>False</DebugStdLib>
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="libBEXML\" />
+    <Folder Include="libBEXML\parsers\" />
+    <Folder Include="tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bexmlsrv.py" />
+    <Compile Include="libBEXML\coerce_datetime.py" />
+    <Compile Include="libBEXML\comment.py" />
+    <Compile Include="libBEXML\issue.py" />
+    <Compile Include="libBEXML\parserbase.py" />
+    <Compile Include="libBEXML\parsers\be_dir.py" />
+    <Compile Include="libBEXML\parsers\__init__.py" />
+    <Compile Include="libBEXML\propertieddictionary.py" />
+    <Compile Include="libBEXML\__init__.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="tests\TestParseBErepoWithHTTP.py" />
+    <Compile Include="tests\TestParseBErepoWithLib.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tests\bugs.bugseverywhere.org.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
