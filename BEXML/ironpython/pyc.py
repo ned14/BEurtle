@@ -23,7 +23,7 @@ Options:
     /target:dll                               Compile only into dll.  Default
     /target:exe                               Generate console executable stub for startup in addition to dll.
     /target:winexe                            Generate windows executable stub for startup in addition to dll.
-	/files:input_file                         Read to read files from, one per line.
+    /files:input_file                         Read to read files from, one per line.
     /? /h                                     This message
 
 EXE/WinEXE specific options:
