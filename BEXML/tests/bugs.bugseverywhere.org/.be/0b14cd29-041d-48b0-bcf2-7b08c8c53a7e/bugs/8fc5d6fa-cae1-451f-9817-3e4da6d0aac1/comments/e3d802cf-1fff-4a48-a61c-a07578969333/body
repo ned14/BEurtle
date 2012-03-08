@@ -1,4 +1,0 @@
-Work around by removing id-cache (forcing recreation).
-
-A better solution would be detecting the problem and recreating the
-cache automatically.

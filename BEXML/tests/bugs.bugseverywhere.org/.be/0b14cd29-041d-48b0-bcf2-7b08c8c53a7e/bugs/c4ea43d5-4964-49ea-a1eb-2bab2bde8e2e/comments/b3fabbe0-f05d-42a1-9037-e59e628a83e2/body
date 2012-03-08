@@ -1,3 +1,0 @@
-Ideally the tests would fail gracefully with some simple message like
-"tla version control system not found", and we could skip the message
-in the test.py docstring.

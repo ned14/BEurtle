@@ -861,6 +861,7 @@ namespace BEurtle
             }
             // Force master XML reload
             plugin.loadIssues(this);
+            FIXME;
             CommentEditCancel_Click(null, null);
             return false;
         }
