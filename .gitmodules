@@ -1,3 +1,6 @@
 [submodule "BE"]
 	path = BE
 	url = git://github.com/ned14/Bugs-Everywhere-for-BEurtle.git
+[submodule "BEXML"]
+	path = BEXML
+	url = git@github.com:ned14/BEXML.git
