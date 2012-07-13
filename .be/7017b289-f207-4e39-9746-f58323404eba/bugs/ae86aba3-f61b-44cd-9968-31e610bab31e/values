@@ -10,7 +10,7 @@ severity: minor
 status: closed
 
 
-summary: test issue for auto closing in commit messages
+summary: '*** test issue for auto closing in commit messages ***'
 
 
 time: Mon, 01 Aug 2011 21:21:46 +0000
