@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Comment1Reply");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Comment1Reply");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueDetail));
             this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
@@ -65,6 +65,7 @@
             this.CommentBodyView = new System.Windows.Forms.TabControl();
             this.CommentBodyViewHTML = new System.Windows.Forms.TabPage();
             this.HTMLEditorControls = new System.Windows.Forms.Panel();
+            this.CommentEditSave = new System.Windows.Forms.Button();
             this.ApplyOutdent = new System.Windows.Forms.Button();
             this.ApplyIndent = new System.Windows.Forms.Button();
             this.CommentEditCancel = new System.Windows.Forms.Button();
@@ -90,6 +91,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.CommentReply = new System.Windows.Forms.Button();
             this.Commentary.Panel1.SuspendLayout();
             this.Commentary.Panel2.SuspendLayout();
             this.Commentary.SuspendLayout();
@@ -351,6 +353,7 @@
             // 
             // Commentary.Panel1
             // 
+            this.Commentary.Panel1.Controls.Add(this.CommentReply);
             this.Commentary.Panel1.Controls.Add(this.CommentEdit);
             this.Commentary.Panel1.Controls.Add(this.CommentDelete);
             this.Commentary.Panel1.Controls.Add(this.CommentAdd);
@@ -365,15 +368,15 @@
             this.Commentary.Panel2.Controls.Add(this.label10);
             this.Commentary.Panel2.Controls.Add(this.CommentAuthor);
             this.Commentary.Panel2.Enabled = false;
-            this.Commentary.Size = new System.Drawing.Size(436, 323);
-            this.Commentary.SplitterDistance = 103;
+            this.Commentary.Size = new System.Drawing.Size(436, 313);
+            this.Commentary.SplitterDistance = 100;
             this.Commentary.TabIndex = 24;
             // 
             // CommentEdit
             // 
             this.CommentEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CommentEdit.Enabled = false;
-            this.CommentEdit.Location = new System.Drawing.Point(358, 19);
+            this.CommentEdit.Location = new System.Drawing.Point(358, 2);
             this.CommentEdit.Name = "CommentEdit";
             this.CommentEdit.Size = new System.Drawing.Size(75, 23);
             this.CommentEdit.TabIndex = 7;
@@ -385,7 +388,7 @@
             // 
             this.CommentDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CommentDelete.Enabled = false;
-            this.CommentDelete.Location = new System.Drawing.Point(358, 48);
+            this.CommentDelete.Location = new System.Drawing.Point(358, 26);
             this.CommentDelete.Name = "CommentDelete";
             this.CommentDelete.Size = new System.Drawing.Size(75, 23);
             this.CommentDelete.TabIndex = 8;
@@ -397,11 +400,11 @@
             // 
             this.CommentAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CommentAdd.Enabled = false;
-            this.CommentAdd.Location = new System.Drawing.Point(358, 77);
+            this.CommentAdd.Location = new System.Drawing.Point(358, 50);
             this.CommentAdd.Name = "CommentAdd";
             this.CommentAdd.Size = new System.Drawing.Size(75, 23);
             this.CommentAdd.TabIndex = 9;
-            this.CommentAdd.Text = "Add";
+            this.CommentAdd.Text = "New";
             this.CommentAdd.UseVisualStyleBackColor = true;
             this.CommentAdd.Click += new System.EventHandler(this.CommentAdd_Click);
             // 
@@ -414,13 +417,13 @@
             this.Comments.HideSelection = false;
             this.Comments.Location = new System.Drawing.Point(3, 3);
             this.Comments.Name = "Comments";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Comment1Reply";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Comment1";
+            treeNode3.Name = "Node1";
+            treeNode3.Text = "Comment1Reply";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Comment1";
             this.Comments.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.Comments.Size = new System.Drawing.Size(349, 97);
+            treeNode4});
+            this.Comments.Size = new System.Drawing.Size(349, 94);
             this.Comments.TabIndex = 6;
             this.Comments.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Comments_ItemDrag);
             this.Comments.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.Comments_BeforeSelect);
@@ -440,7 +443,7 @@
             this.CommentBodyView.Location = new System.Drawing.Point(3, 29);
             this.CommentBodyView.Name = "CommentBodyView";
             this.CommentBodyView.SelectedIndex = 0;
-            this.CommentBodyView.Size = new System.Drawing.Size(430, 184);
+            this.CommentBodyView.Size = new System.Drawing.Size(430, 177);
             this.CommentBodyView.TabIndex = 10;
             this.CommentBodyView.Selected += new System.Windows.Forms.TabControlEventHandler(this.CommentBodyView_Selected);
             // 
@@ -451,7 +454,7 @@
             this.CommentBodyViewHTML.Location = new System.Drawing.Point(4, 22);
             this.CommentBodyViewHTML.Name = "CommentBodyViewHTML";
             this.CommentBodyViewHTML.Padding = new System.Windows.Forms.Padding(3);
-            this.CommentBodyViewHTML.Size = new System.Drawing.Size(422, 158);
+            this.CommentBodyViewHTML.Size = new System.Drawing.Size(422, 151);
             this.CommentBodyViewHTML.TabIndex = 0;
             this.CommentBodyViewHTML.Text = "WYSIWYG";
             this.CommentBodyViewHTML.UseVisualStyleBackColor = true;
@@ -460,6 +463,7 @@
             // 
             this.HTMLEditorControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.HTMLEditorControls.Controls.Add(this.CommentEditSave);
             this.HTMLEditorControls.Controls.Add(this.ApplyOutdent);
             this.HTMLEditorControls.Controls.Add(this.ApplyIndent);
             this.HTMLEditorControls.Controls.Add(this.CommentEditCancel);
@@ -476,6 +480,17 @@
             this.HTMLEditorControls.Name = "HTMLEditorControls";
             this.HTMLEditorControls.Size = new System.Drawing.Size(410, 23);
             this.HTMLEditorControls.TabIndex = 25;
+            // 
+            // CommentEditSave
+            // 
+            this.CommentEditSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommentEditSave.Location = new System.Drawing.Point(332, 0);
+            this.CommentEditSave.Name = "CommentEditSave";
+            this.CommentEditSave.Size = new System.Drawing.Size(75, 23);
+            this.CommentEditSave.TabIndex = 23;
+            this.CommentEditSave.Text = "Save";
+            this.CommentEditSave.UseVisualStyleBackColor = true;
+            this.CommentEditSave.Click += new System.EventHandler(this.CommentEditSave_Click);
             // 
             // ApplyOutdent
             // 
@@ -500,7 +515,7 @@
             // CommentEditCancel
             // 
             this.CommentEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentEditCancel.Location = new System.Drawing.Point(335, 0);
+            this.CommentEditCancel.Location = new System.Drawing.Point(257, 0);
             this.CommentEditCancel.Name = "CommentEditCancel";
             this.CommentEditCancel.Size = new System.Drawing.Size(75, 23);
             this.CommentEditCancel.TabIndex = 20;
@@ -602,7 +617,7 @@
             this.CommentBody.MinimumSize = new System.Drawing.Size(20, 20);
             this.CommentBody.Name = "CommentBody";
             this.CommentBody.ScriptErrorsSuppressed = true;
-            this.CommentBody.Size = new System.Drawing.Size(410, 120);
+            this.CommentBody.Size = new System.Drawing.Size(410, 113);
             this.CommentBody.TabIndex = 11;
             this.CommentBody.WebBrowserShortcutsEnabled = false;
             this.CommentBody.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.CommentBody_Navigated);
@@ -673,7 +688,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DraggableIcon.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.DraggableIcon.LargeImageList = this.imageList1;
             this.DraggableIcon.Location = new System.Drawing.Point(6, 6);
             this.DraggableIcon.Name = "DraggableIcon";
@@ -729,7 +744,7 @@
             this.groupBox1.Controls.Add(this.Commentary);
             this.groupBox1.Location = new System.Drawing.Point(12, 212);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(448, 348);
+            this.groupBox1.Size = new System.Drawing.Size(448, 338);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Commentary:";
@@ -738,12 +753,24 @@
             // 
             this.openFileDialog.ReadOnlyChecked = true;
             // 
+            // CommentReply
+            // 
+            this.CommentReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommentReply.Enabled = false;
+            this.CommentReply.Location = new System.Drawing.Point(358, 74);
+            this.CommentReply.Name = "CommentReply";
+            this.CommentReply.Size = new System.Drawing.Size(75, 23);
+            this.CommentReply.TabIndex = 10;
+            this.CommentReply.Text = "Reply";
+            this.CommentReply.UseVisualStyleBackColor = true;
+            this.CommentReply.Click += new System.EventHandler(this.CommentReply_Click);
+            // 
             // IssueDetail
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 572);
+            this.ClientSize = new System.Drawing.Size(472, 562);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BoxReporter);
             this.Controls.Add(this.label9);
@@ -849,5 +876,7 @@
         private System.Windows.Forms.Button ApplyOutdent;
         private System.Windows.Forms.Button ApplyIndent;
         private System.Windows.Forms.Button CommentEditCancel;
+        private System.Windows.Forms.Button CommentEditSave;
+        private System.Windows.Forms.Button CommentReply;
     }
 }

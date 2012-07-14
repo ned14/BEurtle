@@ -10,13 +10,17 @@ namespace BEurtle
 {
     public partial class OptionsDialog : Form
     {
-        public string parameters;
+        private BEurtlePlugin plugin;
+        public string parameters, BEPath="";
         bool initialising = false;
-        bool BEPathChanged = false, DumpHTMLPathChanged = false;
-        public OptionsDialog(string parameters)
+        bool DefaultAuthorChanged = false, DumpHTMLPathChanged = false;
+        public OptionsDialog(BEurtlePlugin plugin, string parameters)
         {
+            this.plugin = plugin;
             this.parameters = parameters;
             InitializeComponent();
+            BoxDefaultAuthor.AutoCompleteCustomSource = plugin.authors;
+            CheckUseBEXML.Enabled = false;
         }
 
         private void OptionsDialog_Shown(object sender, EventArgs e)
@@ -24,30 +28,33 @@ namespace BEurtle
             try
             {
                 initialising = true;
-                BEPathChanged = false;
-                BoxBEPath.Text = "";
-                BoxBEPath.ForeColor = Color.FromArgb(0, 0, 0);
+                DefaultAuthorChanged = false;
+                BoxDefaultAuthor.Text = "";
+                BoxDefaultAuthor.ForeColor = Color.FromArgb(0, 0, 0);
                 DumpHTMLPathChanged = false;
                 BoxDumpHTMLPath.Text = "";
                 BoxDumpHTMLPath.ForeColor = Color.FromArgb(0, 0, 0);
                 if (parameters != null)
                 {
-                    ParseParameters parsed = new ParseParameters(this, parameters, false);
-                    if (parsed.BEPath.Length > 0)
-                        BEPathChanged = true;
+                    ParseParameters parsed = new ParseParameters(plugin, this, parameters, false);
+                    if (parsed.DefaultAuthor.Length > 0)
+                        DefaultAuthorChanged = true;
                     else
-                        BoxBEPath.ForeColor = Color.FromArgb(192, 192, 192);
+                        BoxDefaultAuthor.ForeColor = Color.FromArgb(192, 192, 192);
                     if (parsed.DumpHTMLPath.Length > 0)
                         DumpHTMLPathChanged = true;
                     else
                         BoxDumpHTMLPath.ForeColor = Color.FromArgb(192, 192, 192);
                     parsed.FillInDefaults(this);
 
-                    BoxBEPath.Text = parsed.BEPath;
+                    BEPath = parsed.BEPath;
+                    BoxDefaultAuthor.Text = parsed.DefaultAuthor;
                     CheckDumpHTML.Checked = parsed.DumpHTML;
                     BoxDumpHTMLPath.Text = parsed.DumpHTMLPath;
                     CheckAddCommitAsComment.Checked = parsed.AddCommitAsComment;
                     CheckFilterOutClosedIssues.Checked = parsed.FilterOutClosedIssues;
+                    CheckUseBEXML.Checked = parsed.UseBEXML;
+                    CheckBEXMLCache.Checked = parsed.CacheBEXML;
                 }
                 else
                 {
@@ -66,19 +73,22 @@ namespace BEurtle
         private void OptionsDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             parameters = "";
-            if (BEPathChanged) parameters += "&BEPath=" + BoxBEPath.Text;
+            if (BEPath.Length > 0) parameters += "&BEPath=" + BEPath;
+            if (DefaultAuthorChanged) parameters += "&DefaultAuthor=" + BoxDefaultAuthor.Text;
             parameters += "&DumpHTML=" + CheckDumpHTML.Checked.ToString();
             if (DumpHTMLPathChanged) parameters += "&DumpHTMLPath=" + BoxDumpHTMLPath.Text;
             parameters += "&AddCommitAsComment=" + CheckAddCommitAsComment.Checked.ToString();
             parameters += "&FilterOutClosedIssues=" + CheckFilterOutClosedIssues.Checked.ToString();
+            parameters += "&UseBEXML=" + CheckUseBEXML.Checked.ToString();
+            parameters += "&CacheBEXML=" + CheckBEXMLCache.Checked.ToString();
         }
 
         private void BoxBEPath_TextChanged(object sender, EventArgs e)
         {
             if (!initialising)
             {
-                BEPathChanged = true;
-                BoxBEPath.ForeColor = Color.FromArgb(0, 0, 0);
+                DefaultAuthorChanged = true;
+                BoxDefaultAuthor.ForeColor = Color.FromArgb(0, 0, 0);
             }
         }
 

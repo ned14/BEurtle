@@ -17,6 +17,7 @@ namespace BEurtle
     {
         private BEurtlePlugin plugin;
         private string BEroot, baseComment;
+        private Dictionary<DataGridViewRow, Guid> RowToUUID = new Dictionary<DataGridViewRow, Guid>();
         private List<string> status_filters=new List<string>();
         private List<string> severity_filters = new List<string>();
         private List<string> created_filters = new List<string>();
@@ -90,6 +91,7 @@ namespace BEurtle
                 Win32.SendMessage(this.Handle, Win32.WM_SETREDRAW, false, 0);
                 SuspendLayout();
                 IssuesList.Rows.Clear();
+                RowToUUID.Clear();
                 ButtonOk.Enabled = false;
                 NewIssue.Enabled = false;
                 DeleteIssue.Enabled = false;
@@ -102,6 +104,7 @@ namespace BEurtle
                     foreach (XPathNavigator issue in iter)
                     {
                         //MessageBox.Show(this, issue.OuterXml);
+                        Guid uuid = new Guid(issue.Evaluate("string(uuid)").ToString());
                         string shortname=(string) issue.Evaluate("string(short-name)"), status=(string) issue.Evaluate("string(status)"), severity=(string) issue.Evaluate("string(severity)"), created, summary=(string) issue.Evaluate("string(summary)");
                         created=(string) issue.Evaluate("string(created)");
                         if (created == "")
@@ -181,6 +184,7 @@ namespace BEurtle
                         row.Cells[4].Value = summary;
 
                         IssuesList.Rows.Add(row);
+                        RowToUUID.Add(row, uuid);
                     }
                     NewIssue.Enabled = true;
                     ButtonOk.Enabled = true;
@@ -246,11 +250,9 @@ namespace BEurtle
             changesMade();
         }
 
-        private void editIssue(string shortname)
+        private void editIssue(Guid uuid)
         {
-            var iter = shortnamesToXML(new string[1] { shortname });
-            iter.MoveNext();
-            var detail = new IssueDetail(plugin, iter.Current, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            var detail = new IssueDetail(plugin, uuid, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this) && detail.changed)
                 writeOutIssue(detail);
         }
@@ -259,9 +261,12 @@ namespace BEurtle
         {
             if(IssuesList.Rows.Count>0 && e.RowIndex>=0 && e.RowIndex<IssuesList.Rows.Count)
             {
-                string shortname = (string) IssuesList.Rows[e.RowIndex].Cells[0].Value;
-                if (shortname != null)
-                    editIssue(shortname);
+                var row = IssuesList.Rows[e.RowIndex];
+                if (RowToUUID.ContainsKey(row))
+                {
+                    Guid uuid = RowToUUID[row];
+                    editIssue(uuid);
+                }
             }
         }
 
@@ -269,10 +274,13 @@ namespace BEurtle
         {
             if (IssuesList.Rows.Count > 0 && e.KeyCode==Keys.Enter)
             {
-                string shortname=(string) IssuesList.SelectedRows[0].Cells[0].Value;
+                var row = IssuesList.SelectedRows[0];
                 e.Handled = true;
-                if (shortname != null)
-                    editIssue(shortname);
+                if (RowToUUID.ContainsKey(row))
+                {
+                    Guid uuid = RowToUUID[row];
+                    editIssue(uuid);
+                }
             }
         }
 
@@ -283,7 +291,7 @@ namespace BEurtle
 
         private void IssuesForm_DragDrop(object sender, DragEventArgs e)
         {
-            var detail = new IssueDetail(plugin, null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            var detail = new IssueDetail(plugin, Guid.Empty, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             // Hack the drag/drop load onto event shown
             detail_Shown_sender = sender;
             detail_Shown_e = e;
@@ -302,7 +310,7 @@ namespace BEurtle
 
         private void NewIssue_Click(object sender, EventArgs e)
         {
-            var detail = new IssueDetail(plugin, null, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
+            var detail = new IssueDetail(plugin, Guid.Empty, plugin.creators, plugin.reporters, plugin.assigneds, plugin.authors);
             if (DialogResult.OK == detail.ShowDialog(this))
                 writeOutIssue(detail);
         }
@@ -601,7 +609,7 @@ namespace BEurtle
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new OptionsDialog(null).ShowDialog(this);
+            new OptionsDialog(plugin, null).ShowDialog(this);
         }
 
         private void IssuesForm_KeyDown(object sender, KeyEventArgs e)

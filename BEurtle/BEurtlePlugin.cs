@@ -35,17 +35,22 @@ namespace BEurtle
 
     public class ParseParameters
     {
-        public string BEPath="";
+        private BEurtlePlugin plugin;
+        public string BEPath="", DefaultAuthor="";
         public bool DumpHTML=true;
         public string DumpHTMLPath="";
         public bool AddCommitAsComment = true, FilterOutClosedIssues=false;
-        public ParseParameters(IWin32Window hwnd, string parameters, bool fillindefaults=true)
+        public bool UseBEXML = false, CacheBEXML = true;
+        public ParseParameters(BEurtlePlugin plugin, IWin32Window hwnd, string parameters, bool fillindefaults=true)
         {
+            this.plugin = plugin;
             string[] pars = parameters.Split('&');
             foreach (var par in pars)
             {
                 if (par.StartsWith("BEPath="))
                     BEPath = par.Substring(7);
+                else if (par.StartsWith("DefaultAuthor="))
+                    DefaultAuthor = par.Substring(14);
                 else if (par.StartsWith("DumpHTML="))
                     DumpHTML = bool.Parse(par.Substring(9));
                 else if (par.StartsWith("DumpHTMLPath="))
@@ -54,6 +59,10 @@ namespace BEurtle
                     AddCommitAsComment = bool.Parse(par.Substring(19));
                 else if (par.StartsWith("FilterOutClosedIssues="))
                     FilterOutClosedIssues = bool.Parse(par.Substring(22));
+                else if (par.StartsWith("UseBEXML="))
+                    UseBEXML = bool.Parse(par.Substring(9));
+                else if (par.StartsWith("CacheBEXML="))
+                    CacheBEXML = bool.Parse(par.Substring(11));
             }
             if (fillindefaults) FillInDefaults(hwnd);
         }
@@ -90,6 +99,25 @@ namespace BEurtle
                     }
                 }
             }
+            if (DefaultAuthor.Length == 0)
+            {
+                if (plugin.VCSAuthor != null && plugin.VCSAuthor.Length > 0)
+                {
+                    DefaultAuthor = plugin.VCSAuthor;
+                }
+                else
+                {
+                    StringBuilder fullname_ = new StringBuilder(1024);
+                    string fullname, login, machine;
+                    uint l = (uint)fullname_.Capacity;
+                    int code = Win32.GetUserNameEx((int)Win32.EXTENDED_NAME_FORMAT.NameDisplay, fullname_, ref l);
+                    fullname = fullname_.ToString();
+                    if (fullname == "") fullname = "<set full name in user account settings>";
+                    login = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
+                    machine = System.Net.Dns.GetHostEntry("").HostName;
+                    DefaultAuthor = "\"" + fullname + "\" <" + login + "@" + machine + ">";
+                }
+            }
             if (DumpHTMLPath.Length == 0)
                 DumpHTMLPath = "BEBugsAsHTML";
         }
@@ -101,7 +129,7 @@ namespace BEurtle
         public string rootpath="";
         public ParseParameters parameters;
         public XPathDocument issues;
-        public string VCSInfo="", VCSUser=null;
+        public string VCSInfo="", VCSAuthor=null;
         // Keep a list of these for autocomplete
         public AutoCompleteStringCollection creators, reporters, assigneds, authors;
 
@@ -173,23 +201,28 @@ namespace BEurtle
             authors = new AutoCompleteStringCollection();
             string xml = "unknown error";
             if (rootdir.EndsWith(".xml"))
-            {
-                var fs = new StreamReader(rootdir);
-                xml = fs.ReadToEnd();
-                fs.Close();
+            {   // This is a raw BE XML dump
+                using(var fs = new StreamReader(rootdir))
+                    xml = fs.ReadToEnd();
                 VCSInfo = "Direct load of XML database";
+            }
+            else if (parameters.CacheBEXML && File.Exists(rootdir + "\\.be\\bexml.xml") && (!File.Exists(rootdir + "\\.be\\id-cache") || File.GetLastWriteTimeUtc(rootdir + "\\.be\\bexml.xml") > File.GetLastWriteTimeUtc(rootdir + "\\.be\\id-cache")))
+            {   // There is a bexml.xml cache which isn't older than the id-cache, so we can use that
+                using (var fs = new StreamReader(rootdir + "\\.be\\bexml.xml"))
+                    xml = fs.ReadToEnd();
+                VCSInfo = "Used up-to-date XML cache in .be\\bexml.xml";
             }
             else
             {
-                xml=callBEcmd(rootdir, new string[1] { arguments })[0];
-                string VCSVersion=callBEcmd(rootdir, new string[1] { "vcs version" })[0];
+                xml = callBEcmd(rootdir, new string[1] { arguments })[0];
+                string VCSVersion = callBEcmd(rootdir, new string[1] { "vcs version" })[0];
                 if (-1 == VCSVersion.IndexOf("RESULT:"))
                     VCSInfo = "VCS: Error reading VCS version";
                 else
                     VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
-                string VCSUser_ = callBEcmd(rootdir, new string[1] { "vcs get_user_id" })[0];
-                if(-1!=VCSUser_.IndexOf("RESULT:"))
-                    VCSUser = VCSUser_.Substring(VCSUser_.IndexOf("RESULT:") + 8);
+                if (parameters.CacheBEXML && xml.StartsWith("<?xml version=\"1.0\" "))
+                    using (var fs = new StreamWriter(rootdir + "\\.be\\bexml.xml"))
+                        fs.Write(xml);
             }
             if (!xml.StartsWith("<?xml version=\"1.0\" "))
             {
@@ -332,13 +365,13 @@ namespace BEurtle
         public bool ValidateParameters(IntPtr hParentWnd, string parameters)
         {
             var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
-            this.parameters = new ParseParameters(hwnd, parameters);
+            this.parameters = new ParseParameters(this, hwnd, parameters);
             return true;
         }
         public string GetLinkText(IntPtr hParentWnd, string parameters)
         {
             var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
-            this.parameters = new ParseParameters(hwnd, parameters);
+            this.parameters = new ParseParameters(this, hwnd, parameters);
             return "Bugs, Bugs, Bugs!";
         }
         public string GetCommitMessage(IntPtr hParentWnd, string parameters, string commonRoot, string[] pathList, string originalMessage)
@@ -347,7 +380,13 @@ namespace BEurtle
             try
             {
                 rootpath = commonRoot;
-                this.parameters = new ParseParameters(hwnd, parameters);
+                this.parameters = new ParseParameters(this, hwnd, parameters);
+                if (VCSAuthor == null)
+                {
+                    string VCSUser_ = callBEcmd(rootpath, new string[1] { "vcs get_user_id" })[0];
+                    if (-1 != VCSUser_.IndexOf("RESULT:"))
+                        this.parameters.DefaultAuthor = VCSAuthor = VCSUser_.Substring(VCSUser_.IndexOf("RESULT:") + 8);
+                }
                 var form = new IssuesForm(this, commonRoot, originalMessage);
                 if (form.ShowDialog(hwnd) != DialogResult.OK)
                     return originalMessage;
@@ -380,7 +419,7 @@ namespace BEurtle
         {
             var hwnd = hParentWnd != IntPtr.Zero ? new Win32Window(hParentWnd) : null;
             rootpath = commonRoot;
-            this.parameters = new ParseParameters(hwnd, parameters);
+            this.parameters = new ParseParameters(this, hwnd, parameters);
             return null;
         }
         public string OnCommitFinished(IntPtr hParentWnd, string commonRoot, string[] pathList, string logMessage, int revision)
@@ -395,7 +434,13 @@ namespace BEurtle
                 if (matches.Count > 0)
                 {
                     bool modified = false;
-                    if(parameters==null) parameters = new ParseParameters(hwnd, "");
+                    if(parameters==null) parameters = new ParseParameters(this, hwnd, "");
+                    if (VCSAuthor == null)
+                    {
+                        string VCSUser_ = callBEcmd(rootpath, new string[1] { "vcs get_user_id" })[0];
+                        if (-1 != VCSUser_.IndexOf("RESULT:"))
+                            this.parameters.DefaultAuthor = VCSAuthor = VCSUser_.Substring(VCSUser_.IndexOf("RESULT:") + 8);
+                    }
                     if (issues == null && !loadIssues(hwnd))
                         throw new Exception("Failed to load BE issues for checking commit message against");
                     var openstatuses=new List<string>() { "unconfirmed", "open", "assigned", "test" };
@@ -439,7 +484,7 @@ namespace BEurtle
         }
         public string ShowOptionsDialog(IntPtr hParentWnd, string parameters)
         {
-            var dialog = new OptionsDialog(parameters);
+            var dialog = new OptionsDialog(this, parameters);
 
             return dialog.ShowDialog(hParentWnd!=IntPtr.Zero ? new Win32Window(hParentWnd) : null) == DialogResult.OK ? dialog.parameters : parameters;
         }

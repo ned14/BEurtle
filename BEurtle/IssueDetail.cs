@@ -18,12 +18,12 @@ namespace BEurtle
     public partial class IssueDetail : Form
     {
         BEurtlePlugin plugin;
-        private XPathNavigator issue;
+        private Guid uuid;
         internal class uuid_xpath
         {
-            public string Item1;
+            public Guid Item1;
             public XPathNavigator Item2;
-            public uuid_xpath(string Item1, XPathNavigator Item2)
+            public uuid_xpath(Guid Item1, XPathNavigator Item2)
             {
                 this.Item1 = Item1;
                 this.Item2 = Item2;
@@ -32,12 +32,13 @@ namespace BEurtle
         private Dictionary<TreeNode, uuid_xpath> commentToUUID = new Dictionary<TreeNode, uuid_xpath>();
         public bool changed { get; set; }
         private IHTMLDocument2 doc;
-        private string defaultcreator, commentingupon=null;
+        private string defaultcreator;
+        private string commentingupon=null;
 
-        public IssueDetail(BEurtlePlugin plugin, XPathNavigator issue, AutoCompleteStringCollection creators, AutoCompleteStringCollection reporters, AutoCompleteStringCollection assigneds, AutoCompleteStringCollection authors)
+        public IssueDetail(BEurtlePlugin plugin, Guid uuid, AutoCompleteStringCollection creators, AutoCompleteStringCollection reporters, AutoCompleteStringCollection assigneds, AutoCompleteStringCollection authors)
         {
             this.plugin = plugin;
-            this.issue = issue;
+            this.uuid = uuid;
             InitializeComponent();
             CommentBody.DocumentText = "<!DOCTYPE html><html><body></body></html>";
 
@@ -46,22 +47,9 @@ namespace BEurtle
             BoxAssigned.AutoCompleteCustomSource = assigneds;
             CommentAuthor.AutoCompleteCustomSource = authors;
 
-            if (plugin.VCSUser != null)
-                defaultcreator = plugin.VCSUser;
-            else
-            {
-                StringBuilder fullname_ = new StringBuilder(1024);
-                string fullname, login, machine;
-                uint l = (uint)fullname_.Capacity;
-                int code = Win32.GetUserNameEx((int)Win32.EXTENDED_NAME_FORMAT.NameDisplay, fullname_, ref l);
-                fullname = fullname_.ToString();
-                if (fullname == "") fullname = "<set full name in user account settings>";
-                login = WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-                machine = System.Net.Dns.GetHostEntry("").HostName;
-                defaultcreator = "\"" + fullname + "\" <" + login + "@" + machine + ">";
-            }
+            defaultcreator = plugin.parameters.DefaultAuthor;
             BoxReporter.Text = defaultcreator;
-            if (issue == null)
+            if (uuid == Guid.Empty)
             {
                 BoxCreator.Text = defaultcreator;
             }
@@ -148,11 +136,59 @@ namespace BEurtle
             new WindowSettings(this).load();
             loadIssue();
         }
+        private TreeNode NewCommentTreeNode(XPathNavigator comment, string prefix=null)
+        {
+            string s = prefix==null ? "" : prefix;
+            s+=comment.SelectSingleNode("short-name").ToString() + " " + comment.SelectSingleNode("author").ToString() + " " + comment.SelectSingleNode("date").ToString() + ": ";
+            var commentbody = comment.SelectSingleNode("body").ToString();
+            var commenttype = comment.SelectSingleNode("content-type").ToString();
+            switch (commenttype)
+            {
+                case "text/plain":
+                    if (commentbody.Length <= 48)
+                        s += commentbody;
+                    else
+                        s += commentbody.Substring(0, 48) + " ...";
+                    break;
+                case "text/html":
+                    int idx=0, count = 0;
+                    bool inhtml = false;
+                    for (; count < 48 && idx<commentbody.Length; idx++)
+                    {
+                        if (inhtml)
+                        {
+                            if (commentbody[idx] == '>')
+                                inhtml = false;
+                        }
+                        else
+                        {
+                            if (commentbody[idx] == '<')
+                                inhtml = true;
+                            else
+                            {
+                                s += commentbody[idx];
+                                count++;
+                            }
+                        }
+                    }
+                    if (idx < commentbody.Length) s += " ...";
+                    break;
+                default:
+                    s += commenttype;
+                    break;
+            }
+            return new TreeNode(s);
+        }
         private void loadIssue()
         {
             Comments.Nodes.Clear();
-            if (issue != null)
+            if (uuid != Guid.Empty)
             {
+                var issues_nav = plugin.issues.CreateNavigator();
+                var iter=(XPathNodeIterator)issues_nav.Select("//bug[uuid='"+uuid.ToString()+"']");
+                iter.MoveNext();
+                XPathNavigator issue = iter.Current;
+                
                 BoxUUID.Text = issue.Evaluate("string(uuid)").ToString();
                 BoxShortName.Text = issue.Evaluate("string(short-name)").ToString();
                 BoxCreated.Text = issue.Evaluate("string(created)").ToString();
@@ -165,21 +201,21 @@ namespace BEurtle
 
                 // Iterate all root comments and append
                 commentToUUID.Clear();
-                var UUIDtoComment = new Dictionary<string, TreeNode>();
+                var UUIDtoComment = new Dictionary<Guid, TreeNode>();
                 XPathNodeIterator comments = (XPathNodeIterator)issue.Select("comment[not(in-reply-to)]");
                 foreach (XPathNavigator comment in comments)
                 {
-                    var node=new TreeNode(comment.SelectSingleNode("short-name").ToString()+" "+comment.SelectSingleNode("author").ToString()+" "+comment.SelectSingleNode("date").ToString());
-                    var uuid=new uuid_xpath(comment.Evaluate("string(uuid)").ToString(), comment);
-                    UUIDtoComment.Add(uuid.Item1, node);
-                    commentToUUID.Add(node, uuid);
+                    var node = NewCommentTreeNode(comment);
+                    var uuidpath=new uuid_xpath(new Guid(comment.Evaluate("string(uuid)").ToString()), comment);
+                    UUIDtoComment.Add(uuidpath.Item1, node);
+                    commentToUUID.Add(node, uuidpath);
                     Comments.Nodes.Add(node);
                 }
                 // Recursively apply replies to comments
                 XPathNodeIterator replies_ = (XPathNodeIterator)issue.Select("comment[in-reply-to]");
                 var replies = new List<uuid_xpath>();
                 foreach (XPathNavigator reply in replies_)
-                    replies.Add(new uuid_xpath(reply.Evaluate("string(in-reply-to)").ToString(), reply));
+                    replies.Add(new uuid_xpath(new Guid(reply.Evaluate("string(in-reply-to)").ToString()), reply));
                 while (replies.Count > 0)
                 {
                     var oldcount = replies.Count;
@@ -189,10 +225,10 @@ namespace BEurtle
                         TreeNode commentnode = UUIDtoComment[reply.Item1];
                         if (commentnode !=null)
                         {
-                            var node = new TreeNode(reply.Item2.SelectSingleNode("short-name").ToString() + " " + reply.Item2.SelectSingleNode("author").ToString() + " " + reply.Item2.SelectSingleNode("date").ToString());
-                            var uuid=new uuid_xpath(reply.Item2.Evaluate("string(uuid)").ToString(), reply.Item2);
-                            UUIDtoComment.Add(uuid.Item1, node);
-                            commentToUUID.Add(node, uuid);
+                            var node = NewCommentTreeNode(reply.Item2);
+                            var uuidpath=new uuid_xpath(new Guid(reply.Item2.Evaluate("string(uuid)").ToString()), reply.Item2);
+                            UUIDtoComment.Add(uuidpath.Item1, node);
+                            commentToUUID.Add(node, uuidpath);
                             commentnode.Nodes.Add(node);
                             replies.Remove(reply);
                         }
@@ -203,16 +239,16 @@ namespace BEurtle
                         // BE repo is corrupt, so just add as root items and exit
                         foreach (uuid_xpath reply in replies)
                         {
-                            var node = new TreeNode("Corrupted BE repo in-reply-to-unknown(" + reply.Item1 + ") " + reply.Item2.SelectSingleNode("short-name").ToString() + " " + reply.Item2.SelectSingleNode("author").ToString() + " " + reply.Item2.SelectSingleNode("date").ToString());
-                            var uuid = new uuid_xpath(reply.Item2.Evaluate("string(uuid)").ToString(), reply.Item2);
-                            commentToUUID.Add(node, uuid);
+                            var node = NewCommentTreeNode(reply.Item2, "Corrupted BE repo in-reply-to-unknown(" + reply.Item1 + ") ");
+                            var uuidpath = new uuid_xpath(new Guid(reply.Item2.Evaluate("string(uuid)").ToString()), reply.Item2);
+                            commentToUUID.Add(node, uuidpath);
                             Comments.Nodes.Add(node);
                         }
                         break;
                     }
                 }
             }
-            setEditable(issue == null);
+            setEditable(uuid == Guid.Empty);
             CommentAdd.Enabled = true;
             Application.DoEvents(); // Let MSHTML get around to binding
             if (Comments.Nodes.Count > 0)
@@ -220,7 +256,8 @@ namespace BEurtle
                 Comments.ExpandAll();
                 Commentary.Panel2.Enabled = true;
                 Comments.SelectedNode = Comments.Nodes[0];
-                CommentDelete.Enabled = CommentEdit.Enabled = true;
+                CommentReply.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = true;
+                CommentDelete.Enabled = CommentEdit.Enabled = false;
             }
         }
 
@@ -393,21 +430,16 @@ namespace BEurtle
             doc = CommentBody.Document.DomDocument as IHTMLDocument2;
             doc.designMode = "On";
 
-            if (commentToUUID.ContainsKey(Comments.SelectedNode))
-            {
-                commentingupon = commentToUUID[Comments.SelectedNode].Item1;
-            }
-
             HTMLEditorControls.Enabled = true;
             CommentBodyRaw.Enabled = true;
             LoadAttachment.Enabled = true;
             CommentAuthor.ReadOnly = false;
-            CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = false;
+            CommentReply.Enabled = CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = false;
             Application.DoEvents(); // Let MSHTML get around to binding
             Comments_AfterSelect(null, null);
             DraggableIcon.Items[0].Text = "text/html";
             DraggableIcon.Items[0].ImageIndex = 0;
-            CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = false;
+            CommentReply.Visible = CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = false;
         }
         private void CommentEdit_Click(object sender, EventArgs e)
         {
@@ -423,10 +455,19 @@ namespace BEurtle
             CommentBodyRaw.Enabled = false;
             LoadAttachment.Enabled = false;
             CommentAuthor.ReadOnly = true;
-            CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = true;
-            CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = true;
+            CommentReply.Visible = CommentAdd.Visible = CommentDelete.Visible = CommentEdit.Visible = true;
+            CommentReply.Enabled = CommentAdd.Enabled = CommentDelete.Enabled = CommentEdit.Enabled = true;
+            CommentDelete.Enabled = CommentEdit.Enabled = false;
             Application.DoEvents(); // Let MSHTML get around to unbinding
             loadIssue();
+        }
+
+        private void CommentEditSave_Click(object sender, EventArgs e)
+        {
+            if (!CommentEdit.Visible)
+            {
+                SaveComment();
+            }
         }
 
         // List of commands is available at http://msdn.microsoft.com/en-us/library/ms533049(v=vs.85).aspx
@@ -673,7 +714,7 @@ namespace BEurtle
                 uuid_xpath comment = form.commentToUUID.ContainsKey(form.Comments.SelectedNode) ? form.commentToUUID[form.Comments.SelectedNode] : null;
                 var ext = MIMETypesDictionary.ContainsKey(form.DraggableIcon.Items[0].Text) ? MIMETypesDictionary[form.DraggableIcon.Items[0].Text] : "bin";
                 string tempfilepath = Path.GetTempPath() + "BEurtle";
-                tempfilename = tempfilepath + @"\comment-" + (comment!=null ? comment.Item1 : "new") + "." + ext;
+                tempfilename = tempfilepath + @"\comment-" + (comment!=null ? comment.Item1.ToString() : "new") + "." + ext;
                 if (!Directory.Exists(tempfilepath)) Directory.CreateDirectory(tempfilepath);
                 data = new FileStream(tempfilename, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete | FileShare.ReadWrite);
                 form.SaveAsFile(data);
@@ -779,13 +820,9 @@ namespace BEurtle
             try
             {
                 disable_afterselect = true;
-                if (Comments.SelectedNode != null)
+                if(commentingupon!=null)
                 {
-                    Comments.SelectedNode = Comments.SelectedNode.Nodes.Add("*** new comment ***");
-                }
-                else if (Comments.Nodes.Count > 0)
-                {
-                    Comments.SelectedNode = Comments.Nodes[0].Nodes.Add("*** new comment ***");
+                    Comments.SelectedNode = Comments.SelectedNode.Nodes.Add("*** new reply ***");
                 }
                 else
                 {
@@ -805,11 +842,25 @@ namespace BEurtle
             CommentBody.Document.ActiveElement.Focus();
         }
 
+        private void CommentReply_Click(object sender, EventArgs e)
+        {
+            if (commentToUUID.ContainsKey(Comments.SelectedNode))
+            {
+                XPathNavigator comment = commentToUUID[Comments.SelectedNode].Item2;
+                commentingupon = comment.SelectSingleNode("short-name").ToString();
+            }
+            CommentAdd_Click(sender, e);
+        }
+
         private void CommentDelete_Click(object sender, EventArgs e)
         {
+            throw new Exception("BE currently deletes whole bugs when passed a comment id, so I refuse to run");
+
             XPathNavigator comment = commentToUUID[Comments.SelectedNode].Item2;
             string shortname = comment.SelectSingleNode("short-name").ToString();
-            MessageBox.Show("TODO: Delete Comment "+shortname);
+            //MessageBox.Show("TODO: Delete Comment "+shortname);
+            string[] outputs = plugin.callBEcmd(plugin.rootpath, new string[]{"remove "+shortname});
+            if (outputs[0].Length > 0) MessageBox.Show(this, "Command output: " + outputs[0]);
             loadIssue();
         }
 
@@ -861,7 +912,6 @@ namespace BEurtle
             }
             // Force master XML reload
             plugin.loadIssues(this);
-            FIXME;
             CommentEditCancel_Click(null, null);
             return false;
         }
@@ -973,6 +1023,7 @@ namespace BEurtle
         {
             CommentBody.AllowWebBrowserDrop = false;
         }
+
     }
 
 }
