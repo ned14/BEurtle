@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?ifndef Version?>
+<?define Version = "1.5.0.0" ?>
+<?endif ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Bundle Name="BEurtle Plugin for TortoiseXXX" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="9a4a032d-90c1-46a2-8f36-38fb1655cca9"
+    HelpUrl="http://www.nedprod.com/programs/Win32/BEurtle/"
+    Copyright="Copyright © 2011-2012 Niall Douglas"
+    AboutUrl="http://www.nedprod.com/programs/Win32/BEurtle/">
+    <!--IconSourceFile="Resource\Setup.ico"
+    SplashScreenSourceFile="Resource\SplashScreen.bmp"
+    Condition="((VersionNT >= v5.1) AND (ServicePackLevel >= 3)) OR ((VersionNT >= v5.2) AND (ServicePackLevel >= 2)) OR (VersionNT >= v6.0)"
+    -->
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+      <Payload SourceFile="..\Licence.txt" />
+    </BootstrapperApplicationRef>
+    <WixVariable Id="WixStdbaLicenseUrl" Value="Licence.txt" />
+    <!--<WixVariable Id="WixStdbaLogo" Value="Resource\logoSmall.png" />-->
+    <Variable Name="InstallFolder" Type="string" Value="[ProgramFilesFolder]ned Productions Limited\BEurtle" />
+
+    <Chain>
+      <PackageGroupRef Id="Netfx20" />
+
+      <RollbackBoundary />
+
+      <!-- TODO: Install 32 bit always, but only install 64 bit on 64 bit platforms -->
+      <MsiPackage
+        Id="Setup"
+        Compressed="yes"
+        SourceFile="$(var.Setup.TargetPath)"
+        Vital="yes">
+        <MsiProperty Name="INSTALLLOCATION" Value="[InstallFolder]" />
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+
+  <Fragment>
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v2.0.50727" Value="Version" Variable="Netfx20Version" />
+
+    <PackageGroup Id="Netfx20">
+      <ExePackage Id="Netfx20"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        Name="Redist\dotnetfx20.exe"
+        SourceFile="Redist\dotnetfx3setup.exe"
+        InstallCommand="/q /norestart /lang:ENU"
+        RepairCommand="/q /norestart /lang:ENU"
+        UninstallCommand="/q /norestart /lang:ENU"
+        InstallCondition="NOT Netfx20Version OR (Netfx20Version &lt; '2.0.50727.5420')"
+        DetectCondition="Netfx20Version AND (Netfx20Version &gt;= '2.0.50727.5420')">
+        <ExitCode Value ="3010" Behavior="forceReboot" />
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>
