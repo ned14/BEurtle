@@ -18,20 +18,25 @@
     </BootstrapperApplicationRef>
     <WixVariable Id="WixStdbaLicenseUrl" Value="Licence.txt" />
     <!--<WixVariable Id="WixStdbaLogo" Value="Resource\logoSmall.png" />-->
-    <Variable Name="InstallFolder" Type="string" Value="[ProgramFilesFolder]ned Productions Limited\BEurtle" />
 
     <Chain>
       <PackageGroupRef Id="Netfx20" />
 
       <RollbackBoundary />
 
-      <!-- TODO: Install 32 bit always, but only install 64 bit on 64 bit platforms -->
       <MsiPackage
-        Id="Setup"
+        Id="Setup32"
         Compressed="yes"
-        SourceFile="$(var.Setup.TargetPath)"
+        SourceFile="..\BEurtleSetup32\bin\Release\BEurtleSetup32.msi"
         Vital="yes">
-        <MsiProperty Name="INSTALLLOCATION" Value="[InstallFolder]" />
+        <MsiProperty Name="INSTALLLOCATION" Value="[ProgramFilesFolder]ned Productions Limited\BEurtle" />
+      </MsiPackage>
+      <MsiPackage
+        Id="Setup64"
+        Compressed="yes"
+        SourceFile="..\BEurtleSetup64\bin\Release\BEurtleSetup64.msi"
+        Vital="yes">
+        <MsiProperty Name="INSTALLLOCATION" Value="[ProgramFiles64Folder]ned Productions Limited\BEurtle" />
       </MsiPackage>
     </Chain>
   </Bundle>
@@ -51,8 +56,8 @@
         InstallCommand="/q /norestart /lang:ENU"
         RepairCommand="/q /norestart /lang:ENU"
         UninstallCommand="/q /norestart /lang:ENU"
-        InstallCondition="NOT Netfx20Version OR (Netfx20Version &lt; '2.0.50727.5420')"
-        DetectCondition="Netfx20Version AND (Netfx20Version &gt;= '2.0.50727.5420')">
+        InstallCondition="NOT Netfx20Version OR (Netfx20Version &lt; v2.0.50727.5420)"
+        DetectCondition="Netfx20Version AND (Netfx20Version &gt;= v2.0.50727.5420)">
         <ExitCode Value ="3010" Behavior="forceReboot" />
       </ExePackage>
     </PackageGroup>
