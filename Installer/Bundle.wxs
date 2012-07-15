@@ -8,7 +8,7 @@
     HelpUrl="http://www.nedprod.com/programs/Win32/BEurtle/"
     Copyright="Copyright © 2011-2012 Niall Douglas"
     AboutUrl="http://www.nedprod.com/programs/Win32/BEurtle/"
-    SplashScreenSourceFile="..\BEurtle\Resources\bugseverywhere.jpg"
+    SplashScreenSourceFile="..\BEurtle\Resources\bugseverywheresplash.bmp"
     Condition="((VersionNT >= v5.1) AND (ServicePackLevel >= 3)) OR ((VersionNT >= v5.2) AND (ServicePackLevel >= 2)) OR (VersionNT >= v6.0)"
     >
     <!--IconSourceFile="..\BEurtle\Resources\MainIcon.ico">-->
@@ -44,7 +44,8 @@
     <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v2.0.50727" Value="Version" Variable="Netfx20Version" />
 
     <PackageGroup Id="Netfx20">
-      <ExePackage Id="Netfx20"
+      <!-- This embeds the .NET 3.0 web installer for virgin WinXP installs. Costs ~3Mb extra to installer size + 50Mb to download. -->
+      <!--<ExePackage Id="Netfx20"
         Cache="no"
         Compressed="yes"
         PerMachine="yes"
@@ -52,10 +53,42 @@
         Vital="yes"
         Name="Redist\dotnetfx20.exe"
         SourceFile="Redist\dotnetfx3setup.exe"
+        InstallCommand="/norestart /lang:ENU"
+        RepairCommand="/norestart /lang:ENU"
+        UninstallCommand="/norestart /lang:ENU"
+        InstallCondition="NOT Netfx20Version OR (Netfx20Version &lt; v2.0.50727.5420)"
+        DetectCondition="Netfx20Version AND (Netfx20Version &gt;= v2.0.50727.5420)">
+        <ExitCode Value ="3010" Behavior="forceReboot" />
+      </ExePackage>-->
+      <!-- This causes the download of the .NET 2.0 SP2 x86 installer from Microsoft. -->
+      <ExePackage Id="Netfx20_32"
+        Cache="no"
+        Compressed="no"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        SourceFile="Redist\NetFx20SP2_x86.exe"
+        DownloadUrl="http://download.microsoft.com/download/c/6/e/c6e88215-0178-4c6c-b5f3-158ff77b1f38/NetFx20SP2_x86.exe"
         InstallCommand="/q /norestart /lang:ENU"
         RepairCommand="/q /norestart /lang:ENU"
         UninstallCommand="/q /norestart /lang:ENU"
-        InstallCondition="NOT Netfx20Version OR (Netfx20Version &lt; v2.0.50727.5420)"
+        InstallCondition="NOT VersionNT64 AND (NOT Netfx20Version OR (Netfx20Version &lt; v2.0.50727.5420))"
+        DetectCondition="Netfx20Version AND (Netfx20Version &gt;= v2.0.50727.5420)">
+        <ExitCode Value ="3010" Behavior="forceReboot" />
+      </ExePackage>
+      <!-- This causes the download of the .NET 2.0 SP2 x64 installer from Microsoft. -->
+      <ExePackage Id="Netfx20_64"
+        Cache="no"
+        Compressed="no"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        SourceFile="Redist\NetFx20SP2_x64.exe"
+        DownloadUrl="http://download.microsoft.com/download/c/6/e/c6e88215-0178-4c6c-b5f3-158ff77b1f38/NetFx20SP2_x64.exe"
+        InstallCommand="/q /norestart /lang:ENU"
+        RepairCommand="/q /norestart /lang:ENU"
+        UninstallCommand="/q /norestart /lang:ENU"
+        InstallCondition="VersionNT64 AND (NOT Netfx20Version OR (Netfx20Version &lt; v2.0.50727.5420))"
         DetectCondition="Netfx20Version AND (Netfx20Version &gt;= v2.0.50727.5420)">
         <ExitCode Value ="3010" Behavior="forceReboot" />
       </ExePackage>

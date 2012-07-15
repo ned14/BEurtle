@@ -120,6 +120,9 @@ class TestInstaller(unittest.TestCase):
             progress=guest.copyToGuest(os.path.abspath(INSTALLER), "C:\\wb_test\\installer.exe", TEST_ACCOUNT, TEST_ACCOUNT_PASSWORD, 0)
             progressBar(progress)
             if progress.getResultCode()!=0: raise Exception, "Timed out copying in me"
+            progress=guest.copyToGuest(os.path.abspath("Redist/NetFx20SP2_x86.exe"), "C:\\wb_test\\NetFx20SP2_x86.exe", TEST_ACCOUNT, TEST_ACCOUNT_PASSWORD, 0)
+            progressBar(progress)
+            if progress.getResultCode()!=0: raise Exception, "Timed out copying in me"
 
             # Execute configurator
             progress, pid=guest.executeProcess("C:\\wb_test\\installer.exe", 0, ["-dC:\\wb_test"], [], TEST_ACCOUNT_ADMIN, TEST_ACCOUNT_ADMIN_PASSWORD, 0)
