@@ -5,12 +5,14 @@
 <?if $(var.Platform) = x64 ?>
 <?define Win64="yes" ?>
 <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+<?define UpgradeCode = "0512541b-f604-4ab7-9b01-46f9ccf0aeff" ?>
 <?else ?>
 <?define Win64="no" ?>
 <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+<?define UpgradeCode = "c279e66c-171d-45a8-af23-637b0b77d191" ?>
 <?endif ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="BEurtle Plugin for TortoiseXXX" Language="1033" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="c279e66c-171d-45a8-af23-637b0b77d191">
+  <Product Id="*" Name="BEurtle Plugin for TortoiseXXX ($(var.Platform))" Language="1033" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="$(var.UpgradeCode)">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <PropertyRef Id="NETFRAMEWORK20"/>
     <Condition Message="This application requires .NET Framework 2.0. Please install the .NET Framework then run this installer again.">
@@ -36,7 +38,7 @@
       </Directory>
     </Directory>
 
-    <Feature Id="FeaturePlugin" Title="BEurtle Plugin for TortoiseXXX" Description="A TortoiseXXX plugin for the Bugs Everywhere distributed issue tracker"
+    <Feature Id="FeaturePlugin" Title="BEurtle Plugin for TortoiseXXX ($(var.Platform))" Description="A TortoiseXXX plugin for the Bugs Everywhere distributed issue tracker"
              Display="expand" Level="1" ConfigurableDirectory='INSTALLDIR' AllowAdvertise='no'>
         <ComponentGroupRef Id="BEurtle.dll"/>
         <ComponentRef Id="Plugin" />

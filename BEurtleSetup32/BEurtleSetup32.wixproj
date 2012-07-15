@@ -6,7 +6,7 @@
     <ProductVersion>3.6</ProductVersion>
     <ProjectGuid>{8d524857-0171-4099-911f-f83752bfe034}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>BEurtlePlugin</OutputName>
+    <OutputName>BEurtleSetup32</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
