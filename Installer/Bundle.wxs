@@ -4,20 +4,18 @@
 <?endif ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Bundle Name="BEurtle Plugin for TortoiseXXX" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="9a4a032d-90c1-46a2-8f36-38fb1655cca9"
+  <Bundle Name="BEurtle Plugin for TortoiseXXX (x86 and x64)" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="9a4a032d-90c1-46a2-8f36-38fb1655cca9"
     HelpUrl="http://www.nedprod.com/programs/Win32/BEurtle/"
     Copyright="Copyright © 2011-2012 Niall Douglas"
-    AboutUrl="http://www.nedprod.com/programs/Win32/BEurtle/">
-    <!--IconSourceFile="Resource\Setup.ico"
-    SplashScreenSourceFile="Resource\SplashScreen.bmp"
+    AboutUrl="http://www.nedprod.com/programs/Win32/BEurtle/"
+    SplashScreenSourceFile="..\BEurtle\Resources\bugseverywhere.jpg"
     Condition="((VersionNT >= v5.1) AND (ServicePackLevel >= 3)) OR ((VersionNT >= v5.2) AND (ServicePackLevel >= 2)) OR (VersionNT >= v6.0)"
-    -->
+    >
+    <!--IconSourceFile="..\BEurtle\Resources\MainIcon.ico">-->
 
-    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
-      <Payload SourceFile="..\Licence.txt" />
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication LicenseFile="..\Licence.rtf" LogoFile="bugseverywhere.png"/>
     </BootstrapperApplicationRef>
-    <WixVariable Id="WixStdbaLicenseUrl" Value="Licence.txt" />
-    <!--<WixVariable Id="WixStdbaLogo" Value="Resource\logoSmall.png" />-->
 
     <Chain>
       <PackageGroupRef Id="Netfx20" />
@@ -35,6 +33,7 @@
         Id="Setup64"
         Compressed="yes"
         SourceFile="..\BEurtleSetup64\bin\Release\BEurtleSetup64.msi"
+        InstallCondition="VersionNT64"
         Vital="yes">
         <MsiProperty Name="INSTALLLOCATION" Value="[ProgramFiles64Folder]ned Productions Limited\BEurtle" />
       </MsiPackage>
