@@ -123,9 +123,12 @@ class TestInstaller(unittest.TestCase):
             progress=guest.copyToGuest(os.path.abspath("Redist/NetFx20SP2_x86.exe"), "C:\\wb_test\\NetFx20SP2_x86.exe", TEST_ACCOUNT, TEST_ACCOUNT_PASSWORD, 0)
             progressBar(progress)
             if progress.getResultCode()!=0: raise Exception, "Timed out copying in me"
+            progress=guest.copyToGuest(os.path.abspath("test/TortoiseSVN-1.6.6.17493-win32-svn-1.6.6.msi"), "C:\\wb_test\\TortoiseSVN-1.6.6.17493-win32-svn-1.6.6.msi", TEST_ACCOUNT, TEST_ACCOUNT_PASSWORD, 0)
+            progressBar(progress)
+            if progress.getResultCode()!=0: raise Exception, "Timed out copying in me"
 
             # Execute configurator
-            progress, pid=guest.executeProcess("C:\\wb_test\\installer.exe", 0, ["-dC:\\wb_test"], [], TEST_ACCOUNT_ADMIN, TEST_ACCOUNT_ADMIN_PASSWORD, 0)
+            progress, pid=guest.executeProcess("c:\\windows\\system32\\msiexec.exe", 0, ["/quiet", "/norestart", "/i", "C:\\wb_test\\TortoiseSVN-1.6.6.17493-win32-svn-1.6.6.msi"], [], TEST_ACCOUNT_ADMIN, TEST_ACCOUNT_ADMIN_PASSWORD, 0)
             print "Executed installer with pid", pid
             #if pid!=0 and 0:
             #    while not progress.completed:
@@ -134,8 +137,10 @@ class TestInstaller(unittest.TestCase):
             #        if data and len(data)>0:
             #            sys.stdout.write(data)
             #            continue
-            #progress.waitForCompletion(12000)
-            #if progress.getResultCode()!=0: raise Exception, "Timed out installing stuff"
+            progress.waitForCompletion(200000)
+            if progress.getResultCode()!=0: raise Exception, "Timed out installing stuff"
+            progress, pid=guest.executeProcess("C:\\wb_test\\installer.exe", 0, [], [], TEST_ACCOUNT_ADMIN, TEST_ACCOUNT_ADMIN_PASSWORD, 0)
+            print "Executed installer with pid", pid
 
         finally:
             # Turn off the beastie

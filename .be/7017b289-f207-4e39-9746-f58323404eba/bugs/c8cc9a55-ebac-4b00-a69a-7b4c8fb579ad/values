@@ -7,7 +7,7 @@ reporter: '"Niall Douglas" <ned@kate.nedland.local>'
 severity: serious
 
 
-status: open
+status: fixed
 
 
 summary: Still got a failure to invoke git add at line 281 in BEurtlePlugin.cs on

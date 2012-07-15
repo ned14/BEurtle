@@ -6,15 +6,15 @@ reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] co
   <spam@spamtrap.com>'
 
 
-severity: minor
+severity: serious
 
 
-status: fixed
+status: open
 
 
-summary: Add unit test testing installation and deinstallation on VirtualBox for XP
-  and Win7
+summary: Editing an existing bug isn't updating the XML cache, probably because BE
+  is being clever enough not to update id-cache
 
 
-time: Fri, 13 Jul 2012 13:03:08 +0000
+time: Sun, 15 Jul 2012 20:08:20 +0000
 

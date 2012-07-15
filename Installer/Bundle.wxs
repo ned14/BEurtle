@@ -19,6 +19,7 @@
 
     <Chain>
       <PackageGroupRef Id="Netfx20" />
+      <PackageGroupRef Id="Mshtml" />
 
       <RollbackBoundary />
 
@@ -42,6 +43,7 @@
 
   <Fragment>
     <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v2.0.50727" Value="Version" Variable="Netfx20Version" />
+    <util:RegistrySearch Root="HKCR" Key="Installer\Assemblies\Global" Value="Microsoft.mshtml,Version=&quot;7.0.3300.0&quot;,PublicKeyToken=&quot;b03f5f7f11d50a3a&quot;,Culture=&quot;neutral&quot;,FileVersion=&quot;7.0.3300.0&quot;" Variable="MshtmlVersion" />
 
     <PackageGroup Id="Netfx20">
       <!-- This embeds the .NET 3.0 web installer for virgin WinXP installs. Costs ~3Mb extra to installer size + 50Mb to download. -->
@@ -93,5 +95,20 @@
         <ExitCode Value ="3010" Behavior="forceReboot" />
       </ExePackage>
     </PackageGroup>
-  </Fragment>
+
+    <PackageGroup Id="Mshtml">
+      <ExePackage Id="Netfx20"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        Name="Redist\vs_piaredist.exe"
+        SourceFile="Redist\vs_piaredist.exe"
+        InstallCondition="NOT MshtmlVersion"
+        DetectCondition="MshtmlVersion">
+        <ExitCode Value ="3010" Behavior="forceReboot" />
+      </ExePackage>
+    </PackageGroup>
+    </Fragment>
 </Wix>
