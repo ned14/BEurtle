@@ -64,6 +64,7 @@
     <Compile Include="IssuesForm.Designer.cs">
       <DependentUpon>IssuesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LastModifiedInDirs.cs" />
     <Compile Include="OptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>

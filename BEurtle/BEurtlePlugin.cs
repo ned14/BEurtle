@@ -217,27 +217,31 @@ namespace BEurtle
             string xml = "unknown error";
             if (rootdir.EndsWith(".xml"))
             {   // This is a raw BE XML dump
-                using(var fs = new StreamReader(rootdir))
+                using (var fs = new StreamReader(rootdir))
                     xml = fs.ReadToEnd();
                 VCSInfo = "Direct load of XML database";
             }
-            else if (parameters.CacheBEXML && File.Exists(rootdir + "\\.be\\bexml.xml") && (!File.Exists(rootdir + "\\.be\\id-cache") || File.GetLastWriteTimeUtc(rootdir + "\\.be\\bexml.xml") > File.GetLastWriteTimeUtc(rootdir + "\\.be\\id-cache")))
-            {   // There is a bexml.xml cache which isn't older than the id-cache, so we can use that
-                using (var fs = new StreamReader(rootdir + "\\.be\\bexml.xml"))
-                    xml = fs.ReadToEnd();
-                VCSInfo = "Used up-to-date XML cache in .be\\bexml.xml";
-            }
             else
             {
-                xml = callBEcmd(rootdir, new string[1] { arguments })[0];
-                string VCSVersion = callBEcmd(rootdir, new string[1] { "vcs version" })[0];
-                if (-1 == VCSVersion.IndexOf("RESULT:"))
-                    VCSInfo = "VCS: Error reading VCS version";
+                FileInfo idcache=new FileInfo(rootdir + "\\.be\\id-cache"), bexmlcache=new FileInfo(rootdir + "\\.be\\bexml.xml");
+                if (parameters.CacheBEXML && bexmlcache.Exists && (!idcache.Exists || bexmlcache.LastWriteTimeUtc > idcache.LastWriteTimeUtc) && nedprod.LastModifiedInDirs.FindLastModifiedSince(new DirectoryInfo(rootdir+"\\.be"), bexmlcache.LastWriteTimeUtc).Count==0)
+                {   // There is a bexml.xml cache which isn't older than the id-cache nor BE repo contents, so we can use that
+                    using (var fs = new StreamReader(rootdir + "\\.be\\bexml.xml"))
+                        xml = fs.ReadToEnd();
+                    VCSInfo = "Used up-to-date XML cache in .be\\bexml.xml";
+                }
                 else
-                    VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
-                if (parameters.CacheBEXML && xml.StartsWith("<?xml version=\"1.0\" "))
-                    using (var fs = new StreamWriter(rootdir + "\\.be\\bexml.xml"))
-                        fs.Write(xml);
+                {
+                    xml = callBEcmd(rootdir, new string[1] { arguments })[0];
+                    string VCSVersion = callBEcmd(rootdir, new string[1] { "vcs version" })[0];
+                    if (-1 == VCSVersion.IndexOf("RESULT:"))
+                        VCSInfo = "VCS: Error reading VCS version";
+                    else
+                        VCSInfo = "VCS: " + VCSVersion.Substring(VCSVersion.IndexOf("RESULT:") + 8);
+                    if (parameters.CacheBEXML && xml.StartsWith("<?xml version=\"1.0\" "))
+                        using (var fs = new StreamWriter(rootdir + "\\.be\\bexml.xml"))
+                            fs.Write(xml);
+                }
             }
             if (!xml.StartsWith("<?xml version=\"1.0\" "))
             {
