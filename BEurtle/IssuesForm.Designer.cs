@@ -31,11 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssuesForm));
             this.IssuesList = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Severity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Created1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.changeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unconfirmedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,8 +81,19 @@
             this.DeleteIssue = new System.Windows.Forms.Button();
             this.BERepoLocationBrowse = new System.Windows.Forms.Button();
             this.VCSInfo = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.LinkAbout = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Severity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCount = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).BeginInit();
             this.contextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // IssuesList
@@ -104,59 +110,23 @@
             this.Status,
             this.Severity,
             this.Created1,
-            this.Summary});
+            this.Summary,
+            this.CommentCount});
             this.IssuesList.ContextMenuStrip = this.contextMenu;
             this.IssuesList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.IssuesList.Location = new System.Drawing.Point(16, 63);
+            this.IssuesList.Location = new System.Drawing.Point(12, 82);
             this.IssuesList.Name = "IssuesList";
             this.IssuesList.ReadOnly = true;
             this.IssuesList.RowHeadersVisible = false;
             this.IssuesList.RowTemplate.ReadOnly = true;
             this.IssuesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.IssuesList.Size = new System.Drawing.Size(600, 338);
+            this.IssuesList.Size = new System.Drawing.Size(604, 319);
             this.IssuesList.TabIndex = 0;
+            this.IssuesList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.IssuesList_CellClick);
             this.IssuesList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.IssuesList_CellDoubleClick);
             this.IssuesList.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.IssuesList_CellMouseDown);
             this.IssuesList.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.IssuesList_SortCompare);
             this.IssuesList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesList_KeyDown);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "ID";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 50;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.Width = 70;
-            // 
-            // Severity
-            // 
-            this.Severity.HeaderText = "Severity";
-            this.Severity.Name = "Severity";
-            this.Severity.ReadOnly = true;
-            this.Severity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Severity.Width = 70;
-            // 
-            // Created1
-            // 
-            this.Created1.HeaderText = "Created";
-            this.Created1.Name = "Created1";
-            this.Created1.ReadOnly = true;
-            this.Created1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Created1.Width = 130;
-            // 
-            // Summary
-            // 
-            this.Summary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Summary.HeaderText = "Summary";
-            this.Summary.Name = "Summary";
-            this.Summary.ReadOnly = true;
             // 
             // contextMenu
             // 
@@ -494,7 +464,7 @@
             this.ButtonOk.Location = new System.Drawing.Point(537, 407);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOk.TabIndex = 5;
+            this.ButtonOk.TabIndex = 4;
             this.ButtonOk.Text = "OK";
             this.ButtonOk.UseVisualStyleBackColor = true;
             // 
@@ -505,14 +475,14 @@
             this.ButtonCancel.Location = new System.Drawing.Point(456, 407);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 4;
+            this.ButtonCancel.TabIndex = 3;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Location = new System.Drawing.Point(253, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 3;
@@ -522,10 +492,10 @@
             // 
             this.BERepoLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.BERepoLocation.Location = new System.Drawing.Point(77, 14);
+            this.BERepoLocation.Location = new System.Drawing.Point(318, 30);
             this.BERepoLocation.Name = "BERepoLocation";
-            this.BERepoLocation.Size = new System.Drawing.Size(454, 20);
-            this.BERepoLocation.TabIndex = 6;
+            this.BERepoLocation.Size = new System.Drawing.Size(213, 20);
+            this.BERepoLocation.TabIndex = 5;
             this.BERepoLocation.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BERepoLocation_KeyPress);
             // 
             // NewIssue
@@ -553,10 +523,10 @@
             // BERepoLocationBrowse
             // 
             this.BERepoLocationBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BERepoLocationBrowse.Location = new System.Drawing.Point(537, 12);
+            this.BERepoLocationBrowse.Location = new System.Drawing.Point(537, 28);
             this.BERepoLocationBrowse.Name = "BERepoLocationBrowse";
             this.BERepoLocationBrowse.Size = new System.Drawing.Size(75, 23);
-            this.BERepoLocationBrowse.TabIndex = 7;
+            this.BERepoLocationBrowse.TabIndex = 6;
             this.BERepoLocationBrowse.Text = "Browse";
             this.BERepoLocationBrowse.UseVisualStyleBackColor = true;
             this.BERepoLocationBrowse.Click += new System.EventHandler(this.BERepoLocationBrowse_Click);
@@ -565,11 +535,100 @@
             // 
             this.VCSInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.VCSInfo.Location = new System.Drawing.Point(16, 37);
+            this.VCSInfo.Location = new System.Drawing.Point(256, 56);
             this.VCSInfo.Name = "VCSInfo";
             this.VCSInfo.ReadOnly = true;
-            this.VCSInfo.Size = new System.Drawing.Size(600, 20);
+            this.VCSInfo.Size = new System.Drawing.Size(356, 20);
             this.VCSInfo.TabIndex = 8;
+            this.VCSInfo.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(87, 64);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // LinkAbout
+            // 
+            this.LinkAbout.AutoSize = true;
+            this.LinkAbout.Location = new System.Drawing.Point(106, 62);
+            this.LinkAbout.Name = "LinkAbout";
+            this.LinkAbout.Size = new System.Drawing.Size(35, 13);
+            this.LinkAbout.TabIndex = 7;
+            this.LinkAbout.TabStop = true;
+            this.LinkAbout.Text = "About";
+            this.LinkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkAbout_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(102, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(153, 25);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "BEurtle v1.50α";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(105, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "(C) 2011-2012 Niall Douglas";
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "ID";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 50;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.Width = 70;
+            // 
+            // Severity
+            // 
+            this.Severity.HeaderText = "Severity";
+            this.Severity.Name = "Severity";
+            this.Severity.ReadOnly = true;
+            this.Severity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Severity.Width = 70;
+            // 
+            // Created1
+            // 
+            this.Created1.HeaderText = "Created";
+            this.Created1.Name = "Created1";
+            this.Created1.ReadOnly = true;
+            this.Created1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Created1.Width = 130;
+            // 
+            // Summary
+            // 
+            this.Summary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Summary.HeaderText = "Summary";
+            this.Summary.Name = "Summary";
+            this.Summary.ReadOnly = true;
+            // 
+            // CommentCount
+            // 
+            this.CommentCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.CommentCount.HeaderText = "Comments";
+            this.CommentCount.Name = "CommentCount";
+            this.CommentCount.ReadOnly = true;
+            this.CommentCount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CommentCount.UseColumnTextForLinkValue = true;
+            this.CommentCount.Width = 5;
             // 
             // IssuesForm
             // 
@@ -577,17 +636,21 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.LinkAbout);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.VCSInfo);
             this.Controls.Add(this.BERepoLocationBrowse);
             this.Controls.Add(this.DeleteIssue);
             this.Controls.Add(this.NewIssue);
             this.Controls.Add(this.BERepoLocation);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
             this.Controls.Add(this.IssuesList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(540, 200);
+            this.MinimumSize = new System.Drawing.Size(540, 256);
             this.Name = "IssuesForm";
             this.Text = "Bugs Everywhere Issues";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IssuesForm_FormClosing);
@@ -598,6 +661,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).EndInit();
             this.contextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -613,11 +677,6 @@
         private System.Windows.Forms.Button NewIssue;
         private System.Windows.Forms.Button DeleteIssue;
         private System.Windows.Forms.Button BERepoLocationBrowse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Severity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Created1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Summary;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem filterOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allClosedItemsToolStripMenuItem;
@@ -661,5 +720,15 @@
         private System.Windows.Forms.ToolStripMenuItem criticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fatalToolStripMenuItem;
         private System.Windows.Forms.TextBox VCSInfo;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.LinkLabel LinkAbout;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Severity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Created1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Summary;
+        private System.Windows.Forms.DataGridViewLinkColumn CommentCount;
     }
 }

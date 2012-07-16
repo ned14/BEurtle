@@ -33,6 +33,7 @@ namespace BEurtle
         }
     }
 
+    public enum ShowCommentCountType { DontShow, ShowEasy, ShowAll };
     public class ParseParameters
     {
         private BEurtlePlugin plugin;
@@ -41,6 +42,7 @@ namespace BEurtle
         public string DumpHTMLPath="";
         public bool AddCommitAsComment = true, FilterOutClosedIssues=false;
         public bool UseBEXML = false, CacheBEXML = true;
+        public ShowCommentCountType ShowCommentCount=ShowCommentCountType.ShowEasy;
         public ParseParameters(BEurtlePlugin plugin, IWin32Window hwnd, string parameters, bool fillindefaults=true)
         {
             this.plugin = plugin;
@@ -61,6 +63,19 @@ namespace BEurtle
                     FilterOutClosedIssues = bool.Parse(par.Substring(22));
                 else if (par.StartsWith("UseBEXML="))
                     UseBEXML = bool.Parse(par.Substring(9));
+                else if(par.StartsWith("ShowCommentCount="))
+                    switch (par.Substring(17))
+                    {
+                        case "DontShow":
+                            ShowCommentCount = ShowCommentCountType.DontShow;
+                            break;
+                        case "ShowEasy":
+                            ShowCommentCount = ShowCommentCountType.ShowEasy;
+                            break;
+                        case "ShowAll":
+                            ShowCommentCount = ShowCommentCountType.ShowAll;
+                            break;
+                    }
                 else if (par.StartsWith("CacheBEXML="))
                     CacheBEXML = bool.Parse(par.Substring(11));
             }

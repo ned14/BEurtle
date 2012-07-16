@@ -92,6 +92,7 @@ namespace BEurtle
                 SuspendLayout();
                 IssuesList.Rows.Clear();
                 RowToUUID.Clear();
+                IssuesList.Columns[IssuesList.Columns.Count - 1].Visible = plugin.parameters.ShowCommentCount != ShowCommentCountType.DontShow;
                 ButtonOk.Enabled = false;
                 NewIssue.Enabled = false;
                 DeleteIssue.Enabled = false;
@@ -183,6 +184,14 @@ namespace BEurtle
                         row.Cells.Add(new DataGridViewTextBoxCell());
                         row.Cells[4].Value = summary;
 
+                        row.Cells.Add(new DataGridViewLinkCell());
+                        row.Cells[5].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        if(plugin.parameters.ShowCommentCount != ShowCommentCountType.DontShow)
+                        {
+                            int commentcount=int.Parse(issue.Evaluate("count(comment)").ToString());
+                            row.Cells[5].Value = commentcount.ToString();
+                        }
+
                         IssuesList.Rows.Add(row);
                         RowToUUID.Add(row, uuid);
                     }
@@ -268,6 +277,13 @@ namespace BEurtle
                     editIssue(uuid);
                 }
             }
+        }
+
+        private void IssuesList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // If and only if it's the comment count do we pretend this was a double click
+            if (e.ColumnIndex == 5)
+                IssuesList_CellDoubleClick(sender, e);
         }
 
         private void IssuesList_KeyDown(object sender, KeyEventArgs e)
@@ -629,6 +645,11 @@ namespace BEurtle
         private void IssuesForm_Load(object sender, EventArgs e)
         {
             new WindowSettings(this).load();
+        }
+
+        private void LinkAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            aboutToolStripMenuItem_Click(sender, null);
         }
 
 

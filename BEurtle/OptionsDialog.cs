@@ -53,8 +53,20 @@ namespace BEurtle
                     BoxDumpHTMLPath.Text = parsed.DumpHTMLPath;
                     CheckAddCommitAsComment.Checked = parsed.AddCommitAsComment;
                     CheckFilterOutClosedIssues.Checked = parsed.FilterOutClosedIssues;
-                    CheckUseBEXML.Checked = parsed.UseBEXML;
                     CheckBEXMLCache.Checked = parsed.CacheBEXML;
+                    switch(parsed.ShowCommentCount)
+                    {
+                        case ShowCommentCountType.DontShow:
+                            CheckShowCommentCount.CheckState = CheckState.Unchecked;
+                            break;
+                        case ShowCommentCountType.ShowEasy:
+                            CheckShowCommentCount.CheckState = CheckState.Indeterminate;
+                            break;
+                        case ShowCommentCountType.ShowAll:
+                            CheckShowCommentCount.CheckState = CheckState.Checked;
+                            break;
+                    }
+                    CheckUseBEXML.Checked = parsed.UseBEXML;
                 }
                 else
                 {
@@ -79,8 +91,20 @@ namespace BEurtle
             if (DumpHTMLPathChanged) parameters += "&DumpHTMLPath=" + BoxDumpHTMLPath.Text;
             parameters += "&AddCommitAsComment=" + CheckAddCommitAsComment.Checked.ToString();
             parameters += "&FilterOutClosedIssues=" + CheckFilterOutClosedIssues.Checked.ToString();
-            parameters += "&UseBEXML=" + CheckUseBEXML.Checked.ToString();
             parameters += "&CacheBEXML=" + CheckBEXMLCache.Checked.ToString();
+            switch (CheckShowCommentCount.CheckState)
+            {
+                case CheckState.Unchecked:
+                    parameters += "&ShowCommentCount=DontShow";
+                    break;
+                case CheckState.Indeterminate:
+                    parameters += "&ShowCommentCount=ShowEasy";
+                    break;
+                case CheckState.Checked:
+                    parameters += "&ShowCommentCount=ShowAll";
+                    break;
+            }
+            parameters += "&UseBEXML=" + CheckUseBEXML.Checked.ToString();
         }
 
         private void BoxBEPath_TextChanged(object sender, EventArgs e)

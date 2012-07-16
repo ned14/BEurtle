@@ -6,14 +6,14 @@ reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] co
   <spam@spamtrap.com>'
 
 
-severity: serious
+severity: wishlist
 
 
-status: assigned
+status: fixed
 
 
-summary: HTML output still isn't SCM adding all new updated issues/comments
+summary: Add program version and my name to front issues dialog
 
 
-time: Sun, 15 Jul 2012 20:29:37 +0000
+time: Sun, 15 Jul 2012 20:32:34 +0000
 

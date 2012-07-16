@@ -51,6 +51,7 @@
             this.ButtonReset = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CheckShowCommentCount = new System.Windows.Forms.CheckBox();
             this.OptionsGroupBox.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -123,6 +124,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.CheckShowCommentCount);
             this.splitContainer1.Panel2.Controls.Add(this.CheckBEXMLCache);
             this.splitContainer1.Panel2.Controls.Add(this.CheckUseBEXML);
             this.splitContainer1.Size = new System.Drawing.Size(407, 113);
@@ -185,10 +187,10 @@
             // 
             this.CheckUseBEXML.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CheckUseBEXML.Location = new System.Drawing.Point(3, 39);
+            this.CheckUseBEXML.Location = new System.Drawing.Point(3, 62);
             this.CheckUseBEXML.Name = "CheckUseBEXML";
             this.CheckUseBEXML.Size = new System.Drawing.Size(196, 43);
-            this.CheckUseBEXML.TabIndex = 7;
+            this.CheckUseBEXML.TabIndex = 8;
             this.CheckUseBEXML.Text = "Use experimental BEXML REST server instead of embedded BE (instant fast everythin" +
     "g)";
             this.CheckUseBEXML.UseVisualStyleBackColor = true;
@@ -220,7 +222,7 @@
             this.LinkGithubIssues.Location = new System.Drawing.Point(95, 315);
             this.LinkGithubIssues.Name = "LinkGithubIssues";
             this.LinkGithubIssues.Size = new System.Drawing.Size(159, 13);
-            this.LinkGithubIssues.TabIndex = 8;
+            this.LinkGithubIssues.TabIndex = 9;
             this.LinkGithubIssues.TabStop = true;
             this.LinkGithubIssues.Text = "Check/Report Issues on GitHub";
             this.LinkGithubIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkGithubIssues_LinkClicked);
@@ -240,7 +242,7 @@
             this.LinkHomepage.Location = new System.Drawing.Point(95, 332);
             this.LinkHomepage.Name = "LinkHomepage";
             this.LinkHomepage.Size = new System.Drawing.Size(255, 13);
-            this.LinkHomepage.TabIndex = 9;
+            this.LinkHomepage.TabIndex = 10;
             this.LinkHomepage.TabStop = true;
             this.LinkHomepage.Text = "http://www.nedprod.com/programs/Win32/BEurtle/";
             this.LinkHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHomepage_LinkClicked);
@@ -261,7 +263,7 @@
             this.ButtonOk.Location = new System.Drawing.Point(357, 527);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOk.TabIndex = 13;
+            this.ButtonOk.TabIndex = 14;
             this.ButtonOk.Text = "OK";
             this.ButtonOk.UseVisualStyleBackColor = true;
             // 
@@ -272,7 +274,7 @@
             this.ButtonCancel.Location = new System.Drawing.Point(276, 527);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 12;
+            this.ButtonCancel.TabIndex = 13;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
             // 
@@ -282,7 +284,7 @@
             this.ButtonReset.Location = new System.Drawing.Point(195, 527);
             this.ButtonReset.Name = "ButtonReset";
             this.ButtonReset.Size = new System.Drawing.Size(75, 23);
-            this.ButtonReset.TabIndex = 11;
+            this.ButtonReset.TabIndex = 12;
             this.ButtonReset.Text = "Reset";
             this.ButtonReset.UseVisualStyleBackColor = true;
             this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
@@ -295,7 +297,7 @@
             this.LinkDonate.Location = new System.Drawing.Point(12, 366);
             this.LinkDonate.Name = "LinkDonate";
             this.LinkDonate.Size = new System.Drawing.Size(420, 158);
-            this.LinkDonate.TabIndex = 10;
+            this.LinkDonate.TabIndex = 11;
             this.LinkDonate.TabStop = true;
             this.LinkDonate.Text = "Buy Niall a coffee or beer to thank him for his work";
             this.LinkDonate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -310,6 +312,17 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
+            // 
+            // CheckShowCommentCount
+            // 
+            this.CheckShowCommentCount.AutoSize = true;
+            this.CheckShowCommentCount.Location = new System.Drawing.Point(3, 39);
+            this.CheckShowCommentCount.Name = "CheckShowCommentCount";
+            this.CheckShowCommentCount.Size = new System.Drawing.Size(131, 17);
+            this.CheckShowCommentCount.TabIndex = 7;
+            this.CheckShowCommentCount.Text = "Show Comment Count";
+            this.CheckShowCommentCount.ThreeState = true;
+            this.CheckShowCommentCount.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -341,6 +354,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -372,5 +386,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.CheckBox CheckBEXMLCache;
         private System.Windows.Forms.CheckBox CheckUseBEXML;
+        private System.Windows.Forms.CheckBox CheckShowCommentCount;
     }
 }
