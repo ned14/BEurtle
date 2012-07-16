@@ -31,6 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssuesForm));
             this.IssuesList = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Severity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCount = new System.Windows.Forms.DataGridViewLinkColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.changeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unconfirmedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,12 +91,6 @@
             this.LinkAbout = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Severity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Created1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentCount = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.IssuesList)).BeginInit();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -127,6 +127,54 @@
             this.IssuesList.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.IssuesList_CellMouseDown);
             this.IssuesList.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.IssuesList_SortCompare);
             this.IssuesList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IssuesList_KeyDown);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "ID";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 50;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.Width = 70;
+            // 
+            // Severity
+            // 
+            this.Severity.HeaderText = "Severity";
+            this.Severity.Name = "Severity";
+            this.Severity.ReadOnly = true;
+            this.Severity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Severity.Width = 70;
+            // 
+            // Created1
+            // 
+            this.Created1.HeaderText = "Created";
+            this.Created1.Name = "Created1";
+            this.Created1.ReadOnly = true;
+            this.Created1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Created1.Width = 130;
+            // 
+            // Summary
+            // 
+            this.Summary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Summary.HeaderText = "Summary";
+            this.Summary.Name = "Summary";
+            this.Summary.ReadOnly = true;
+            // 
+            // CommentCount
+            // 
+            this.CommentCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.CommentCount.HeaderText = "Comments";
+            this.CommentCount.Name = "CommentCount";
+            this.CommentCount.ReadOnly = true;
+            this.CommentCount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CommentCount.UseColumnTextForLinkValue = true;
+            this.CommentCount.Width = 5;
             // 
             // contextMenu
             // 
@@ -581,54 +629,6 @@
             this.label3.Size = new System.Drawing.Size(139, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "(C) 2011-2012 Niall Douglas";
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "ID";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 50;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.Width = 70;
-            // 
-            // Severity
-            // 
-            this.Severity.HeaderText = "Severity";
-            this.Severity.Name = "Severity";
-            this.Severity.ReadOnly = true;
-            this.Severity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Severity.Width = 70;
-            // 
-            // Created1
-            // 
-            this.Created1.HeaderText = "Created";
-            this.Created1.Name = "Created1";
-            this.Created1.ReadOnly = true;
-            this.Created1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Created1.Width = 130;
-            // 
-            // Summary
-            // 
-            this.Summary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Summary.HeaderText = "Summary";
-            this.Summary.Name = "Summary";
-            this.Summary.ReadOnly = true;
-            // 
-            // CommentCount
-            // 
-            this.CommentCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.CommentCount.HeaderText = "Comments";
-            this.CommentCount.Name = "CommentCount";
-            this.CommentCount.ReadOnly = true;
-            this.CommentCount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CommentCount.UseColumnTextForLinkValue = true;
-            this.CommentCount.Width = 5;
             // 
             // IssuesForm
             // 

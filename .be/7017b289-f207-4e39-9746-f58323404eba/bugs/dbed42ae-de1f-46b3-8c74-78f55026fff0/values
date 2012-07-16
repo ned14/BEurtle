@@ -9,7 +9,7 @@ reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] co
 severity: serious
 
 
-status: assigned
+status: fixed
 
 
 summary: Editing an existing bug isn't updating the XML cache, probably because BE
