@@ -333,8 +333,9 @@ namespace BEurtle
             return ret;
         }
 
-        public void writeHTML(Win32Window hwnd, string rootdir)
+        public void writeHTML(IWin32Window hwnd, string rootdir=null)
         {
+            if (rootdir == null) rootdir = rootpath;
             try
             {
                 if (parameters.DumpHTML)

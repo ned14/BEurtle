@@ -911,6 +911,7 @@ namespace BEurtle
                 }
             }
             // Force master XML reload
+            plugin.writeHTML(this);
             plugin.loadIssues(this);
             CommentEditCancel_Click(null, null);
             return false;
