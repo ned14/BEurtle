@@ -13,12 +13,16 @@
 <?endif ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <Product Id="*" Name="BEurtle Plugin for TortoiseXXX ($(var.Platform))" Language="1033" Version="$(var.Version)" Manufacturer="ned Productions Limited" UpgradeCode="$(var.UpgradeCode)">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <Icon Id="icon.ico" SourceFile="..\BEurtle\Resources\MainIcon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\Licence.rtf" />
+    
     <PropertyRef Id="NETFRAMEWORK20"/>
     <Condition Message="This application requires .NET Framework 2.0. Please install the .NET Framework then run this installer again.">
       <![CDATA[Installed OR NETFRAMEWORK20]]>
     </Condition>
-    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of BEurtle is already installed." />
 
     <Directory Id="TARGETDIR" Name="SourceDir">

@@ -20,9 +20,11 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>BE_srcdir=..\..\..\BE\dist;BEurtle_bindir=..\..\..\BEurtle\bin\Release</DefineConstants>
+	<SignOutput>true</SignOutput>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BE.wxs" />
+    <Compile Include="BEgui.exe.wxs" />
     <Compile Include="BEurtle.dll.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
@@ -39,9 +41,17 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PreBuildEvent>set PATH=C:\Program Files (x86)\WiX Toolset v3.6\bin%3b%25PATH%25
+echo %PATH%
 heat dir ..\..\..\BE\dist -sreg -ag -cg BE -dr INSTALLDIR -var var.BE_srcdir -out ..\..\BE.wxs
-heat file ..\..\..\BEurtle\bin\Release\BEurtle.dll -ag -srd -cg BEurtle.dll -dr INSTALLDIR -var var.BEurtle_bindir -out ..\..\BEurtle.dll.wxs</PreBuildEvent>
+heat file ..\..\..\BEurtle\bin\Release\BEurtle.dll -ag -srd -cg BEurtle.dll -dr INSTALLDIR -var var.BEurtle_bindir -out ..\..\BEurtle.dll.wxs
+heat file ..\..\..\BEgui\bin\Release\BEgui.exe -ag -srd -cg BEgui.exe -dr INSTALLDIR -var var.BEurtle_bindir -out ..\..\BEgui.exe.wxs</PreBuildEvent>
   </PropertyGroup>
+  <Target Name="SignCabs">
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\Signtool.exe&quot; sign /a &quot;%(SignCabs.FullPath)&quot;" />
+  </Target>
+  <Target Name="SignMsi">
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\Signtool.exe&quot; sign /a &quot;%(SignMsi.FullPath)&quot;" />
+  </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
