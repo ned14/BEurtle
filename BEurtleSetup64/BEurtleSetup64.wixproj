@@ -19,8 +19,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>BE_srcdir=..\..\..\..\BE\dist;BEurtle_bindir=..\..\..\..\BEurtle\bin\Release</DefineConstants>
-	<SignOutput>true</SignOutput>
+    <DefineConstants>BE_srcdir=..\..\..\..\BE\dist;BEurtle_bindir=..\..\..\..\BEurtle\bin\Release;BEgui_bindir=..\..\..\..\BEgui\bin\Release</DefineConstants>
+    <SignOutput>true</SignOutput>
   </PropertyGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">

@@ -45,6 +45,7 @@
     <Feature Id="FeaturePlugin" Title="BEurtle Plugin for TortoiseXXX ($(var.Platform))" Description="A TortoiseXXX plugin for the Bugs Everywhere distributed issue tracker"
              Display="expand" Level="1" ConfigurableDirectory='INSTALLDIR' AllowAdvertise='no'>
         <ComponentGroupRef Id="BEurtle.dll"/>
+        <ComponentGroupRef Id="BEgui.exe"/>
         <ComponentRef Id="Plugin" />
         <ComponentRef Id="Readme" />
         <ComponentGroupRef Id="BE"  />

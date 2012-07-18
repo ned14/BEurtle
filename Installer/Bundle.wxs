@@ -26,6 +26,7 @@
         Id="Setup32"
         Compressed="yes"
         SourceFile="..\BEurtleSetup32\bin\Release\BEurtleSetup32.msi"
+        SuppressSignatureVerification="yes"
         Vital="yes">
         <MsiProperty Name="INSTALLLOCATION" Value="[ProgramFilesFolder]ned Productions Limited\BEurtle" />
       </MsiPackage>
@@ -33,6 +34,7 @@
         Id="Setup64"
         Compressed="yes"
         SourceFile="..\BEurtleSetup64\bin\Release\BEurtleSetup64.msi"
+        SuppressSignatureVerification="yes"
         InstallCondition="VersionNT64"
         Vital="yes">
         <MsiProperty Name="INSTALLLOCATION" Value="[ProgramFiles64Folder]ned Productions Limited\BEurtle" />
@@ -42,7 +44,7 @@
 
   <Fragment>
     <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v2.0.50727" Value="Version" Variable="Netfx20Version" />
-    <util:RegistrySearch Root="HKCR" Key="Installer\Assemblies\Global" Value="Microsoft.mshtml,Version=&quot;7.0.3300.0&quot;,PublicKeyToken=&quot;b03f5f7f11d50a3a&quot;,Culture=&quot;neutral&quot;,FileVersion=&quot;7.0.3300.0&quot;" Variable="MshtmlVersion" />
+    <util:RegistrySearch Root="HKCR" Key="Installer\Assemblies\Global" Value="Microsoft.mshtml,Version=&quot;7.0.3300.0&quot;,PublicKeyToken=&quot;b03f5f7f11d50a3a&quot;,Culture=&quot;neutral&quot;,FileVersion=&quot;7.0.3300.0&quot;" Result="exists" Variable="MshtmlVersion" />
 
     <PackageGroup Id="Netfx20">
       <!-- This embeds the .NET 3.0 web installer for virgin WinXP installs. Costs ~3Mb extra to installer size + 50Mb to download. -->

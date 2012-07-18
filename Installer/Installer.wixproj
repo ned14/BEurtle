@@ -21,7 +21,7 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>
     </DefineConstants>
-	<SignOutput>true</SignOutput>
+    <SignOutput>true</SignOutput>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bundle.wxs" />
