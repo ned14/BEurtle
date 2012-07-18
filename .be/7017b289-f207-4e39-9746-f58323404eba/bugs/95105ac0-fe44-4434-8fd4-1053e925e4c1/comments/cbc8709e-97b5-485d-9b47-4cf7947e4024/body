@@ -1,0 +1,6 @@
+<P>To replicate, do as follows:</P>
+<OL>
+<LI>Open any old web page in Internet Explorer.</LI>
+<LI>Select All.</LI>
+<LI>Drag and drop onto BEurtle.</LI>
+<LI>BE will puke that utf8 code can't decode byte. It suggests that you should set a locale that supports unicode e.g. export LANG=en_US.utf8</LI></OL>

@@ -1,6 +1,6 @@
-BEurtle v1.01 beta 1 (3rd August 2011)
+BEurtle v1.50 alpha 1 (18th July 2012)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-(C) 2011 Niall Douglas, ned Productions Limited
+(C) 2011-2012 Niall Douglas, ned Productions Limited, http://www.nedproductions.biz/
 
 Please find enclosed a TortoiseXXX plugin for the Bugs Everywhere
 distributed issue tracker (http://www.bugseverywhere.org/). The plugin
@@ -42,63 +42,64 @@ close, so you can mess around with settings and the list of issues will
 dynamically update itself as you change things. Of course, you can add and
 delete issues using the buttons at the bottom of the dialog.
 
-Double-clicking or hitting enter on an issue will open its detail box
-which also makes a very basic stab at showing the comments with replies
-correctly sorted and indented (i.e. they're threaded). It doesn't look
-pretty, but it's sufficient. You can edit an issue by clicking the Edit
-button, and upon hitting OK it will save out the changes.
+Double-clicking or hitting enter on an issue will open its detail box.
+You can view comments, add new ones, or reply to existing comments. You
+can also edit the issue's detail, and drag and drop message content
+(including HTML/pictures/binary attachments) between BEurtle and any
+COM supporting application.
 
 HTTP access is supported, so you can enter a http:// remote repo address
 and after some delay due to BE being slow it will appear. All editing
 operations are also supported on remote repos.
 
-Note that listing all bugs including closed ones on
-http://bugs.bugseverywhere.org/ pukes on the command line, so it pukes also
-in this plugin. Hassle BE's author to fix this.
+If you use the embedded copy of BE (in Program Files/.../BEurtle/dist),
+you can do 'be gui' to launch BEurtle from the command line.
+
 
 What isn't supported:
 -=-=-=-=-=-=-=-=-=-=-
-There is no way to add or edit comments.
-
-Binary attachments to comments aren't decoded.
-
-Currently can't export or import bugs in XML. This might get fixed in v1.1.
-
-Currently it doesn't keep a list of people who have previously fixed
-something. This would be useful for quick-assigning someone to fix a bug.
-
 There is no bug dependency support at all, nor for tagging.
 
-There is no support for diffing, setting due dates, merging, subscribing or
-targeting.
+There is no support for setting due dates, subscribing or targeting.
 
-Lastly, I'd personally really like a way of merging GitHub issues with BE
-issues. Because I'd personally really like this, you have a good chance of
-seeing support for it soon.
+This release wraps the be command line directly, and as a result is
+painfully slow on Intel Atom netbooks. A fix (not to use be) is coming soon.
 
+What's coming soon:
+-=-=-=-=-=-=-=-=-=-
+As I mentioned above, on an underpowered Intel Atom laptop BEurtle is
+fairly painfully slow as several invocations of BE have to often be made
+per BEurtle operation, and things can take a few seconds to happen. Next
+release of BEurtle will use BEXML, a very fast, lazy, RESTful web service
+exposing Bugs Everywhere and other issue trackers. Once BEurtle is using
+BEXML, all operations will be nearly instant, even on an Atom netbook.
+
+BEXML is slowly gaining the ability to wrap a Redmine issue tracker in a
+BEXML interface, and not long after that it will also be able to wrap a
+Github issue tracker too. That will enable BEurtle to access Redmine/
+Github/any supported backend issue trackers and therefore to automagically
+copy/move/merge bugs and issues between your Bugs Everywhere tracker and
+any supported external tracker. I need this facility personally, so you
+have a very strong chance of seeing it completed soon as it would save me
+a great deal of time personally.
 
 To Install:
 -=-=-=-=-=-
-1. Go install Python (http://www.python.org/). You probably want a 2.x
-version as I don't think BE fully supports 3.x yet.
+1. Install your choice of TortoiseSVN, TortoiseGIT, TortoiseHG, TortoiseBZR etc.
 
-2. Supposedly the installer will automatically download .NET v2.0 if it isn't
-present on your system, but if it doesn't then you need that too before installing.
+2. Install this plugin.
 
-3. Run either the x86 or x64 installer as appropriate to your system. Point the
-installer at your python installation and where you want to install the plugin.
-
-4. Open up your TortoiseXXX settings dialog choosing Issue Tracker Integration.
+3. Open up your TortoiseXXX settings dialog choosing Issue Tracker Integration.
 Click Add and type in the path of the root of your repository, choosing BEurtle
 as the provider. Click on the Options button and choose what options you'd prefer.
 Exit by clicking OK, then OK to close the Issue Tracker Integration dialog.
 
-5. Try committing something in your repository. You should see a "Bugs, Bugs, Bugs!"
+4. Try committing something in your repository. You should see a "Bugs, Bugs, Bugs!"
 button in the top right of the commit box. Click that. You should get the dialog
 and a message asking if you want to create a new BE repository because there is no
 BE repository in your VC repository root. Say yes to this.
 
-6. Remember that BE's tracking data is stored by your VC repository. After you
+5. Remember that BE's tracking data is stored by your VC repository. After you
 modify issues you'll need to commit to your VC repository to store the changes. Enjoy!
 
 
@@ -122,6 +123,35 @@ strike a fixed price deal with any customer.
 
 ChangeLog:
 -=-=-=-=-=
+v1.50 alpha 1 (18th July 2012):
+
+Bugs fixed:
+  * Fixed lack of unicode support by hacking BE to behave on Windows.
+  * Fixed missing severity change feature on context menu.
+  * Went through the code and trapped every possible disc i/o error I could find,
+    now doing something sensible instead of erroring out.
+  * Installer now deinstalls properly instead of leaving files around.
+  * Python no longer needs to be installed for BEurtle to work.
+  * HTML dump finally works properly and doesn't forget to add newly dumped items.
+
+Features added:
+  * F5 now refreshes bug list.
+  * Added auto-completion of commonly used fields like Author, Reporter etc.
+  * Added commenting display and support.
+  * Added fancy new rich text comment editor based on MSHTML.
+  * Files and data can now be dragged and dropped in to create comments.
+  * BEurtle windows now remember their position and location across appearances,
+    correctly coping with multi-monitor setups and resolution changes.
+  * BE no longer needs to be installed for BEurtle to work (it uses an embedded
+    copy of BE and a Python 2.7.2 runtime).
+  * BE XML dump is now optionally cached and the cache is used to greatly reduce
+    first load time if it isn't stale. This is a godsend on my netbook.
+  * Installer is now x86/x64 unified, securely signed, and auto-detects missing
+    dependencies and auto-installs them.
+  * Now optionally shows comment counts in main dialog.
+  * Added 'be gui' tool to embedded BE. This simply launches BEurtle from the
+    current directory.
+
 v1.01 beta 1 (3rd August 2011):
   * [SHA: e6eadbe]
     * Issue 701/944 (Add some filter settings so one can filter by status and

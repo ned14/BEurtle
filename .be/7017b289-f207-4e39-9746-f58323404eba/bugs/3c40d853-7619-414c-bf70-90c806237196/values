@@ -1,0 +1,19 @@
+creator: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] com\)"
+  <spam@spamtrap.com>'
+
+
+reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] com\)"
+  <spam@spamtrap.com>'
+
+
+severity: minor
+
+
+status: open
+
+
+summary: Shouldn't be possible to add an issue with no summary
+
+
+time: Wed, 18 Jul 2012 14:40:16 +0000
+

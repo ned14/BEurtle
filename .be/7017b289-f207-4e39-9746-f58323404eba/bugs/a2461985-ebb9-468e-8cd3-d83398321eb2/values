@@ -1,0 +1,20 @@
+creator: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] com\)"
+  <spam@spamtrap.com>'
+
+
+reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] com\)"
+  <spam@spamtrap.com>'
+
+
+severity: minor
+
+
+status: open
+
+
+summary: Drag and drop a message should set a default issue subject. It might try
+  extracting reporter too.
+
+
+time: Wed, 18 Jul 2012 14:42:09 +0000
+
