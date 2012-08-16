@@ -40,10 +40,10 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="SignCabs">
-    <Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\Signtool.exe&quot; sign /a &quot;%(SignCabs.FullPath)&quot;" />
+    <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\8.0\bin\x86\Signtool.exe&quot; sign /v /a /ph /d &quot;BEurtle Plugin for TortoiseXXX&quot; /du &quot;http://www.nedprod.com/programs/Win32/BEurtle/&quot; /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;%(SignCabs.FullPath)&quot;" />
   </Target>
   <Target Name="SignMsi">
-    <Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\Signtool.exe&quot; sign /a &quot;%(SignMsi.FullPath)&quot;" />
+    <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\8.0\bin\x86\Signtool.exe&quot; sign /v /a /ph /d &quot;BEurtle Plugin for TortoiseXXX&quot; /du &quot;http://www.nedprod.com/programs/Win32/BEurtle/&quot; /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;%(SignMsi.FullPath)&quot;" />
   </Target>
   <PropertyGroup>
     <PreBuildEvent>set PATH=C:\Program Files (x86)\WiX Toolset v3.6\bin%3b%25PATH%25
