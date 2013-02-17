@@ -1,5 +1,5 @@
-BEurtle v1.50 alpha 2 (?)
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+BEurtle v1.50 alpha 2 (17th February 2013)
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 (C) 2011-2013 Niall Douglas, ned Productions Limited, http://www.nedproductions.biz/
 
 Please find enclosed a TortoiseXXX plugin for the Bugs Everywhere
@@ -123,7 +123,7 @@ strike a fixed price deal with any customer.
 
 ChangeLog:
 -=-=-=-=-=
-v1.50 alpha 2 (?):
+v1.50 alpha 2 (17th February 2013):
 
 Bugs fixed:
   * Opening a new issue, then pressing new comment, then closing the window no

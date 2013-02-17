@@ -628,7 +628,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(139, 13);
             this.label3.TabIndex = 12;
-            this.label3.Text = "(C) 2011-2012 Niall Douglas";
+            this.label3.Text = "(C) 2011-2013 Niall Douglas";
             // 
             // IssuesForm
             // 
