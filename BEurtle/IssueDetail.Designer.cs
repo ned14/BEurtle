@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Comment1Reply");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Comment1Reply");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Comment1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("image/jpeg", 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueDetail));
             this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
@@ -58,6 +58,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.CommentAuthor = new System.Windows.Forms.TextBox();
             this.Commentary = new System.Windows.Forms.SplitContainer();
+            this.CommentReply = new System.Windows.Forms.Button();
             this.CommentEdit = new System.Windows.Forms.Button();
             this.CommentDelete = new System.Windows.Forms.Button();
             this.CommentAdd = new System.Windows.Forms.Button();
@@ -91,7 +92,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.CommentReply = new System.Windows.Forms.Button();
+            this.CommentContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Undo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.Paste = new System.Windows.Forms.ToolStripMenuItem();
+            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.SelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Commentary.Panel1.SuspendLayout();
             this.Commentary.Panel2.SuspendLayout();
             this.Commentary.SuspendLayout();
@@ -101,6 +110,7 @@
             this.CommentBodyViewRaw.SuspendLayout();
             this.CommentBodyViewFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.CommentContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonOK
@@ -372,6 +382,18 @@
             this.Commentary.SplitterDistance = 100;
             this.Commentary.TabIndex = 24;
             // 
+            // CommentReply
+            // 
+            this.CommentReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommentReply.Enabled = false;
+            this.CommentReply.Location = new System.Drawing.Point(358, 74);
+            this.CommentReply.Name = "CommentReply";
+            this.CommentReply.Size = new System.Drawing.Size(75, 23);
+            this.CommentReply.TabIndex = 10;
+            this.CommentReply.Text = "Reply";
+            this.CommentReply.UseVisualStyleBackColor = true;
+            this.CommentReply.Click += new System.EventHandler(this.CommentReply_Click);
+            // 
             // CommentEdit
             // 
             this.CommentEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -417,12 +439,12 @@
             this.Comments.HideSelection = false;
             this.Comments.Location = new System.Drawing.Point(3, 3);
             this.Comments.Name = "Comments";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Comment1Reply";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Comment1";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Comment1Reply";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Comment1";
             this.Comments.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4});
+            treeNode2});
             this.Comments.Size = new System.Drawing.Size(349, 94);
             this.Comments.TabIndex = 6;
             this.Comments.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Comments_ItemDrag);
@@ -612,6 +634,7 @@
             this.CommentBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommentBody.ContextMenuStrip = this.CommentContextMenu;
             this.CommentBody.IsWebBrowserContextMenuEnabled = false;
             this.CommentBody.Location = new System.Drawing.Point(6, 35);
             this.CommentBody.MinimumSize = new System.Drawing.Size(20, 20);
@@ -628,7 +651,7 @@
             this.CommentBodyViewRaw.Location = new System.Drawing.Point(4, 22);
             this.CommentBodyViewRaw.Name = "CommentBodyViewRaw";
             this.CommentBodyViewRaw.Padding = new System.Windows.Forms.Padding(3);
-            this.CommentBodyViewRaw.Size = new System.Drawing.Size(422, 158);
+            this.CommentBodyViewRaw.Size = new System.Drawing.Size(422, 151);
             this.CommentBodyViewRaw.TabIndex = 1;
             this.CommentBodyViewRaw.Text = "Raw HTML";
             this.CommentBodyViewRaw.UseVisualStyleBackColor = true;
@@ -654,7 +677,7 @@
             this.CommentBodyViewFile.Location = new System.Drawing.Point(4, 22);
             this.CommentBodyViewFile.Name = "CommentBodyViewFile";
             this.CommentBodyViewFile.Padding = new System.Windows.Forms.Padding(3);
-            this.CommentBodyViewFile.Size = new System.Drawing.Size(422, 158);
+            this.CommentBodyViewFile.Size = new System.Drawing.Size(422, 151);
             this.CommentBodyViewFile.TabIndex = 2;
             this.CommentBodyViewFile.Text = "File";
             this.CommentBodyViewFile.UseVisualStyleBackColor = true;
@@ -688,7 +711,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DraggableIcon.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.DraggableIcon.LargeImageList = this.imageList1;
             this.DraggableIcon.Location = new System.Drawing.Point(6, 6);
             this.DraggableIcon.Name = "DraggableIcon";
@@ -753,17 +776,70 @@
             // 
             this.openFileDialog.ReadOnlyChecked = true;
             // 
-            // CommentReply
+            // CommentContextMenu
             // 
-            this.CommentReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentReply.Enabled = false;
-            this.CommentReply.Location = new System.Drawing.Point(358, 74);
-            this.CommentReply.Name = "CommentReply";
-            this.CommentReply.Size = new System.Drawing.Size(75, 23);
-            this.CommentReply.TabIndex = 10;
-            this.CommentReply.Text = "Reply";
-            this.CommentReply.UseVisualStyleBackColor = true;
-            this.CommentReply.Click += new System.EventHandler(this.CommentReply_Click);
+            this.CommentContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Undo,
+            this.toolStripSeparator1,
+            this.Cut,
+            this.Copy,
+            this.Paste,
+            this.Delete,
+            this.toolStripSeparator2,
+            this.SelectAll});
+            this.CommentContextMenu.Name = "CommentContextMenu";
+            this.CommentContextMenu.Size = new System.Drawing.Size(165, 148);
+            // 
+            // Undo
+            // 
+            this.Undo.Name = "Undo";
+            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.Undo.Size = new System.Drawing.Size(164, 22);
+            this.Undo.Text = "Undo";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // Cut
+            // 
+            this.Cut.Name = "Cut";
+            this.Cut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.Cut.Size = new System.Drawing.Size(164, 22);
+            this.Cut.Text = "Cut";
+            // 
+            // Copy
+            // 
+            this.Copy.Name = "Copy";
+            this.Copy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.Copy.Size = new System.Drawing.Size(164, 22);
+            this.Copy.Text = "Copy";
+            // 
+            // Paste
+            // 
+            this.Paste.Name = "Paste";
+            this.Paste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.Paste.Size = new System.Drawing.Size(164, 22);
+            this.Paste.Text = "Paste";
+            // 
+            // Delete
+            // 
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(164, 22);
+            this.Delete.Text = "Delete";
+            // 
+            // SelectAll
+            // 
+            this.SelectAll.Name = "SelectAll";
+            this.SelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.SelectAll.Size = new System.Drawing.Size(164, 22);
+            this.SelectAll.Text = "Select All";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
             // 
             // IssueDetail
             // 
@@ -813,6 +889,7 @@
             this.CommentBodyViewRaw.ResumeLayout(false);
             this.CommentBodyViewFile.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.CommentContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,5 +955,14 @@
         private System.Windows.Forms.Button CommentEditCancel;
         private System.Windows.Forms.Button CommentEditSave;
         private System.Windows.Forms.Button CommentReply;
+        private System.Windows.Forms.ContextMenuStrip CommentContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem Undo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem Cut;
+        private System.Windows.Forms.ToolStripMenuItem Copy;
+        private System.Windows.Forms.ToolStripMenuItem Paste;
+        private System.Windows.Forms.ToolStripMenuItem Delete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem SelectAll;
     }
 }

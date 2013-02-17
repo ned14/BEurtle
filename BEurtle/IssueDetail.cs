@@ -9,7 +9,7 @@ using System.Xml.XPath;
 using System.Xml;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
-using mshtml;
+using MSHTML;
 using System.IO;
 using System.Collections.Specialized;
 
@@ -898,16 +898,19 @@ namespace BEurtle
             {
                 string mimetype=DraggableIcon.Items[0].Text;
                 string commentbody=CommentBody.Document.Body.InnerHtml;
-                if (mimetype.StartsWith("text/")) mimetype="text/html";
-                string cmd = "comment --author=\"" + CommentAuthor.Text.Replace("\"", "\\\"") + "\" --content-type=" + mimetype + " " + (commentingupon != null ? commentingupon : BoxShortName.Text) + " -";
-                string[] outputs = plugin.callBEcmd(plugin.rootpath,
-                    new string[1] { cmd },
-                    new string[1] { commentbody });
-                // Format is "Created comment with ID 701/356/xxx/xxx/xxx"
-                if (!outputs[0].StartsWith("Created comment with ID "))
+                if (commentbody != null)
                 {
-                    MessageBox.Show(this, "Error adding comment: " + outputs[0]);
-                    return false;
+                    if (mimetype.StartsWith("text/")) mimetype = "text/html";
+                    string cmd = "comment --author=\"" + CommentAuthor.Text.Replace("\"", "\\\"") + "\" --content-type=" + mimetype + " " + (commentingupon != null ? commentingupon : BoxShortName.Text) + " -";
+                    string[] outputs = plugin.callBEcmd(plugin.rootpath,
+                        new string[1] { cmd },
+                        new string[1] { commentbody });
+                    // Format is "Created comment with ID 701/356/xxx/xxx/xxx"
+                    if (!outputs[0].StartsWith("Created comment with ID "))
+                    {
+                        MessageBox.Show(this, "Error adding comment: " + outputs[0]);
+                        return false;
+                    }
                 }
             }
             // Force master XML reload

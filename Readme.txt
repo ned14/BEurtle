@@ -1,6 +1,6 @@
-BEurtle v1.50 alpha 1 (18th July 2012)
+BEurtle v1.50 alpha 2 (?)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-(C) 2011-2012 Niall Douglas, ned Productions Limited, http://www.nedproductions.biz/
+(C) 2011-2013 Niall Douglas, ned Productions Limited, http://www.nedproductions.biz/
 
 Please find enclosed a TortoiseXXX plugin for the Bugs Everywhere
 distributed issue tracker (http://www.bugseverywhere.org/). The plugin
@@ -123,6 +123,12 @@ strike a fixed price deal with any customer.
 
 ChangeLog:
 -=-=-=-=-=
+v1.50 alpha 2 (?):
+
+Bugs fixed:
+
+Features added:
+
 v1.50 alpha 1 (18th July 2012):
 
 Bugs fixed:

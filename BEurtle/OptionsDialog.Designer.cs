@@ -38,6 +38,7 @@
             this.CheckDumpHTML = new System.Windows.Forms.CheckBox();
             this.CheckAddCommitAsComment = new System.Windows.Forms.CheckBox();
             this.BoxDumpHTMLPath = new System.Windows.Forms.TextBox();
+            this.CheckShowCommentCount = new System.Windows.Forms.CheckBox();
             this.CheckBEXMLCache = new System.Windows.Forms.CheckBox();
             this.CheckUseBEXML = new System.Windows.Forms.CheckBox();
             this.BoxDefaultAuthor = new System.Windows.Forms.TextBox();
@@ -51,7 +52,6 @@
             this.ButtonReset = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.CheckShowCommentCount = new System.Windows.Forms.CheckBox();
             this.OptionsGroupBox.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,7 +68,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(231, 94);
             this.label1.TabIndex = 0;
-            this.label1.Text = "BEurtle v1.50 αlpha 1";
+            this.label1.Text = "BEurtle v1.50 αlpha 2";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Link_nedproductions
@@ -80,7 +80,7 @@
             this.Link_nedproductions.Size = new System.Drawing.Size(231, 29);
             this.Link_nedproductions.TabIndex = 0;
             this.Link_nedproductions.TabStop = true;
-            this.Link_nedproductions.Text = "(C) 2011-2012 Niall Douglas, ned Productions Limited";
+            this.Link_nedproductions.Text = "(C) 2011-2013 Niall Douglas, ned Productions Limited";
             this.Link_nedproductions.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Link_nedproductions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_nedproductions_LinkClicked);
             // 
@@ -171,6 +171,17 @@
             this.BoxDumpHTMLPath.Size = new System.Drawing.Size(195, 20);
             this.BoxDumpHTMLPath.TabIndex = 3;
             this.BoxDumpHTMLPath.TextChanged += new System.EventHandler(this.BoxDumpHTMLPath_TextChanged);
+            // 
+            // CheckShowCommentCount
+            // 
+            this.CheckShowCommentCount.AutoSize = true;
+            this.CheckShowCommentCount.Location = new System.Drawing.Point(3, 39);
+            this.CheckShowCommentCount.Name = "CheckShowCommentCount";
+            this.CheckShowCommentCount.Size = new System.Drawing.Size(131, 17);
+            this.CheckShowCommentCount.TabIndex = 7;
+            this.CheckShowCommentCount.Text = "Show Comment Count";
+            this.CheckShowCommentCount.ThreeState = true;
+            this.CheckShowCommentCount.UseVisualStyleBackColor = true;
             // 
             // CheckBEXMLCache
             // 
@@ -313,22 +324,11 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
-            // CheckShowCommentCount
-            // 
-            this.CheckShowCommentCount.AutoSize = true;
-            this.CheckShowCommentCount.Location = new System.Drawing.Point(3, 39);
-            this.CheckShowCommentCount.Name = "CheckShowCommentCount";
-            this.CheckShowCommentCount.Size = new System.Drawing.Size(131, 17);
-            this.CheckShowCommentCount.TabIndex = 7;
-            this.CheckShowCommentCount.Text = "Show Comment Count";
-            this.CheckShowCommentCount.ThreeState = true;
-            this.CheckShowCommentCount.UseVisualStyleBackColor = true;
-            // 
             // OptionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 562);
+            this.ClientSize = new System.Drawing.Size(444, 561);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ButtonReset);
             this.Controls.Add(this.ButtonCancel);
