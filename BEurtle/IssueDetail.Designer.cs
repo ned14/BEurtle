@@ -66,6 +66,7 @@
             this.CommentBodyView = new System.Windows.Forms.TabControl();
             this.CommentBodyViewHTML = new System.Windows.Forms.TabPage();
             this.HTMLEditorControls = new System.Windows.Forms.Panel();
+            this.ApplyLink = new System.Windows.Forms.Button();
             this.CommentEditSave = new System.Windows.Forms.Button();
             this.ApplyOutdent = new System.Windows.Forms.Button();
             this.ApplyIndent = new System.Windows.Forms.Button();
@@ -79,6 +80,15 @@
             this.ApplyAlignRight = new System.Windows.Forms.Button();
             this.ApplyAlignMiddle = new System.Windows.Forms.Button();
             this.CommentBody = new System.Windows.Forms.WebBrowser();
+            this.CommentContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CommentBodyUndo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.CommentBodyCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.CommentBodyCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.CommentBodyPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.CommentBodyDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.CommentBodySelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.CommentBodyViewRaw = new System.Windows.Forms.TabPage();
             this.CommentBodyRaw = new System.Windows.Forms.RichTextBox();
             this.CommentBodyViewFile = new System.Windows.Forms.TabPage();
@@ -92,25 +102,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.CommentContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Undo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.Cut = new System.Windows.Forms.ToolStripMenuItem();
-            this.Copy = new System.Windows.Forms.ToolStripMenuItem();
-            this.Paste = new System.Windows.Forms.ToolStripMenuItem();
-            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Commentary.Panel1.SuspendLayout();
             this.Commentary.Panel2.SuspendLayout();
             this.Commentary.SuspendLayout();
             this.CommentBodyView.SuspendLayout();
             this.CommentBodyViewHTML.SuspendLayout();
             this.HTMLEditorControls.SuspendLayout();
+            this.CommentContextMenu.SuspendLayout();
             this.CommentBodyViewRaw.SuspendLayout();
             this.CommentBodyViewFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.CommentContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonOK
@@ -485,6 +486,7 @@
             // 
             this.HTMLEditorControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.HTMLEditorControls.Controls.Add(this.ApplyLink);
             this.HTMLEditorControls.Controls.Add(this.CommentEditSave);
             this.HTMLEditorControls.Controls.Add(this.ApplyOutdent);
             this.HTMLEditorControls.Controls.Add(this.ApplyIndent);
@@ -503,12 +505,22 @@
             this.HTMLEditorControls.Size = new System.Drawing.Size(410, 23);
             this.HTMLEditorControls.TabIndex = 25;
             // 
+            // ApplyLink
+            // 
+            this.ApplyLink.Image = global::nedprod.Resource1.link;
+            this.ApplyLink.Location = new System.Drawing.Point(256, 0);
+            this.ApplyLink.Name = "ApplyLink";
+            this.ApplyLink.Size = new System.Drawing.Size(23, 23);
+            this.ApplyLink.TabIndex = 24;
+            this.ApplyLink.UseVisualStyleBackColor = true;
+            this.ApplyLink.Click += new System.EventHandler(this.ApplyLink_Click);
+            // 
             // CommentEditSave
             // 
             this.CommentEditSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentEditSave.Location = new System.Drawing.Point(332, 0);
+            this.CommentEditSave.Location = new System.Drawing.Point(350, 0);
             this.CommentEditSave.Name = "CommentEditSave";
-            this.CommentEditSave.Size = new System.Drawing.Size(75, 23);
+            this.CommentEditSave.Size = new System.Drawing.Size(60, 23);
             this.CommentEditSave.TabIndex = 23;
             this.CommentEditSave.Text = "Save";
             this.CommentEditSave.UseVisualStyleBackColor = true;
@@ -537,9 +549,9 @@
             // CommentEditCancel
             // 
             this.CommentEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentEditCancel.Location = new System.Drawing.Point(257, 0);
+            this.CommentEditCancel.Location = new System.Drawing.Point(290, 0);
             this.CommentEditCancel.Name = "CommentEditCancel";
-            this.CommentEditCancel.Size = new System.Drawing.Size(75, 23);
+            this.CommentEditCancel.Size = new System.Drawing.Size(60, 23);
             this.CommentEditCancel.TabIndex = 20;
             this.CommentEditCancel.Text = "Cancel";
             this.CommentEditCancel.UseVisualStyleBackColor = true;
@@ -630,7 +642,6 @@
             // 
             // CommentBody
             // 
-            this.CommentBody.AllowNavigation = false;
             this.CommentBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -644,6 +655,75 @@
             this.CommentBody.TabIndex = 11;
             this.CommentBody.WebBrowserShortcutsEnabled = false;
             this.CommentBody.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.CommentBody_Navigated);
+            this.CommentBody.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.CommentBody_Navigating);
+            this.CommentBody.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.CommentBody_PreviewKeyDown);
+            // 
+            // CommentContextMenu
+            // 
+            this.CommentContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CommentBodyUndo,
+            this.toolStripSeparator1,
+            this.CommentBodyCut,
+            this.CommentBodyCopy,
+            this.CommentBodyPaste,
+            this.CommentBodyDelete,
+            this.toolStripSeparator2,
+            this.CommentBodySelectAll});
+            this.CommentContextMenu.Name = "CommentContextMenu";
+            this.CommentContextMenu.Size = new System.Drawing.Size(165, 148);
+            this.CommentContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.CommentContextMenu_Opening);
+            this.CommentContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CommentContextMenu_ItemClicked);
+            // 
+            // CommentBodyUndo
+            // 
+            this.CommentBodyUndo.Name = "CommentBodyUndo";
+            this.CommentBodyUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.CommentBodyUndo.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodyUndo.Text = "Undo";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // CommentBodyCut
+            // 
+            this.CommentBodyCut.Name = "CommentBodyCut";
+            this.CommentBodyCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.CommentBodyCut.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodyCut.Text = "Cut";
+            // 
+            // CommentBodyCopy
+            // 
+            this.CommentBodyCopy.Name = "CommentBodyCopy";
+            this.CommentBodyCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.CommentBodyCopy.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodyCopy.Text = "Copy";
+            // 
+            // CommentBodyPaste
+            // 
+            this.CommentBodyPaste.Name = "CommentBodyPaste";
+            this.CommentBodyPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.CommentBodyPaste.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodyPaste.Text = "Paste";
+            // 
+            // CommentBodyDelete
+            // 
+            this.CommentBodyDelete.Name = "CommentBodyDelete";
+            this.CommentBodyDelete.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodyDelete.Text = "Delete";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
+            // 
+            // CommentBodySelectAll
+            // 
+            this.CommentBodySelectAll.Name = "CommentBodySelectAll";
+            this.CommentBodySelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.CommentBodySelectAll.Size = new System.Drawing.Size(164, 22);
+            this.CommentBodySelectAll.Text = "Select All";
             // 
             // CommentBodyViewRaw
             // 
@@ -776,71 +856,6 @@
             // 
             this.openFileDialog.ReadOnlyChecked = true;
             // 
-            // CommentContextMenu
-            // 
-            this.CommentContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Undo,
-            this.toolStripSeparator1,
-            this.Cut,
-            this.Copy,
-            this.Paste,
-            this.Delete,
-            this.toolStripSeparator2,
-            this.SelectAll});
-            this.CommentContextMenu.Name = "CommentContextMenu";
-            this.CommentContextMenu.Size = new System.Drawing.Size(165, 148);
-            // 
-            // Undo
-            // 
-            this.Undo.Name = "Undo";
-            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo.Size = new System.Drawing.Size(164, 22);
-            this.Undo.Text = "Undo";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
-            // 
-            // Cut
-            // 
-            this.Cut.Name = "Cut";
-            this.Cut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.Cut.Size = new System.Drawing.Size(164, 22);
-            this.Cut.Text = "Cut";
-            // 
-            // Copy
-            // 
-            this.Copy.Name = "Copy";
-            this.Copy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.Copy.Size = new System.Drawing.Size(164, 22);
-            this.Copy.Text = "Copy";
-            // 
-            // Paste
-            // 
-            this.Paste.Name = "Paste";
-            this.Paste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.Paste.Size = new System.Drawing.Size(164, 22);
-            this.Paste.Text = "Paste";
-            // 
-            // Delete
-            // 
-            this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(164, 22);
-            this.Delete.Text = "Delete";
-            // 
-            // SelectAll
-            // 
-            this.SelectAll.Name = "SelectAll";
-            this.SelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.SelectAll.Size = new System.Drawing.Size(164, 22);
-            this.SelectAll.Text = "Select All";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
-            // 
             // IssueDetail
             // 
             this.AllowDrop = true;
@@ -886,10 +901,10 @@
             this.CommentBodyView.ResumeLayout(false);
             this.CommentBodyViewHTML.ResumeLayout(false);
             this.HTMLEditorControls.ResumeLayout(false);
+            this.CommentContextMenu.ResumeLayout(false);
             this.CommentBodyViewRaw.ResumeLayout(false);
             this.CommentBodyViewFile.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.CommentContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -956,13 +971,14 @@
         private System.Windows.Forms.Button CommentEditSave;
         private System.Windows.Forms.Button CommentReply;
         private System.Windows.Forms.ContextMenuStrip CommentContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem Undo;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodyUndo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem Cut;
-        private System.Windows.Forms.ToolStripMenuItem Copy;
-        private System.Windows.Forms.ToolStripMenuItem Paste;
-        private System.Windows.Forms.ToolStripMenuItem Delete;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodyCut;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodyCopy;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodyPaste;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodyDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem SelectAll;
+        private System.Windows.Forms.ToolStripMenuItem CommentBodySelectAll;
+        private System.Windows.Forms.Button ApplyLink;
     }
 }

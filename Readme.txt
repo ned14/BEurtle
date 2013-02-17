@@ -126,8 +126,16 @@ ChangeLog:
 v1.50 alpha 2 (?):
 
 Bugs fixed:
+  * Opening a new issue, then pressing new comment, then closing the window no
+    longer produces an error.
+  * No longer possible to add an issue with an empty summary by pressing add
+    comment and then closing the window.
 
 Features added:
+  * Finally fixed the lack of clipboard handling in the rich text editor, so now
+    one can copy, cut and paste etc. as one should.
+  * Now can add hyperlinks to comments, and clicking on a hyperlink opens it in
+    an external web browser.
 
 v1.50 alpha 1 (18th July 2012):
 

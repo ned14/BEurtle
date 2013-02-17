@@ -9,7 +9,7 @@ reporter: '"Niall Douglas \(s \[underscore\] sourceforge {at} nedprod \[dot\] co
 severity: critical
 
 
-status: open
+status: fixed
 
 
 summary: Copy and paste is broken and doesn't work. This is very urgent to fix, as

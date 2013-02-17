@@ -12,6 +12,7 @@ using System.Security.Principal;
 using MSHTML;
 using System.IO;
 using System.Collections.Specialized;
+using System.Media;
 
 namespace BEurtle
 {
@@ -541,6 +542,13 @@ namespace BEurtle
             CommentBody.Document.ActiveElement.Focus();
         }
 
+        private void ApplyLink_Click(object sender, EventArgs e)
+        {
+            CommentBody.Document.ExecCommand("CreateLink", false, null);
+            CommentBody.Focus();
+            CommentBody.Document.ActiveElement.Focus();
+        }
+
         private void LoadAttachment_Click(object sender, EventArgs e)
         {
             try
@@ -866,6 +874,11 @@ namespace BEurtle
 
         private bool SaveComment()
         {
+            if(BoxSummary.Text=="")
+            {
+                MessageBox.Show(this, "Summary needs to be not empty", "Message from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return true;
+            }
             if (CommentAuthor.Text == "")
             {
                 MessageBox.Show(this, "Author needs to be not empty", "Message from BEurtle", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1026,6 +1039,100 @@ namespace BEurtle
         private void CommentBody_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             CommentBody.AllowWebBrowserDrop = false;
+        }
+
+        private void CommentContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            CommentBodyUndo.Enabled = CommentBodyCut.Enabled = CommentBodyPaste.Enabled = CommentBodyDelete.Enabled = !CommentEdit.Visible;
+        }
+
+        private void CommentContextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name)
+            {
+                case "CommentBodyUndo":
+                    {
+                        CommentBody.Document.ExecCommand("Undo", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+                case "CommentBodyCut":
+                    {
+                        CommentBody.Document.ExecCommand("Cut", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+                case "CommentBodyCopy":
+                    {
+                        CommentBody.Document.ExecCommand("Copy", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+                case "CommentBodyPaste":
+                    {
+                        CommentBody.Document.ExecCommand("Paste", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+                case "CommentBodyDelete":
+                    {
+                        CommentBody.Document.ExecCommand("Delete", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+                case "CommentBodySelectAll":
+                    {
+                        CommentBody.Document.ExecCommand("SelectAll", false, null);
+                        CommentBody.Focus();
+                        CommentBody.Document.ActiveElement.Focus();
+                        break;
+                    }
+            }
+        }
+
+        private void CommentBody_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if(e.Modifiers==Keys.Control)
+                switch (e.KeyCode)
+                {
+                    case Keys.Z:
+                        if (!CommentEdit.Visible) CommentBodyUndo.PerformClick();
+                        else SystemSounds.Asterisk.Play();
+                        break;
+                    case Keys.X:
+                        if (!CommentEdit.Visible) CommentBodyCut.PerformClick();
+                        else SystemSounds.Asterisk.Play();
+                        break;
+                    case Keys.C:
+                        CommentBodyCopy.PerformClick();
+                        break;
+                    case Keys.V:
+                        if (!CommentEdit.Visible) CommentBodyPaste.PerformClick();
+                        else SystemSounds.Asterisk.Play();
+                        break;
+                    case Keys.A:
+                        CommentBodySelectAll.PerformClick();
+                        break;
+                }
+        }
+
+        private void CommentBody_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (!e.Url.ToString().Equals("about:blank"))
+            {
+                System.Diagnostics.Process.Start(e.Url.ToString());
+                e.Cancel = true;
+            }
+
+            if ((CommentBody.Tag != null) && (CommentBody.Tag.Equals(true)))
+            {
+                e.Cancel = true;
+            }
         }
 
     }
